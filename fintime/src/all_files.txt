@@ -1,0 +1,1551 @@
+Файл 1.py:
+****************************************
+import os
+
+def simple_collect_files():
+    with open("all_files.txt", "w", encoding="utf-8") as output:
+        for root, dirs, files in os.walk("."):
+            for filename in files:
+                if filename == "all_files.txt":
+                    continue
+                full_path = os.path.join(root, filename)
+                rel_path = os.path.relpath(full_path, ".")
+                output.write(f"Файл {rel_path}:\n")
+                output.write("*" * 40 + "\n")
+                try:
+                    with open(full_path, "r", encoding="utf-8") as f:
+                        output.write(f.read())
+                except:
+                    output.write("[НЕВОЗМОЖНО ПРОЧИТАТЬ ФАЙЛ]\n")
+                output.write("\n" + "*" * 40 + "\n\n")
+
+if __name__ == "__main__":
+    simple_collect_files()
+    print("Файлы собраны в all_files.txt")
+
+****************************************
+
+Файл App.jsx:
+****************************************
+import { Routes, Route } from "react-router-dom";
+import Layout from "./components/Layout/Layout.jsx";
+import Login from "./components/Login/Login.jsx";
+import Register from "./components/Register/Register.jsx";
+import Accounts from "./components/Accounts/Accounts.jsx";
+import PrivateRoute from "./routes/PrivateRoute.jsx";
+
+export default function App() {
+  return (
+    <Layout>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+
+        <Route
+          path="/accounts"
+          element={
+            <PrivateRoute>
+              <Accounts />
+            </PrivateRoute>
+          }
+        />
+      </Routes>
+    </Layout>
+  );
+}
+
+****************************************
+
+Файл index.css:
+****************************************
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.header {
+  height: 60px;
+  background: #222;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.main {
+  display: flex;
+  min-height: calc(100vh - 60px);
+}
+
+.sidebar {
+  width: 220px;
+  background: #f2f2f2;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.content {
+  flex: 1;
+  padding: 20px;
+}
+
+****************************************
+
+Файл main.jsx:
+****************************************
+// main.jsx
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App.jsx";
+import { BrowserRouter } from "react-router-dom";
+import { AuthProvider } from "./context/AuthContext.jsx";
+import "./index.css";
+
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <React.StrictMode>
+    <BrowserRouter>
+      <AuthProvider>
+        <App />
+      </AuthProvider>
+    </BrowserRouter>
+  </React.StrictMode>
+);
+
+****************************************
+
+Файл api\api.js:
+****************************************
+const API = "http://localhost:8080";
+
+export const getAccounts = () =>
+  fetch(`${API}/api/accounts`, { credentials: "include" }).then(r => r.json());
+
+export const deleteAccount = (id) =>
+  fetch(`${API}/api/accounts/${id}`, {
+    method: "DELETE",
+    credentials: "include"
+  });
+
+export const closeAccount = (id) =>
+  fetch(`${API}/api/accounts/${id}/close`, {
+    method: "PATCH",
+    credentials: "include"
+  });
+
+export const restoreAccount = (id) =>
+  fetch(`${API}/api/accounts/${id}/restore`, {
+    method: "PATCH",
+    credentials: "include"
+  });
+
+export const income = (id, body) =>
+  fetch(`${API}/api/transaction/${id}/income`, {
+    method: "POST",
+    credentials: "include",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body)
+  });
+
+export const expense = (id, body) =>
+  fetch(`${API}/api/transaction/${id}/expense`, {
+    method: "POST",
+    credentials: "include",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body)
+  });
+
+export const transfer = (from, to, body) =>
+  fetch(`${API}/api/transaction/${from}/${to}`, {
+    method: "POST",
+    credentials: "include",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body)
+  });
+
+export const getTransactions = (id) =>
+  fetch(`${API}/api/transaction/${id}`, { credentials: "include" })
+    .then(r => r.json());
+
+****************************************
+
+Файл components\Accounts\Accounts.jsx:
+****************************************
+import { useEffect, useState } from "react";
+import Card from "../Card/Card";
+import ConfirmModal from "../Modal/ConfirmModal";
+import TransactionModal from "../Modal/TransactionModal";
+import {
+  getAccounts,
+  deleteAccount,
+  closeAccount,
+  restoreAccount,
+  income,
+  expense
+} from "../../api/api";
+import styles from "./Accounts.module.css";
+
+export default function Accounts() {
+  const [accounts, setAccounts] = useState([]);
+  const [modal, setModal] = useState(null);
+
+  const load = () => 
+    getAccounts()
+      .then(accounts => {
+        // Сортировка по дате создания (новые сначала)
+        const sortedAccounts = [...accounts].sort((a, b) => {
+          const dateA = new Date(a.created_at || a.createdAt);
+          const dateB = new Date(b.created_at || b.createdAt);
+          return dateB - dateA; // Новые сначала (убывание)
+        });
+        setAccounts(sortedAccounts);
+      });
+
+  useEffect(() => {
+    load();
+  }, []);
+
+  return (
+    <div className={styles.grid}>
+      {accounts.map(acc => (
+        <Card
+          key={acc.id}
+          account={acc}
+          onDelete={() => setModal({ type: "delete", acc })}
+          onClose={() => setModal({ type: "close", acc })}
+          onRestore={() => setModal({ type: "restore", acc })}
+          onIncome={() => setModal({ type: "income", acc })}
+          onExpense={() => setModal({ type: "expense", acc })}
+        />
+      ))}
+
+      {modal?.type === "delete" && (
+        <ConfirmModal
+          title="Удалить счёт"
+          text={`Удалить "${modal.acc.account_name}"}?`}
+          onCancel={() => setModal(null)}
+          onConfirm={() => {
+            deleteAccount(modal.acc.id).then(load);
+            setModal(null);
+          }}
+        />
+      )}
+
+      {modal?.type === "close" && (
+        <ConfirmModal
+          title="Закрыть счёт"
+          text={`Закрыть "${modal.acc.account_name}"}?`}
+          onCancel={() => setModal(null)}
+          onConfirm={() => {
+            closeAccount(modal.acc.id).then(load);
+            setModal(null);
+          }}
+        />
+      )}
+
+      {modal?.type === "restore" && (
+        <ConfirmModal
+          title="Восстановить счёт"
+          text={`Восстановить "${modal.acc.account_name}"}?`}
+          onCancel={() => setModal(null)}
+          onConfirm={() => {
+            restoreAccount(modal.acc.id).then(load);
+            setModal(null);
+          }}
+        />
+      )}
+
+      {modal?.type === "income" && (
+        <TransactionModal
+          title="Пополнение счёта"
+          onCancel={() => setModal(null)}
+          onSubmit={(data) => {
+            income(modal.acc.id, data).then(load);
+            setModal(null);
+          }}
+        />
+      )}
+
+      {modal?.type === "expense" && (
+        <TransactionModal
+          title="Снятие со счёта"
+          onCancel={() => setModal(null)}
+          onSubmit={(data) => {
+            expense(modal.acc.id, data).then(load);
+            setModal(null);
+          }}
+        />
+      )}
+    </div>
+  );
+}
+
+****************************************
+
+Файл components\Accounts\Accounts.module.css:
+****************************************
+.container {
+  padding: 20px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 40px;
+}
+
+****************************************
+
+Файл components\AccountView\AccountView.jsx:
+****************************************
+import { useState, useEffect, useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
+import Accounts from "../Accounts/Accounts";
+
+export default function AccountView(){
+    const { loggedIn } = useContext(AuthContext);
+    const [accounts, setAccounts] = useState([]);
+    const [error, setError] = useState("");
+    const [newAccountName, setNewAccountName] = useState("");
+    const [newAccountBalance, setNewAccountBalance] = useState(0);
+    const [newCurrency, setNewCurrency] = useState("RUB");
+}
+****************************************
+
+Файл components\AccountView\AccountView.module.css:
+****************************************
+
+****************************************
+
+Файл components\Card\Card.jsx:
+****************************************
+import styles from "./Card.module.css";
+import { FaTimes, FaLock } from "react-icons/fa";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faDollarSign,
+  faRubleSign,
+  faEuroSign,
+  faYenSign,
+  faPoundSign
+} from "@fortawesome/free-solid-svg-icons";
+
+export default function Card({
+  account,
+  onDelete,
+  onIncome,
+  onExpense,
+  onClose,
+  onRestore
+}) {
+  const getCurrencyIcon = (currency) => {
+    switch (currency) {
+      case "RUB": return faRubleSign;
+      case "USD": return faDollarSign;
+      case "EUR": return faEuroSign;
+      case "JPY": return faYenSign;
+      case "CNY": return faYenSign;
+      case "GBP": return faPoundSign;
+      default: return faDollarSign;
+    }
+  };
+
+  const isClosed = account.status !== "active";
+
+  return (
+    <div className={`${styles.card} ${isClosed ? styles.closed : ""}`}>
+      {/* HEADER */}
+      <div className={styles.cardHeader}>
+        <div className={`${styles.iconContainer} ${styles[account.currency]}`}>
+          <FontAwesomeIcon icon={getCurrencyIcon(account.currency)} />
+        </div>
+
+        <div className={styles.headerInfo}>
+          <h3 className={styles.accountName}>
+            {account.accountName || account.account_name}
+          </h3>
+          <span className={`${styles.currencyBadge} ${styles[account.currency]}`}>
+            {account.currency}
+          </span>
+        </div>
+
+        <button className={styles.btnDelete} onClick={onDelete}>
+          <FaTimes />
+        </button>
+      </div>
+
+      {/* BALANCE */}
+      <div className={`${styles.balance} ${styles[account.currency]}`}>
+        <span className={styles.amount}>
+          {Number(account.balance).toLocaleString("ru-RU", {
+            minimumFractionDigits: 2
+          })}
+          <span className={styles.currencySymbol}>
+            <FontAwesomeIcon icon={getCurrencyIcon(account.currency)} />
+          </span>
+        </span>
+      </div>
+
+      {/* ACTIONS */}
+      <div className={styles.actions}>
+        {isClosed ? (
+          <button 
+            className={`${styles.btnRestore} ${styles.fullWidth}`} 
+            onClick={onRestore}
+          >
+            Восстановить
+          </button>
+        ) : (
+          <>
+            <button className={`${styles.btnDeposit} ${styles.deposit}`} onClick={onIncome}>
+              Пополнить
+            </button>
+
+            <button className={`${styles.btnWithdraw} ${styles.withdraw}`} onClick={onExpense}>
+              Снять
+            </button>
+
+            <button className={`${styles.btnLock} ${styles.lock}`} onClick={onClose}>
+              <FaLock />
+            </button>
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
+
+****************************************
+
+Файл components\Card\Card.module.css:
+****************************************
+.card {
+  background: #fff;
+  border-radius: 13px;
+  padding: 20px;
+  width: 300px;
+  height: 230px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  transition: box-shadow 0.3s;
+}
+
+.card:hover {
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+}
+
+.iconContainer {
+  width: 50px;
+  height: 50px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #e7efff;
+  color: #4284ff;
+  font-size: 22px;
+}
+
+.headerInfo {
+  flex: 1;
+  margin-left: 12px;
+}
+
+.accountName {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin: 0;
+  color: #000;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.currencyBadge {
+  font-size: 0.75rem;
+  background: #f1f3f5;
+  padding: 3px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-top: 4px;
+}
+
+.btnDelete {
+  background: none;
+  border: none;
+  opacity: 0.5;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+  padding: 8px 8px 5px 8px;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  border-radius: 50%;
+}
+
+.btnDelete:hover {
+  opacity: 1;
+  background: rgba(220,53,69,0.1);
+  color: #dc3545;
+}
+
+.balance {
+  margin: 15px 0;
+}
+
+.amount {
+  font-size: 1.8rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+}
+
+.currencySymbol {
+  margin-left: 6px;
+  font-size: 1.3rem;
+  color: #474747;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+}
+
+.btnDeposit,
+.btnWithdraw {
+  flex: 1;
+  padding: 8px 0;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: 0.3s;
+}
+
+.deposit {
+  background: #ffd500;
+}
+
+.deposit:hover {
+  background: #ffc700;
+}
+
+.withdraw {
+  background: #212529;
+  color: #fff;
+}
+
+.withdraw:hover {
+  background: #484b50;
+}
+
+.btnLock {
+  width: 46px;
+  height: 42px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  background: #f1f3f5;
+  transition: 0.3s;
+}
+
+.btnLock:hover {
+  background: #e0e3e6;
+}
+
+/* ЦВЕТА ВАЛЮТ */
+.USD .currencySymbol,
+.iconContainer.USD,
+.currencyBadge.USD {
+  color: #4284ff !important;
+}
+
+.USD .balance {
+  color: #4284ff;
+}
+
+.RUB .currencySymbol,
+.iconContainer.RUB,
+.currencyBadge.RUB {
+  color: #e52b50 !important;
+}
+
+.RUB .balance {
+  color: #e52b50;
+}
+
+.EUR .currencySymbol,
+.iconContainer.EUR,
+.currencyBadge.EUR {
+  color: #1e9aff !important;
+}
+
+.EUR .balance {
+  color: #1e9aff;
+}
+
+.JPY .currencySymbol,
+.iconContainer.JPY,
+.currencyBadge.JPY {
+  color: #00a651 !important;
+}
+
+.JPY .balance {
+  color: #00a651;
+}
+
+.CNY .currencySymbol,
+.iconContainer.CNY,
+.currencyBadge.CNY {
+  color: #d91e18 !important;
+}
+
+.CNY .balance {
+  color: #d91e18;
+}
+
+.GBP .currencySymbol,
+.iconContainer.GBP,
+.currencyBadge.GBP {
+  color: #c90000 !important;
+}
+
+.GBP .balance {
+  color: #c90000;
+}
+
+/* Фоны для иконки и бейджа */
+.iconContainer.USD { background: #e7efff !important; }
+.iconContainer.RUB { background: #ffe7ed !important; }
+.iconContainer.EUR { background: #e6f3ff !important; }
+.iconContainer.JPY { background: #e7f9f0 !important; }
+.iconContainer.CNY { background: #ffe7e7 !important; }
+.iconContainer.GBP { background: #ffe7e7 !important; }
+
+.currencyBadge.USD { background: #e7efff !important; }
+.currencyBadge.RUB { background: #ffe7ed !important; }
+.currencyBadge.EUR { background: #e6f3ff !important; }
+.currencyBadge.JPY { background: #e7f9f0 !important; }
+.currencyBadge.CNY { background: #ffe7e7 !important; }
+.currencyBadge.GBP { background: #ffe7e7 !important; }
+
+/* СТИЛИ ДЛЯ ЗАКРЫТЫХ СЧЕТОВ */
+.card.closed {
+  background: #ffffff !important;
+  opacity: 1;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.card.closed:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  opacity: 1;
+}
+
+.card.closed .accountName {
+  color: #6c757d !important;
+}
+
+.card.closed .balance {
+  opacity: 0.8;
+}
+
+.card.closed .amount {
+  color: #6c757d !important;
+}
+
+.card.closed .currencySymbol {
+  color: #adb5bd !important;
+}
+
+.card.closed .iconContainer {
+  opacity: 0.6;
+  color: #575858 !important;
+  background-color: #e0e0e0 !important;
+}
+
+.card.closed .currencyBadge {
+  opacity: 0.7;
+  color: #adb5bd !important;
+  background-color: #eeeeee !important;
+}
+
+.card.closed .btnDelete {
+  opacity: 0.3;
+}
+
+.card.closed .btnDelete:hover {
+  opacity: 0.6;
+  background: rgba(220,53,69,0.05);
+}
+
+/* КНОПКА ВОССТАНОВЛЕНИЯ (ваш стиль) */
+.btnRestore {
+  flex: 1;
+  width: 150px;
+  padding: 12px 0;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 400;
+  background: #ffffff;
+  color: rgb(0, 0, 0);
+  transition: all 0.3s;
+  border: 1px solid #000000;
+}
+
+.btnRestore:hover {
+  background: #000000;
+  color: #ffffff;
+}
+
+/* Адаптация actions для одной кнопки */
+.card.closed .actions {
+  justify-content: stretch;
+}
+
+****************************************
+
+Файл components\Header\Header.jsx:
+****************************************
+import { useContext } from "react";
+import { Link } from "react-router-dom";
+import { AuthContext } from "../../context/AuthContext";
+import styles from "./Header.module.css";
+
+export default function Header() {
+  const { isAuth, logout } = useContext(AuthContext);
+
+  return (
+    <header className={styles.header}>
+      <h3>FinTime</h3>
+      <nav className={styles.nav}>
+        
+        {isAuth ? (
+          <>
+          
+            <button onClick={logout}>Выйти</button>
+          </>
+        ) : (
+          <>
+            <Link to="/login">Войти</Link>
+            <Link to="/register">Зарегистрироваться</Link>
+          </>
+        )}
+      </nav>
+    </header>
+  );
+}
+
+****************************************
+
+Файл components\Header\Header.module.css:
+****************************************
+
+
+.nav {
+  display: flex;
+  gap: 15px;
+}
+
+.nav a, .nav button {
+  text-decoration: none;
+  color: #374151;
+  font-weight: 500;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.nav button:hover, .nav a:hover {
+  color: #3b82f6;
+}
+.header {
+  height: 50px;
+  background-color: #f7f7f7;
+  display: flex;
+  
+  align-items: center;
+  justify-content: space-between;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding: 0 20px;
+  border-bottom: 1px solid #e5e7eb;
+  flex-shrink: 0; /* чтобы не сжимался */
+}
+
+.nav span,
+.nav a,
+.nav button {
+  margin-left: 15px;
+}
+
+****************************************
+
+Файл components\Layout\Layout.jsx:
+****************************************
+import Header from "../Header/Header.jsx";
+import Sidebar from "../Sidebar/Sidebar.jsx";
+import styles from "./Layout.module.css";
+
+export default function Layout({ children }) {
+  return (
+    <div className={styles.layout}>
+      {/* Сайдбар слева */}
+      <Sidebar />
+
+      {/* Правая колонка с Header и контентом */}
+      <div className={styles.rightSide}>
+        <Header />
+        <main className={styles.content}>{children}</main>
+      </div>
+    </div>
+  );
+}
+
+****************************************
+
+Файл components\Layout\Layout.module.css:
+****************************************
+.layout {
+  display: flex;       /* горизонтально: sidebar + правая колонка */
+  height: 100vh;       /* sidebar на всю высоту */
+  width: 100%;
+}
+
+/* Правая колонка с Header и контентом */
+.rightSide {
+  display: flex;
+  flex-direction: column;  /* Header сверху, контент ниже */
+  flex: 1;                  /* занимает всё оставшееся место справа */
+  overflow: hidden;
+}
+
+/* Контент под Header */
+.content {
+  flex: 1;                 /* занимает всё пространство под Header */
+  padding: 20px;
+  overflow: auto;
+  background-color: #f3f4f6;
+}
+
+****************************************
+
+Файл components\Login\Login.jsx:
+****************************************
+import { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../context/AuthContext";
+import styles from "./Login.module.css";
+
+export default function Login() {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const { login } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
+    setLoading(true);
+
+    try {
+      const res = await fetch("http://localhost:8080/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password }),
+        credentials: "include",
+      });
+
+      if (!res.ok) throw new Error("Неверный логин или пароль");
+
+      login();
+      navigate("/accounts");
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className={styles.login}>
+      <form onSubmit={handleSubmit} className={styles.form}>
+        <h3>Вход в систему</h3>
+        <input
+          type="text"
+          placeholder="Логин"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          required
+        />
+        <input
+          type="password"
+          placeholder="Пароль"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
+        {error && <div className={styles.error}>{error}</div>}
+        <button type="submit" disabled={loading}>
+          {loading ? "Вход..." : "Войти"}
+        </button>
+      </form>
+    </div>
+  );
+}
+
+****************************************
+
+Файл components\Login\Login.module.css:
+****************************************
+.login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 60vh;
+}
+
+.form {
+    border: 1px solid #222;
+    border-radius: 13px;
+    padding: 24px;
+    width: 320px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    background: #fff;
+}
+
+.form h3 {
+    margin: 0 0 12px 0;
+    text-align: center;
+}
+
+.form input {
+    padding: 10px 12px;
+    border-radius: 10px;
+    border: 1px solid #222;
+    font-size: 14px;
+}
+
+.form button {
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #222;
+    background: #fff;
+    cursor: pointer;
+}
+
+.form button:hover {
+    background: #f5f5f5;
+}
+
+.error {
+    color: #c62828;
+    font-size: 13px;
+}
+
+****************************************
+
+Файл components\Modal\ConfirmModal.jsx:
+****************************************
+import styles from "./Modal.module.css";
+
+export default function ConfirmModal({ title, text, onConfirm, onCancel }) {
+  return (
+    <div className={styles.overlay} onClick={onCancel}>
+      <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
+        <div className={styles.header}>{title}</div>
+        <div className={styles.text}>{text}</div>
+
+        <div className={styles.footer}>
+          <button
+            className={`${styles.btn} ${styles.btnCancel}`}
+            onClick={onCancel}
+          >
+            Отмена
+          </button>
+
+          <button
+            className={`${styles.btn} ${styles.btnPrimary}`}
+            onClick={onConfirm}
+          >
+            Подтвердить
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+****************************************
+
+Файл components\Modal\Modal.module.css:
+****************************************
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(4px);
+}
+
+.modal {
+  background: #fff;
+  border-radius: 14px;
+  width: 380px;
+  padding: 24px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+  animation: fadeIn 0.25s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.header {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.text {
+  font-size: 0.95rem;
+  color: #495057;
+  margin-bottom: 12px;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.formGroup {
+  margin-bottom: 14px;
+}
+
+.label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #343a40;
+  margin-bottom: 15px;
+  display: block;
+}
+
+.input {
+  width: 93%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #dee2e6;
+  font-size: 0.95rem;
+  outline: none;
+  transition: 0.2s;
+}
+
+.input:focus {
+  border-color: #ffd500;
+  box-shadow: 0 0 0 2px rgba(255,213,0,0.3);
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.btn {
+  padding: 10px 18px;
+  width: 140px;
+  border-radius: 7px;
+  border: none;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+.btnCancel {
+  background: #f1f3f5;
+  color: #495057;
+}
+
+.btnCancel:hover {
+  background: #e9ecef;
+}
+
+.btnPrimary {
+  background: #ffd500;
+  color: #212529;
+}
+
+.btnPrimary:hover {
+  background: #ffc700;
+}
+
+.btnDanger {
+  background: #dc3545;
+  color: #fff;
+}
+
+.btnDanger:hover {
+  background: #c82333;
+}
+
+.btnConfirm{
+  background: #ffd500;
+  color: #fff;
+}
+****************************************
+
+Файл components\Modal\Transaction.module.css:
+****************************************
+
+****************************************
+
+Файл components\Modal\TransactionModal.jsx:
+****************************************
+import { useState } from "react";
+import styles from "./Modal.module.css";
+
+export default function TransactionModal({ title, onSubmit, onCancel }) {
+  const [amount, setAmount] = useState("");
+
+  const submit = (e) => {
+    e.preventDefault();
+    onSubmit({ amount: Number(amount) });
+  };
+
+  return (
+    <div className={styles.overlay} onClick={onCancel}>
+      <form
+        className={styles.modal}
+        onClick={(e) => e.stopPropagation()}
+        onSubmit={submit}
+      >
+        <div className={styles.header}>{title}</div>
+
+        <div className={styles.formGroup}>
+          <label className={styles.label}>Сумма</label>
+          <input
+            className={styles.input}
+            type="number"
+            step="0.01"
+            required
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
+          />
+        </div>
+
+        <div className={styles.footer}>
+          <button
+            type="button"
+            className={`${styles.btn} ${styles.btnCancel}`}
+            onClick={onCancel}
+          >
+            Отмена
+          </button>
+
+          <button
+            type="submit"
+            className={`${styles.btn} ${styles.btnPrimary}`}
+          >
+            Подтвердить
+          </button>
+        </div>
+      </form>
+    </div>
+  );
+}
+
+****************************************
+
+Файл components\Modal\TransferModal.jsx:
+****************************************
+
+****************************************
+
+Файл components\Register\Register.jsx:
+****************************************
+import { useState } from "react";
+import styles from "./Register.module.css";
+
+export default function Register() {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
+    setSuccess("");
+    setLoading(true);
+
+    try {
+      const formData = new FormData();
+      formData.append("firstName", firstName);
+      formData.append("lastName", lastName);
+      formData.append("username", username);
+      formData.append("password", password);
+
+      const response = await fetch("http://localhost:8080/create/user", {
+        method: "POST",
+        body: formData,
+        credentials: "include"
+      });
+
+      if (!response.ok) {
+        throw new Error("Ошибка регистрации");
+      }
+
+      setSuccess("Регистрация успешна. Вы вошли в систему.");
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className={styles.register}>
+      <form className={styles.form} onSubmit={handleSubmit}>
+        <h3>Регистрация</h3>
+
+        <input
+          type="text"
+          placeholder="Имя"
+          value={firstName}
+          onChange={(e) => setFirstName(e.target.value)}
+          required
+        />
+
+        <input
+          type="text"
+          placeholder="Фамилия"
+          value={lastName}
+          onChange={(e) => setLastName(e.target.value)}
+          required
+        />
+
+        <input
+          type="email"
+          placeholder="Email"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          required
+        />
+
+        <input
+          type="password"
+          placeholder="Пароль"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
+
+        {error && <div className={styles.error}>{error}</div>}
+        {success && <div className={styles.success}>{success}</div>}
+
+        <button type="submit" disabled={loading}>
+          {loading ? "Регистрация..." : "Зарегистрироваться"}
+        </button>
+      </form>
+    </div>
+  );
+}
+
+****************************************
+
+Файл components\Register\Register.module.css:
+****************************************
+.register {
+  display: flex;
+  justify-content: center;
+  margin-top: 60px;
+}
+
+.form {
+  width: 360px;
+  padding: 30px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  background: #fff;
+}
+
+.form h3 {
+  margin-bottom: 20px;
+}
+
+.form input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.form button {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  background: #ffca1d;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.error {
+  color: red;
+  margin-bottom: 10px;
+}
+
+.success {
+  color: green;
+  margin-bottom: 10px;
+}
+
+****************************************
+
+Файл components\Sidebar\Sidebar.jsx:
+****************************************
+import { NavLink } from "react-router-dom";
+import { FaUser, FaWallet, FaChartPie, FaChartLine, FaCog, FaQuestionCircle, FaHistory, FaCreditCard, FaExchangeAlt, FaBell } from "react-icons/fa";
+import styles from "./Sidebar.module.css";
+
+export default function Sidebar() {
+  return (
+    <aside className={styles.sideMenu}>
+      <nav>
+        <NavLink to="/profile" className={({ isActive }) => `${styles.menuItem} ${isActive ? styles.active : ""}`}>
+          <FaUser />
+          Личный кабинет
+        </NavLink>
+
+        <NavLink to="/accounts" className={({ isActive }) => `${styles.menuItem} ${isActive ? styles.active : ""}`}>
+          <FaWallet />
+          Управление счетами
+        </NavLink>
+
+        <NavLink to="/reports" className={({ isActive }) => `${styles.menuItem} ${isActive ? styles.active : ""}`}>
+          <FaChartPie />
+          Отчёты
+        </NavLink>
+
+        <NavLink to="/analytics" className={({ isActive }) => `${styles.menuItem} ${isActive ? styles.active : ""}`}>
+          <FaChartLine />
+          Аналитика
+        </NavLink>
+
+        <NavLink to="/settings" className={({ isActive }) => `${styles.menuItem} ${isActive ? styles.active : ""}`}>
+          <FaCog />
+          Настройки
+        </NavLink>
+
+        <NavLink to="/help" className={({ isActive }) => `${styles.menuItem} ${isActive ? styles.active : ""}`}>
+          <FaQuestionCircle />
+          Помощь
+        </NavLink>
+
+        <NavLink to="/history" className={({ isActive }) => `${styles.menuItem} ${isActive ? styles.active : ""}`}>
+          <FaHistory />
+          История операций
+        </NavLink>
+
+        <NavLink to="/payments" className={({ isActive }) => `${styles.menuItem} ${isActive ? styles.active : ""}`}>
+          <FaCreditCard />
+          Платежи
+        </NavLink>
+
+        <NavLink to="/transfers" className={({ isActive }) => `${styles.menuItem} ${isActive ? styles.active : ""}`}>
+          <FaExchangeAlt />
+          Переводы
+        </NavLink>
+
+        <NavLink to="/notifications" className={({ isActive }) => `${styles.menuItem} ${isActive ? styles.active : ""}`}>
+          <FaBell />
+          Уведомления
+        </NavLink>
+      </nav>
+    </aside>
+  );
+}
+
+****************************************
+
+Файл components\Sidebar\Sidebar.module.css:
+****************************************
+:root {
+  --white: #fff;
+  --light-bg: #ebebeb;
+  --dark-gray: #515357;
+  --black: #000000;
+  --gold: #fbbf24;
+}
+
+.sideMenu {
+  background: var(--white);
+  border-radius: 20px;
+  padding: 30px 0;
+  height: calc(100vh - 40px);
+  position: sticky;
+  top: 20px;
+  overflow-y: auto;
+  width: 300px;
+  margin-inline: 10px;
+}
+
+.menuTitle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--black);
+  margin-bottom: 20px;
+  padding-right: 74px;
+}
+
+.menuTitle span {
+  padding-left: 20px;
+}
+
+.infoAvatarMenu {
+  font-size: 1.1rem;
+  color: var(--dark-gray);
+}
+
+.menuItem {
+  display: flex;
+  align-items: center;
+  padding: 10px 30px;
+  font-size: 1rem;
+  text-decoration: none;
+  color: var(--dark-gray);
+  position: relative;
+  transition: all 0.2s;
+  border-radius: 13px;
+  margin-bottom: 10px;
+}
+
+.menuItem:hover {
+  background: var(--light-bg);
+  color: var(--black);
+}
+
+.menuItem.active {
+  color: var(--black);
+  font-weight: 600;
+  background: var(--light-bg);
+  
+}
+
+
+
+.menuItem svg {
+  margin-right: 10px;
+  width: 28px;
+  text-align: center;
+  font-size: 1.1rem;
+  color: #868a91;
+}
+
+****************************************
+
+Файл components\UserDetails\UserDetailds.jsx:
+****************************************
+
+****************************************
+
+Файл components\UserDetails\UserDetails.module.css:
+****************************************
+
+****************************************
+
+Файл context\AuthContext.jsx:
+****************************************
+import { createContext, useState, useEffect } from "react";
+
+export const AuthContext = createContext();
+
+export function AuthProvider({ children }) {
+  const [isAuth, setIsAuth] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  const checkAuth = async () => {
+    setLoading(true);
+    try {
+      const res = await fetch("http://localhost:8080/api/auth/me", {
+        credentials: "include",
+      });
+      setIsAuth(res.ok);
+    } catch (err) {
+      setIsAuth(false);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const login = () => setIsAuth(true);
+  const logout = async () => {
+    await fetch("http://localhost:8080/api/auth/logout", {
+      method: "POST",
+      credentials: "include",
+    });
+    setIsAuth(false);
+  };
+
+  useEffect(() => {
+    checkAuth();
+  }, []);
+
+  return (
+    <AuthContext.Provider value={{ isAuth, login, logout, loading }}>
+      {children}
+    </AuthContext.Provider>
+  );
+}
+
+****************************************
+
+Файл routes\PrivateRoute.jsx:
+****************************************
+import { useContext } from "react";
+import { Navigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
+
+export default function PrivateRoute({ children }) {
+  const { isAuth, loading } = useContext(AuthContext);
+
+  if (loading) return null;
+  if (!isAuth) return <Navigate to="/login" />;
+
+  return children;
+}
+
+****************************************
+

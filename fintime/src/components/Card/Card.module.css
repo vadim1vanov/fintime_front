@@ -1,0 +1,302 @@
+.card {
+  background: #fff;
+  border-radius: 13px;
+  padding: 20px;
+  width: 300px;
+  height: 230px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  transition: box-shadow 0.3s;
+  transform: none !important;
+}
+
+.card:hover {
+  transform: none !important;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+}
+
+.iconContainer {
+  width: 50px;
+  height: 50px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #e7efff;
+  color: #4284ff;
+  font-size: 22px;
+}
+
+.headerInfo {
+  flex: 1;
+  margin-left: 12px;
+}
+
+.accountName {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin: 0;
+  color: #000;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.currencyBadge {
+  font-size: 0.75rem;
+  background: #f1f3f5;
+  padding: 3px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-top: 4px;
+}
+
+.btnDelete {
+  background: none;
+  border: none;
+  opacity: 0.5;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+  padding: 8px 8px 5px 8px;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  border-radius: 50%;
+}
+
+.btnDelete:hover {
+  opacity: 1;
+  background: rgba(220,53,69,0.1);
+  color: #dc3545;
+}
+
+.balance {
+  margin: 15px 0;
+}
+
+.amount {
+  font-size: 1.8rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+}
+
+.currencySymbol {
+  font-size: 1.3rem;
+  color: #474747;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.btnDeposit,
+.btnWithdraw {
+  flex: 1;
+  padding: 12px 0;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: 0.3s;
+}
+
+.deposit {
+  background: #ffd500;
+}
+
+.deposit:hover {
+  background: #ffc700;
+}
+
+.withdraw {
+  background: #212529;
+  color: #fff;
+}
+
+.withdraw:hover {
+  background: #484b50;
+}
+
+.btnLock {
+  width: 46px;
+  height: 42px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  background: #f1f3f5;
+  transition: 0.3s;
+}
+
+.btnLock:hover {
+  background: #e0e3e6;
+}
+
+/* Цвета валют */
+.USD .currencySymbol,
+.iconContainer.USD,
+.currencyBadge.USD {
+  color: #4284ff !important;
+}
+.USD .balance { color: #4284ff; }
+
+.RUB .currencySymbol,
+.iconContainer.RUB,
+.currencyBadge.RUB { color: #e52b50 !important; }
+.RUB .balance { color: #e52b50; }
+
+.EUR .currencySymbol,
+.iconContainer.EUR,
+.currencyBadge.EUR { color: #1e9aff !important; }
+.EUR .balance { color: #1e9aff; }
+
+.JPY .currencySymbol,
+.iconContainer.JPY,
+.currencyBadge.JPY { color: #00a651 !important; }
+.JPY .balance { color: #00a651; }
+
+.CNY .currencySymbol,
+.iconContainer.CNY,
+.currencyBadge.CNY { color: #d91e18 !important; }
+.CNY .balance { color: #d91e18; }
+
+.GBP .currencySymbol,
+.iconContainer.GBP,
+.currencyBadge.GBP { color: #c90000 !important; }
+.GBP .balance { color: #c90000; }
+
+/* Фоны для иконок и бейджей */
+.iconContainer.USD { background: #e7efff !important; }
+.iconContainer.RUB { background: #ffe7ed !important; }
+.iconContainer.EUR { background: #e6f3ff !important; }
+.iconContainer.JPY { background: #e7f9f0 !important; }
+.iconContainer.CNY { background: #ffe7e7 !important; }
+.iconContainer.GBP { background: #ffe7e7 !important; }
+
+.currencyBadge.USD { background: #e7efff !important; }
+.currencyBadge.RUB { background: #ffe7ed !important; }
+.currencyBadge.EUR { background: #e6f3ff !important; }
+.currencyBadge.JPY { background: #e7f9f0 !important; }
+.currencyBadge.CNY { background: #ffe7e7 !important; }
+.currencyBadge.GBP { background: #ffe7e7 !important; }
+
+/* Закрытый счет */
+.card.closed {
+  background: #ffffff !important;
+  opacity: 1;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.card.closed:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  opacity: 1;
+}
+
+.card.closed .accountName { color: #6c757d !important; }
+.card.closed .balance { opacity: 0.8; }
+.card.closed .amount { color: #6c757d !important; }
+.card.closed .currencySymbol { color: #adb5bd !important; }
+.card.closed .iconContainer { opacity: 0.6; color: #575858 !important; background-color: #e0e0e0 !important; }
+.card.closed .currencyBadge { opacity: 0.7; color: #adb5bd !important; background-color: #eeeeee !important; }
+.card.closed .btnDelete { opacity: 0.3; }
+.card.closed .btnDelete:hover { opacity: 0.6; background: rgba(220,53,69,0.05); }
+
+/* Кнопка восстановить */
+.btnRestore {
+  display: inline-block;
+  width: auto;
+  padding: 8px 40px;
+  border-radius: 8px;
+  border: 1px solid #000;
+  background: #fff;
+  color: #000;
+  font-size: 0.95rem;
+  cursor: pointer;
+  text-align: center;
+  margin: 0 auto;
+  transition: all 0.3s;
+}
+
+.btnRestore:hover { background: #000; color: #fff; }
+.card.closed .actions { justify-content: center; }
+
+/* Основные действия */
+.mainActions {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  flex: 1;
+}
+
+/* Меню справа */
+.actionsWrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.btnMainActions {
+  padding: 12px 12px;
+  border-radius: 50%;
+  border: none;
+  background: #e6e5e5;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+}
+
+.verticalMenu {
+  position: absolute;
+  top: 0;
+  left: 0%;
+  top: -270%;             /* справа от кнопки */
+  transform: translateY(0);
+  opacity: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 6px;
+  background: #e6e5e5;
+  border-radius: 13px;
+  pointer-events: none;
+  transition: 0.9s ease-in;
+  transition: opacity 0.95s ease, transform 0.95s ease;
+  z-index: 9999;          /* перекрывает карточки */
+}
+
+.verticalMenuOpen {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0); /* плавно */
+  transition: 0.9s ease-in;
+}
+
+.navButton {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: none;
+  background: #ffffff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  
+}
+
+.navButton:hover { background: #e0e3e6; }
