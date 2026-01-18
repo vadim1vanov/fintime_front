@@ -16,7 +16,8 @@ export default function Card({
   onIncome,
   onExpense,
   onClose,
-  onRestore
+  onRestore,
+  onClick
 }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef(null);
@@ -33,9 +34,20 @@ export default function Card({
     }
   };
 
+  const getCurrencyFlag = (currency) => {
+  switch (currency) {
+    case "RUB": return "🇷🇺";
+    case "USD": return "🇺🇸";
+    case "EUR": return "🇪🇺";
+    case "JPY": return "🇯🇵";
+    case "CNY": return "🇨🇳";
+    case "GBP": return "🇬🇧";
+    default: return "💰";
+  }
+};
+
   const isClosed = account.status !== "active";
 
-  // Закрытие меню при клике вне него
   useEffect(() => {
     function handleClickOutside(event) {
       if (menuRef.current && !menuRef.current.contains(event.target)) {
@@ -46,98 +58,104 @@ export default function Card({
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const handleAction = (type) => {
-    setMenuOpen(false);
-    if (type === "edit") {
-      alert("Редактировать"); // вызов редактирования
-    } else if (type === "transfer") {
-      alert("Перевод"); // вызов перевода
-    }
-  };
-
   return (
-    <div className={`${styles.card} ${isClosed ? styles.closed : ""}`}>
-      {/* HEADER */}
-      <div className={styles.cardHeader}>
-        <div className={`${styles.iconContainer} ${styles[account.currency]}`}>
-          <FontAwesomeIcon icon={getCurrencyIcon(account.currency)} />
-        </div>
+    <div
+  className={`${styles.card} ${isClosed ? styles.closed : ""}`}
+  onClick={onClick}
+>
 
-        <div className={styles.headerInfo}>
-          <h3 className={styles.accountName}>
-            {account.accountName || account.account_name}
-          </h3>
-          <span className={`${styles.currencyBadge} ${styles[account.currency]}`}>
-            {account.currency}
+      
+      {/* HEADER */}
+      <div className={styles.header}>
+        <div className={styles.headerLeft}>
+        <div className={styles.icon}>
+          <span className={styles.flag}>
+            {getCurrencyFlag(account.currency)}
           </span>
         </div>
 
-        <button className={styles.btnDelete} onClick={onDelete}>
+
+
+          <div>
+            <h3 className={styles.title}>
+              {account.accountName || account.account_name}
+            </h3>
+            <span className={styles.currency}>{account.currency}</span>
+          </div>
+        </div>
+
+        <button className={styles.deleteBtn} onClick={onDelete}>
           <FaTimes />
         </button>
       </div>
 
       {/* BALANCE */}
-      <div className={`${styles.balance} ${styles[account.currency]}`}>
-        <span className={styles.amount}>
-          {Number(account.balance).toLocaleString("ru-RU", {
-            minimumFractionDigits: 2
-          })}
-          <span className={styles.currencySymbol}>
-            <FontAwesomeIcon icon={getCurrencyIcon(account.currency)} />
-          </span>
-        </span>
+      <div className={styles.balanceBlock}>
+        <div className={styles.balanceLabel}>Баланс</div>
+        
+<div className={styles.balance}>
+  {Number(account.balance) < 0 && <span className={styles.minus}>-</span>}
+<span className={styles.currencyIcon}>
+  <FontAwesomeIcon
+    icon={getCurrencyIcon(account.currency)}
+    style={{ width: "auto" }} // <-- локально убираем фиксированную ширину
+  />
+</span>
+
+  <span className={styles.amount}>
+    {Math.abs(Number(account.balance)).toLocaleString("en-US", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    })}
+  </span>
+</div>
+
+
+
+
       </div>
 
       {/* ACTIONS */}
       {!isClosed && (
         <div className={styles.actions}>
-          {/* Пополнить и Снять — одна линия */}
-          <div className={styles.mainActions}>
-            <button className={`${styles.btnDeposit} ${styles.deposit}`} onClick={onIncome}>
-              Пополнить
-            </button>
-            <button className={`${styles.btnWithdraw} ${styles.withdraw}`} onClick={onExpense}>
-              Снять
-            </button>
-          </div>
+          <button className={styles.deposit} onClick={onIncome}>
+            Пополнить
+          </button>
 
-          {/* Вертикальное меню справа */}
-          <div className={styles.actionsWrapper} ref={menuRef}>
-            <button
-              className={styles.btnMainActions}
-              onClick={() => setMenuOpen(prev => !prev)}
-            >
-              <FaEllipsisV />
-            </button>
+          <button className={styles.withdraw} onClick={onExpense}>
+            Снять
+          </button>
 
-          {menuOpen && (
-            <div
-              className={`${styles.verticalMenu} ${styles.verticalMenuOpen}`}
-            >
-              <button className={styles.navButton} title="Перевод" onClick={() => handleAction("transfer")}>
-                <FaExchangeAlt />
-              </button>
-              <button className={styles.navButton} title="Редактировать" onClick={() => handleAction("edit")}>
-                <FaEdit />
-              </button>
-              <button className={styles.navButton} title="Закрыть счёт" onClick={onClose}>
-                <FaLock />
-              </button>
-            </div>
-          )}
+          <div className={styles.menuWrapper} ref={menuRef}>
+          <button
+            className={`${styles.menuBtn} ${menuOpen ? styles.active : ""}`}
+            onClick={() => setMenuOpen(prev => !prev)}
+          >
+            <FaEllipsisV />
+          </button>
 
+
+            {menuOpen && (
+              <div className={styles.menu}>
+                <button onClick={onClose} title="Закрыть">
+                  <FaLock />
+                </button>
+                <button title="Редактировать">
+                  <FaEdit />
+                </button>
+                <button title="Перевод">
+                  <FaExchangeAlt />
+                </button>
+              </div>
+            )}
           </div>
         </div>
       )}
 
-      {/* Восстановление закрытого счёта */}
+      {/* RESTORE */}
       {isClosed && (
-        <button 
-          className={`${styles.btnRestore} ${styles.fullWidth}`} 
-          onClick={onRestore}
-        >
-          Восстановить
+        <button className={styles.restore} onClick={onRestore}>
+          Восстановить счёт
         </button>
       )}
     </div>

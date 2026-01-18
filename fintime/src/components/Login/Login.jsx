@@ -1,5 +1,5 @@
 import { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import styles from "./Login.module.css";
 
@@ -39,25 +39,45 @@ export default function Login() {
   return (
     <div className={styles.login}>
       <form onSubmit={handleSubmit} className={styles.form}>
-        <h3>Вход в систему</h3>
+        <h3 className={styles.title}>Вход в FinTime</h3>
+
         <input
           type="text"
           placeholder="Логин"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           required
+          className={styles.input}
         />
+
         <input
           type="password"
           placeholder="Пароль"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
+          className={styles.input}
         />
+
         {error && <div className={styles.error}>{error}</div>}
-        <button type="submit" disabled={loading}>
+
+        <button
+          type="submit"
+          disabled={loading}
+          className={styles.btnPrimary}
+        >
           {loading ? "Вход..." : "Войти"}
         </button>
+
+        <div className={styles.registerWrapper}>
+          <span>Нет аккаунта?</span>
+          <Link to="/register" className={styles.btnCancel}>
+            Зарегистрироваться
+          </Link>
+        </div>
+                <div className={styles.homeLink}>
+          <Link to="/">На главную</Link>
+        </div>
       </form>
     </div>
   );

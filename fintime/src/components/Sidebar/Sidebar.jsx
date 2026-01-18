@@ -1,59 +1,72 @@
 import { NavLink } from "react-router-dom";
-import { FaUser, FaWallet, FaChartPie, FaChartLine, FaCog, FaQuestionCircle, FaHistory, FaCreditCard, FaExchangeAlt, FaBell } from "react-icons/fa";
+import {
+  FaUser,
+  FaWallet,
+  FaChartPie,
+  FaChartLine,
+  FaCog,
+  FaQuestionCircle,
+  FaHistory,
+  FaCreditCard,
+  FaExchangeAlt,
+  FaBell
+} from "react-icons/fa";
 import styles from "./Sidebar.module.css";
 
 export default function Sidebar() {
   return (
-    <aside className={styles.sideMenu}>
-      <nav>
-        <NavLink to="/profile" className={({ isActive }) => `${styles.menuItem} ${isActive ? styles.active : ""}`}>
+    <aside className={styles.sidebar}>
+
+
+      <nav className={styles.menu}>
+        <NavLink to="/profile" className={({ isActive }) => `${styles.item} ${isActive ? styles.active : ""}`}>
           <FaUser />
-          Личный кабинет
+          <span>Личный кабинет</span>
         </NavLink>
 
-        <NavLink to="/accounts" className={({ isActive }) => `${styles.menuItem} ${isActive ? styles.active : ""}`}>
+        <NavLink to="/accounts" className={({ isActive }) => `${styles.item} ${isActive ? styles.active : ""}`}>
           <FaWallet />
-          Управление счетами
+          <span>Управление счетами</span>
         </NavLink>
 
-        <NavLink to="/reports" className={({ isActive }) => `${styles.menuItem} ${isActive ? styles.active : ""}`}>
+        <NavLink to="/reports" className={({ isActive }) => `${styles.item} ${isActive ? styles.active : ""}`}>
           <FaChartPie />
-          Отчёты
+          <span>Отчёты</span>
         </NavLink>
 
-        <NavLink to="/analytics" className={({ isActive }) => `${styles.menuItem} ${isActive ? styles.active : ""}`}>
+        <NavLink to="/analytics" className={({ isActive }) => `${styles.item} ${isActive ? styles.active : ""}`}>
           <FaChartLine />
-          Аналитика
+          <span>Аналитика</span>
         </NavLink>
 
-        <NavLink to="/settings" className={({ isActive }) => `${styles.menuItem} ${isActive ? styles.active : ""}`}>
-          <FaCog />
-          Настройки
-        </NavLink>
-
-        <NavLink to="/help" className={({ isActive }) => `${styles.menuItem} ${isActive ? styles.active : ""}`}>
-          <FaQuestionCircle />
-          Помощь
-        </NavLink>
-
-        <NavLink to="/history" className={({ isActive }) => `${styles.menuItem} ${isActive ? styles.active : ""}`}>
+        <NavLink to="/history" className={({ isActive }) => `${styles.item} ${isActive ? styles.active : ""}`}>
           <FaHistory />
-          История операций
+          <span>История операций</span>
         </NavLink>
 
-        <NavLink to="/payments" className={({ isActive }) => `${styles.menuItem} ${isActive ? styles.active : ""}`}>
+        <NavLink to="/payments" className={({ isActive }) => `${styles.item} ${isActive ? styles.active : ""}`}>
           <FaCreditCard />
-          Платежи
+          <span>Платежи</span>
         </NavLink>
 
-        <NavLink to="/transfers" className={({ isActive }) => `${styles.menuItem} ${isActive ? styles.active : ""}`}>
+        <NavLink to="/transfers" className={({ isActive }) => `${styles.item} ${isActive ? styles.active : ""}`}>
           <FaExchangeAlt />
-          Переводы
+          <span>Переводы</span>
         </NavLink>
 
-        <NavLink to="/notifications" className={({ isActive }) => `${styles.menuItem} ${isActive ? styles.active : ""}`}>
+        <NavLink to="/notifications" className={({ isActive }) => `${styles.item} ${isActive ? styles.active : ""}`}>
           <FaBell />
-          Уведомления
+          <span>Уведомления</span>
+        </NavLink>
+
+        <NavLink to="/settings" className={({ isActive }) => `${styles.item} ${isActive ? styles.active : ""}`}>
+          <FaCog />
+          <span>Настройки</span>
+        </NavLink>
+
+        <NavLink to="/help" className={({ isActive }) => `${styles.item} ${isActive ? styles.active : ""}`}>
+          <FaQuestionCircle />
+          <span>Помощь</span>
         </NavLink>
       </nav>
     </aside>

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import styles from "./Register.module.css";
 
 export default function Register() {
@@ -30,9 +31,7 @@ export default function Register() {
         credentials: "include"
       });
 
-      if (!response.ok) {
-        throw new Error("Ошибка регистрации");
-      }
+      if (!response.ok) throw new Error("Ошибка регистрации");
 
       setSuccess("Регистрация успешна. Вы вошли в систему.");
     } catch (err) {
@@ -45,7 +44,7 @@ export default function Register() {
   return (
     <div className={styles.register}>
       <form className={styles.form} onSubmit={handleSubmit}>
-        <h3>Регистрация</h3>
+        <h3 className={styles.title}>Регистрация в FinTime</h3>
 
         <input
           type="text"
@@ -53,6 +52,7 @@ export default function Register() {
           value={firstName}
           onChange={(e) => setFirstName(e.target.value)}
           required
+          className={styles.input}
         />
 
         <input
@@ -61,6 +61,7 @@ export default function Register() {
           value={lastName}
           onChange={(e) => setLastName(e.target.value)}
           required
+          className={styles.input}
         />
 
         <input
@@ -69,6 +70,7 @@ export default function Register() {
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           required
+          className={styles.input}
         />
 
         <input
@@ -77,14 +79,25 @@ export default function Register() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
+          className={styles.input}
         />
 
         {error && <div className={styles.error}>{error}</div>}
         {success && <div className={styles.success}>{success}</div>}
 
-        <button type="submit" disabled={loading}>
+        <button type="submit" disabled={loading} className={styles.btnPrimary}>
           {loading ? "Регистрация..." : "Зарегистрироваться"}
         </button>
+
+        <div className={styles.loginWrapper}>
+          <span>Уже есть аккаунт?</span>
+          <Link to="/login" className={styles.btnCancel}>
+            Войти
+          </Link>
+        </div>
+                <div className={styles.homeLink}>
+          <Link to="/">На главную</Link>
+        </div>
       </form>
     </div>
   );

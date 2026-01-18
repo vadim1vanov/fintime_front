@@ -59,3 +59,5 @@ export const reorderAccounts = (accounts) =>
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(accounts)
   });
+export const getAccountById = (id) =>
+fetch(`${API}/api/accounts/${id}`, { credentials: "include" }).then(r => r.json());

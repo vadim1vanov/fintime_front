@@ -15,7 +15,7 @@
 /* Контент под Header */
 .content {
   flex: 1;                 /* занимает всё пространство под Header */
-  padding: 20px;
+  padding: 0px;
   overflow: auto;
-  background-color: #f3f4f6;
+  background-color: #ffffff;
 }

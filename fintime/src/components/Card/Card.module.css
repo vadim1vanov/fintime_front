@@ -1,302 +1,298 @@
 .card {
-  background: #fff;
-  border-radius: 13px;
-  padding: 20px;
   width: 300px;
-  height: 230px;
+  height: 235px;
+  padding: 22px;
+  border-radius: 22px;
+  background: #ffffff;
+
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.05),
+    inset 0 1px 0 rgba(255,255,255,0.6);
+
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-  transition: box-shadow 0.3s;
-  transform: none !important;
+font-family: "Inter", "Roboto", "Segoe UI", sans-serif;
+  transition: box-shadow 0.3s ease, border 0.3s ease;
 }
 
 .card:hover {
-  transform: none !important;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+  box-shadow:
+    0 20px 50px rgba(16, 185, 129, 0.15),
+    inset 0 1px 0 rgba(255,255,255,0.8);
+  border-color: rgba(16, 185, 129, 0.25);
 }
 
-.cardHeader {
+/* HEADER */
+.header {
   display: flex;
   align-items: center;
+  justify-content: space-between;
 }
 
-.iconContainer {
-  width: 50px;
-  height: 50px;
-  border-radius: 12px;
+.headerLeft {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.icon {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #d1fae5, #ecfdf5);
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #e7efff;
-  color: #4284ff;
-  font-size: 22px;
+  overflow: hidden; /* чтобы флаг не вылезал */
 }
 
-.headerInfo {
-  flex: 1;
-  margin-left: 12px;
+.flag {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  font-size: 4rem; /* увеличиваем, чтобы занимал весь круг */
+  line-height: 1;
 }
 
-.accountName {
-  font-size: 1.2rem;
-  font-weight: 700;
+
+
+.title {
   margin: 0;
-  color: #000;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #0f172a;
 }
 
-.currencyBadge {
+.currency {
   font-size: 0.75rem;
-  background: #f1f3f5;
-  padding: 3px 8px;
-  border-radius: 12px;
-  display: inline-block;
-  margin-top: 4px;
+  color: #64748b;
 }
 
-.btnDelete {
-  background: none;
+/* DELETE */
+.deleteBtn {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
   border: none;
-  opacity: 0.5;
-  font-size: 16px;
+  background: transparent;
+  color: #64748b;
   cursor: pointer;
-  transition: 0.3s;
-  padding: 8px 8px 5px 8px;
+  transition: 0.25s;
+  display: flex;
+  align-items: center;
   justify-content: center;
   text-align: center;
-  align-items: center;
-  border-radius: 50%;
+
 }
 
-.btnDelete:hover {
-  opacity: 1;
-  background: rgba(220,53,69,0.1);
-  color: #dc3545;
+.deleteBtn:hover {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+/* BALANCE */
+.balanceBlock {
+  margin-top: 10px;
+}
+
+.balanceLabel {
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  color: #64748b;
+  text-transform: uppercase;
 }
 
 .balance {
-  margin: 15px 0;
+  display: flex;
+  align-items: center;
+  gap: 0; /* убираем любой gap */
+  font-size: 1.9rem;
+  font-weight: 700;
+  color: #022c22;
+  font-family: "Inter", "Roboto", "Segoe UI", sans-serif;
+}
+
+.minus {
+  margin-right: 0; /* точно без пробела */
+}
+
+.currencyIcon {
+  font-size: 1.2rem;
+  color: #10b981;
+  margin-right: 0; /* прилипает к числу */
 }
 
 .amount {
-  font-size: 1.8rem;
+  display: inline; /* чтобы число шло сразу после валюты */
+}
+.svg-inline--fa {
+  box-sizing: content-box;
+  display: var(--fa-display, inline-block);
+  height: 1em;
+  overflow: visible;
+  vertical-align: -0.125em;
+  width: var(--fa-width, 1.25em);
+}
+
+
+.currencyIcon {
+  font-size: 1.6rem;
+  color: #022c22;
   font-weight: 700;
+  gap: 0;
+}
+
+/* ACTIONS */
+.actions {
   display: flex;
+  gap: 10px;
   align-items: center;
 }
 
-.currencySymbol {
-  font-size: 1.3rem;
-  color: #474747;
-}
-
-.actions {
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-  gap: 10px;
-}
-
-.btnDeposit,
-.btnWithdraw {
+.deposit,
+.withdraw {
   flex: 1;
-  padding: 12px 0;
-  border-radius: 8px;
-  border: none;
-  cursor: pointer;
+  padding: 12px;
+  border-radius: 40px;
   font-size: 0.9rem;
-  transition: 0.3s;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.25s;
+  font-family: "Inter", "Roboto", "Segoe UI", sans-serif;
 }
 
+/* PRIMARY */
 .deposit {
-  background: #ffd500;
+  background: linear-gradient(135deg, #10b981, #34d399);
+  border: none;
+  color: #ffffff;
+  box-shadow: 0 2px 18px rgba(16, 185, 129, 0.15);
 }
 
 .deposit:hover {
-  background: #ffc700;
+  box-shadow: 0 5px 18px rgba(16, 185, 129, 0.35);
 }
 
+/* SECONDARY */
 .withdraw {
-  background: #212529;
-  color: #fff;
+  background: #ffffff;
+  border: 1px solid #d1fae5;
+  color: #047857;
 }
 
 .withdraw:hover {
-  background: #484b50;
+  background: #ecfdf5;
+  border-color: #6ee7b7;
 }
 
-.btnLock {
-  width: 46px;
+/* MENU */
+.menuWrapper {
+  position: relative;
+  align-items: center;
+}
+
+.menuBtn {
+  width: 42px;
   height: 42px;
   border-radius: 50%;
   border: none;
+  background: transparent;
+  color: #334155;
   cursor: pointer;
-  background: #f1f3f5;
-  transition: 0.3s;
-}
-
-.btnLock:hover {
-  background: #e0e3e6;
-}
-
-/* Цвета валют */
-.USD .currencySymbol,
-.iconContainer.USD,
-.currencyBadge.USD {
-  color: #4284ff !important;
-}
-.USD .balance { color: #4284ff; }
-
-.RUB .currencySymbol,
-.iconContainer.RUB,
-.currencyBadge.RUB { color: #e52b50 !important; }
-.RUB .balance { color: #e52b50; }
-
-.EUR .currencySymbol,
-.iconContainer.EUR,
-.currencyBadge.EUR { color: #1e9aff !important; }
-.EUR .balance { color: #1e9aff; }
-
-.JPY .currencySymbol,
-.iconContainer.JPY,
-.currencyBadge.JPY { color: #00a651 !important; }
-.JPY .balance { color: #00a651; }
-
-.CNY .currencySymbol,
-.iconContainer.CNY,
-.currencyBadge.CNY { color: #d91e18 !important; }
-.CNY .balance { color: #d91e18; }
-
-.GBP .currencySymbol,
-.iconContainer.GBP,
-.currencyBadge.GBP { color: #c90000 !important; }
-.GBP .balance { color: #c90000; }
-
-/* Фоны для иконок и бейджей */
-.iconContainer.USD { background: #e7efff !important; }
-.iconContainer.RUB { background: #ffe7ed !important; }
-.iconContainer.EUR { background: #e6f3ff !important; }
-.iconContainer.JPY { background: #e7f9f0 !important; }
-.iconContainer.CNY { background: #ffe7e7 !important; }
-.iconContainer.GBP { background: #ffe7e7 !important; }
-
-.currencyBadge.USD { background: #e7efff !important; }
-.currencyBadge.RUB { background: #ffe7ed !important; }
-.currencyBadge.EUR { background: #e6f3ff !important; }
-.currencyBadge.JPY { background: #e7f9f0 !important; }
-.currencyBadge.CNY { background: #ffe7e7 !important; }
-.currencyBadge.GBP { background: #ffe7e7 !important; }
-
-/* Закрытый счет */
-.card.closed {
-  background: #ffffff !important;
-  opacity: 1;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-}
-
-.card.closed:hover {
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  opacity: 1;
-}
-
-.card.closed .accountName { color: #6c757d !important; }
-.card.closed .balance { opacity: 0.8; }
-.card.closed .amount { color: #6c757d !important; }
-.card.closed .currencySymbol { color: #adb5bd !important; }
-.card.closed .iconContainer { opacity: 0.6; color: #575858 !important; background-color: #e0e0e0 !important; }
-.card.closed .currencyBadge { opacity: 0.7; color: #adb5bd !important; background-color: #eeeeee !important; }
-.card.closed .btnDelete { opacity: 0.3; }
-.card.closed .btnDelete:hover { opacity: 0.6; background: rgba(220,53,69,0.05); }
-
-/* Кнопка восстановить */
-.btnRestore {
-  display: inline-block;
-  width: auto;
-  padding: 8px 40px;
-  border-radius: 8px;
-  border: 1px solid #000;
-  background: #fff;
-  color: #000;
-  font-size: 0.95rem;
-  cursor: pointer;
+  transition: 0.25s;
+    display: flex;
+  align-items: center;
+  justify-content: center;
   text-align: center;
-  margin: 0 auto;
-  transition: all 0.3s;
 }
 
-.btnRestore:hover { background: #000; color: #fff; }
-.card.closed .actions { justify-content: center; }
-
-/* Основные действия */
-.mainActions {
-  display: flex;
-  justify-content: center;
-  gap: 6px;
-  flex: 1;
+.menuBtn:hover {
+  background: #ecfdf5;
+  color: #059669;
+}
+.menuBtn.active{
+    background: #ecfdf5;
+  color: #059669;
 }
 
-/* Меню справа */
-.actionsWrapper {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.btnMainActions {
-  padding: 12px 12px;
-  border-radius: 50%;
-  border: none;
-  background: #e6e5e5;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 16px;
-}
-
-.verticalMenu {
+.menu {
   position: absolute;
-  top: 0;
-  left: 0%;
-  top: -270%;             /* справа от кнопки */
-  transform: translateY(0);
-  opacity: 0;
+  bottom: 45px;
+  right: -15px;
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 3px;
+
+  border-bottom-left-radius: 5px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+  border: 1px solid rgba(0,0,0,0.05);
+
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  padding: 6px;
-  background: #e6e5e5;
-  border-radius: 13px;
-  pointer-events: none;
-  transition: 0.9s ease-in;
-  transition: opacity 0.95s ease, transform 0.95s ease;
-  z-index: 9999;          /* перекрывает карточки */
+  gap: 3px;
+  animation: fadeIn 0.25s ease;
 }
 
-.verticalMenuOpen {
-  opacity: 1;
-  pointer-events: auto;
-  transform: translateY(0); /* плавно */
-  transition: 0.9s ease-in;
-}
-
-.navButton {
-  width: 28px;
-  height: 28px;
+.menu button {
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   border: none;
-  background: #ffffff;
+  background: #f8fafc;
+  color: #334155;
   cursor: pointer;
-  display: flex;
+  transition: 0.25s;
+  text-align: center;
+    display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 14px;
-  
+  text-align: center;
 }
 
-.navButton:hover { background: #e0e3e6; }
+.menu button:hover {
+  background: #d1fae5;
+  color: #047857;
+}
+
+/* RESTORE */
+.restore {
+  font-family: "Inter", "Roboto", "Segoe UI", sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  width: 100%;
+  padding: 12px;
+  border-radius: 40px;
+  border: 1px solid #d1fae5;
+  background: #ffffff;
+  color: #047857;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+.restore:hover {
+  background: #ecfdf5;
+  border-color: #6ee7b7;
+}
+
+/* CLOSED */
+.closed {
+  font-family: "Inter", "Roboto", "Segoe UI", sans-serif;
+  filter: grayscale(0.6);
+  background-color: #fcfcfc;
+}
+
+/* ANIMATION */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

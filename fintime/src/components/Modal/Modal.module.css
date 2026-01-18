@@ -1,3 +1,4 @@
+/* Overlay */
 .overlay {
   position: fixed;
   inset: 0;
@@ -9,113 +10,152 @@
   backdrop-filter: blur(4px);
 }
 
+/* Модалка */
 .modal {
-  background: #fff;
-  border-radius: 14px;
-  width: 380px;
-  padding: 24px;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+  position: relative;
+  width: 500px; /* больше модалки */
+  max-width: 90%;
+  padding: 36px 32px;
+  background: #ffffff;
+  border-radius: 24px;
+  box-shadow: 0 25px 50px rgba(16, 185, 129, 0.15);
   animation: fadeIn 0.25s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: "Inter", "Roboto", "Segoe UI", sans-serif;
 }
 
+/* Анимация */
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px) scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-.header {
-  font-size: 1.3rem;
+/* Кнопка закрытия */
+.closeBtn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: #f1f5f9;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: 0.25s;
+  z-index: 10;
+}
+
+.closeBtn:hover {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+/* Контент модалки */
+.modalBody {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 28px;
+  text-align: center;
+}
+
+.modalTitle {
+  font-size: 1.6rem;
   font-weight: 700;
-  margin-bottom: 20px;
-  text-align: center;
-}
-
-.text {
-  font-size: 0.95rem;
-  color: #495057;
-  margin-bottom: 12px;
-  line-height: 1.5;
-  text-align: center;
-}
-
-.formGroup {
+  color: #065f46;
   margin-bottom: 14px;
 }
 
+.modalText {
+  font-size: 1rem;
+  color: #064e3b;
+  line-height: 1.6;
+}
+
+/* Форма */
+.modalForm {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+}
+
 .label {
-  font-size: 0.85rem;
+  width: 100%;
+  text-align: left;
   font-weight: 600;
-  color: #343a40;
-  margin-bottom: 15px;
-  display: block;
+  font-size: 1rem;
+  color: #065f46;
 }
 
 .input {
-  width: 93%;
-  padding: 10px 12px;
-  border-radius: 8px;
-  border: 1px solid #dee2e6;
-  font-size: 0.95rem;
+  width: 90%;
+  padding: 14px 16px;
+  border-radius: 16px;
+  border: 1px solid #d1fae5;
+  font-size: 1.2rem;
+  font-weight: 700;
+  font-family: "Inter", "Roboto", "Segoe UI", sans-serif; /* современный жирный шрифт */
+  letter-spacing: 0.5px; /* чуть увеличиваем читаемость */
   outline: none;
-  transition: 0.2s;
+  transition: all 0.25s ease;
+  background: #f0fdf4;
+  color: #065f46;
 }
 
 .input:focus {
-  border-color: #ffd500;
-  box-shadow: 0 0 0 2px rgba(255,213,0,0.3);
+  border-color: #10b981;
+  box-shadow: 0 0 10px rgba(16, 185, 129, 0.3);
+  background: #ffffff;
 }
 
-.footer {
+
+/* Футер */
+.modalFooter {
   display: flex;
   justify-content: center;
-  gap: 10px;
-  margin-top: 20px;
+  gap: 16px;
+  margin-top: 16px;
+  width: 100%;
 }
 
 .btn {
-  padding: 10px 18px;
-  width: 140px;
-  border-radius: 7px;
-  border: none;
-  font-size: 0.9rem;
+  flex: 1;
+  padding: 14px 0;
+  border-radius: 40px;
+  font-size: 1rem;
+  font-weight: 500;
   cursor: pointer;
-  transition: 0.25s;
+  transition: all 0.3s ease;
+  border: none;
+  
+  font-family: "Inter", "Roboto", "Segoe UI", sans-serif;
 }
 
 .btnCancel {
-  background: #f1f3f5;
-  color: #495057;
+  background: #ffffff;
+  border: 1px solid #d1fae5;
+  color: #047857;
 }
 
 .btnCancel:hover {
-  background: #e9ecef;
+  background: #ecfdf5;
+  border-color: #6ee7b7;
 }
 
 .btnPrimary {
-  background: #ffd500;
-  color: #212529;
+  background: linear-gradient(135deg, #10b981, #34d399);
+  color: #ffffff;
 }
 
 .btnPrimary:hover {
-  background: #ffc700;
-}
-
-.btnDanger {
-  background: #dc3545;
-  color: #fff;
-}
-
-.btnDanger:hover {
-  background: #c82333;
-}
-
-.btnConfirm{
-  background: #ffd500;
-  color: #fff;
+  background: linear-gradient(135deg, #059669, #10b981);
 }
