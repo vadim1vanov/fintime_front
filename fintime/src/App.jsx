@@ -1,34 +1,32 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Layout from "./components/Layout/Layout.jsx";
 import Login from "./components/Login/Login.jsx";
 import Register from "./components/Register/Register.jsx";
 import Accounts from "./components/Accounts/Accounts.jsx";
-import AccountView from "./components/AccountView/AccountView.jsx"; // <-- Добавил импорт (предполагаю путь; скорректируйте, если нужно)
+import AccountView from "./components/AccountView/AccountView.jsx";
 import PrivateRoute from "./routes/PrivateRoute.jsx";
 
 export default function App() {
   return (
-    <Layout>
-      <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route
-          path="/accounts"
-          element={
-            <PrivateRoute>
-              <Accounts />
-            </PrivateRoute>
-          }
-        />
-        <Route // <-- Добавил новый маршрут
-          path="/account/:id"
-          element={
-            <PrivateRoute>
-              <AccountView />
-            </PrivateRoute>
-          }
-        />
-      </Routes>
-    </Layout>
+    <Routes>
+      {/* Публичные страницы без Layout */}
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
+
+      {/* Защищённые страницы с Layout */}
+      <Route
+        element={
+          <PrivateRoute>
+            <Layout />
+          </PrivateRoute>
+        }
+      >
+        <Route path="/accounts" element={<Accounts />} />
+        <Route path="/account/:id" element={<AccountView />} />
+      </Route>
+
+      {/* Редирект по умолчанию */}
+      <Route path="*" element={<Navigate to="/accounts" replace />} />
+    </Routes>
   );
 }

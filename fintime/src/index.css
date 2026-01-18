@@ -31,3 +31,19 @@ body {
   flex: 1;
   padding: 20px;
 }
+/* Сброс отступов и бордеров */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Сделать body и html на всю высоту */
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  font-family: "Inter", "Roboto", "Segoe UI", sans-serif;
+  background-color: #ffffff; /* светлый фон, как у приложения */
+}
+
+
