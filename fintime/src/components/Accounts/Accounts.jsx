@@ -1,5 +1,5 @@
-import { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState, useCallback } from "react";
 import {
   DndContext,
   closestCenter,
@@ -8,14 +8,15 @@ import {
   useSensor,
   useSensors,
   DragOverlay,
-  MeasuringStrategy
+  MeasuringStrategy,
 } from "@dnd-kit/core";
 import {
   arrayMove,
   SortableContext,
+  sortableKeyboardCoordinates,
   rectSortingStrategy,
   useSortable,
-  defaultAnimateLayoutChanges
+  defaultAnimateLayoutChanges,
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 
@@ -35,15 +36,29 @@ import {
 import styles from "./Accounts.module.css";
 
 function customAnimateLayoutChanges(args) {
-  if (args.isSorting || args.wasDragging) return defaultAnimateLayoutChanges(args);
+  if (args.isSorting || args.wasDragging) {
+    return defaultAnimateLayoutChanges(args);
+  }
   return true;
 }
 
-function SortableCard({ id, account, onDelete, onClose, onRestore, onIncome, onExpense, onClick }) {
+function SortableCard({
+  id,
+  account,
+  onDelete,
+  onClose,
+  onRestore,
+  onIncome,
+  onExpense,
+  navigateToAccount
+}) {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
     id,
-    animateLayoutChanges: customAnimateLayoutChanges
+    animateLayoutChanges: customAnimateLayoutChanges,
   });
+
+  // флаг для отличия клика от drag
+  const [dragging, setDragging] = useState(false);
 
   const style = {
     transform: CSS.Transform.toString(transform),
@@ -58,11 +73,21 @@ function SortableCard({ id, account, onDelete, onClose, onRestore, onIncome, onE
     pointerEvents: isDragging ? "none" : "auto",
     margin: "0",
     overflow: "visible",
-    cursor: "pointer"
+    cursor: "pointer",
   };
 
   return (
-    <div ref={setNodeRef} style={style} {...attributes} {...listeners} onClick={onClick}>
+    <div
+      ref={setNodeRef}
+      style={style}
+      {...attributes}
+      {...listeners}
+      onMouseDown={() => setDragging(false)}
+      onDragStart={() => setDragging(true)}
+      onClick={() => {
+        if (!dragging) navigateToAccount();
+      }}
+    >
       <Card
         account={account}
         onDelete={onDelete}
@@ -75,6 +100,26 @@ function SortableCard({ id, account, onDelete, onClose, onRestore, onIncome, onE
   );
 }
 
+function DraggableOverlay({ account }) {
+  if (!account) return null;
+
+  return (
+    <div
+      style={{
+        width: "300px",
+        height: "230px",
+        pointerEvents: "none",
+        opacity: 1,
+        boxShadow: "0 25px 50px rgba(0,0,0,0.3)",
+        borderRadius: "13px",
+        background: "#ffffff",
+      }}
+    >
+      <Card account={account} />
+    </div>
+  );
+}
+
 export default function Accounts() {
   const [accounts, setAccounts] = useState([]);
   const [modal, setModal] = useState(null);
@@ -83,28 +128,35 @@ export default function Accounts() {
 
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 5 } }),
-    useSensor(KeyboardSensor, {})
+    useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates })
   );
 
   const loadAccounts = useCallback(async () => {
     try {
       const data = await getAccounts();
-      setAccounts([...data].sort((a, b) => (a.account_position ?? 0) - (b.account_position ?? 0)));
+      const sorted = [...data].sort(
+        (a, b) => (a.account_position ?? 0) - (b.account_position ?? 0)
+      );
+      setAccounts(sorted);
     } catch (err) {
-      console.error(err);
+      console.error("Ошибка загрузки:", err);
     }
   }, []);
 
-  useEffect(() => { loadAccounts(); }, [loadAccounts]);
+  useEffect(() => {
+    loadAccounts();
+  }, [loadAccounts]);
 
   const handleDragStart = (event) => setActiveId(event.active.id);
+
   const handleDragEnd = (event) => {
     setActiveId(null);
     const { active, over } = event;
+
     if (over && active.id !== over.id) {
-      setAccounts(items => {
-        const oldIndex = items.findIndex(i => i.id === active.id);
-        const newIndex = items.findIndex(i => i.id === over.id);
+      setAccounts((items) => {
+        const oldIndex = items.findIndex((i) => i.id === active.id);
+        const newIndex = items.findIndex((i) => i.id === over.id);
         const newOrder = arrayMove(items, oldIndex, newIndex);
         reorderAccounts(newOrder);
         return newOrder;
@@ -112,7 +164,7 @@ export default function Accounts() {
     }
   };
 
-  const activeAccount = accounts.find(acc => acc.id === activeId);
+  const activeAccount = accounts.find((acc) => acc.id === activeId);
 
   return (
     <div className={styles.container}>
@@ -123,9 +175,9 @@ export default function Accounts() {
         onDragEnd={handleDragEnd}
         measuring={{ droppable: { strategy: MeasuringStrategy.Always } }}
       >
-        <SortableContext items={accounts.map(a => a.id)} strategy={rectSortingStrategy}>
+        <SortableContext items={accounts.map((acc) => acc.id)} strategy={rectSortingStrategy}>
           <div className={styles.grid}>
-            {accounts.map(acc => (
+            {accounts.map((acc) => (
               <SortableCard
                 key={acc.id}
                 id={acc.id}
@@ -135,11 +187,15 @@ export default function Accounts() {
                 onRestore={() => setModal({ type: "restore", acc })}
                 onIncome={() => setModal({ type: "income", acc })}
                 onExpense={() => setModal({ type: "expense", acc })}
-                onClick={() => navigate(`/account/${acc.id}`)}
+                navigateToAccount={() => navigate(`/account/${acc.id}`)}
               />
             ))}
           </div>
         </SortableContext>
+
+        <DragOverlay dropAnimation={{ duration: 250, easing: "cubic-bezier(0.34, 1.56, 0.64, 1)" }}>
+          {activeAccount && <DraggableOverlay account={activeAccount} />}
+        </DragOverlay>
       </DndContext>
 
       {/* Модалки */}
@@ -148,7 +204,10 @@ export default function Accounts() {
           title="Удалить счёт"
           text={`Удалить "${modal.acc.account_name}"?`}
           onCancel={() => setModal(null)}
-          onConfirm={() => { deleteAccount(modal.acc.id).then(loadAccounts); setModal(null); }}
+          onConfirm={() => {
+            deleteAccount(modal.acc.id).then(loadAccounts);
+            setModal(null);
+          }}
         />
       )}
       {modal?.type === "close" && (
@@ -156,7 +215,10 @@ export default function Accounts() {
           title="Закрыть счёт"
           text={`Закрыть "${modal.acc.account_name}"?`}
           onCancel={() => setModal(null)}
-          onConfirm={() => { closeAccount(modal.acc.id).then(loadAccounts); setModal(null); }}
+          onConfirm={() => {
+            closeAccount(modal.acc.id).then(loadAccounts);
+            setModal(null);
+          }}
         />
       )}
       {modal?.type === "restore" && (
@@ -164,21 +226,30 @@ export default function Accounts() {
           title="Восстановить счёт"
           text={`Восстановить "${modal.acc.account_name}"?`}
           onCancel={() => setModal(null)}
-          onConfirm={() => { restoreAccount(modal.acc.id).then(loadAccounts); setModal(null); }}
+          onConfirm={() => {
+            restoreAccount(modal.acc.id).then(loadAccounts);
+            setModal(null);
+          }}
         />
       )}
       {modal?.type === "income" && (
         <TransactionModal
           title="Пополнение счёта"
           onCancel={() => setModal(null)}
-          onSubmit={data => { income(modal.acc.id, data).then(loadAccounts); setModal(null); }}
+          onSubmit={(data) => {
+            income(modal.acc.id, data).then(loadAccounts);
+            setModal(null);
+          }}
         />
       )}
       {modal?.type === "expense" && (
         <TransactionModal
           title="Снятие со счёта"
           onCancel={() => setModal(null)}
-          onSubmit={data => { expense(modal.acc.id, data).then(loadAccounts); setModal(null); }}
+          onSubmit={(data) => {
+            expense(modal.acc.id, data).then(loadAccounts);
+            setModal(null);
+          }}
         />
       )}
     </div>
