@@ -1,5 +1,15 @@
 import { useState, useRef, useEffect } from "react";
-import { FaTimes, FaLock, FaEdit, FaExchangeAlt, FaEllipsisV } from "react-icons/fa";
+import { 
+  FaTimes, 
+  FaLock, 
+  FaEllipsisV, 
+  FaSyncAlt,
+  FaPlus,
+  FaPen,
+  FaExchangeAlt,
+  FaMinus
+} from "react-icons/fa";
+import { HiX } from "react-icons/hi";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faDollarSign,
@@ -16,7 +26,8 @@ export default function Card({
   onIncome,
   onExpense,
   onClose,
-  onRestore
+  onRestore,
+  onTransfer
 }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef(null);
@@ -78,7 +89,7 @@ export default function Card({
           onClick={(e) => { e.stopPropagation(); onDelete(); }}
           title="Удалить"
         >
-          <FaTimes />
+          <HiX />
         </button>
       </div>
 
@@ -100,6 +111,31 @@ export default function Card({
               maximumFractionDigits: 2
             })}
           </span>
+    { !isClosed && (
+      <>
+      <button
+            className={styles.lockBtn}
+        onClick={(e) => { 
+          e.stopPropagation(); // <-- останавливаем переход
+          onClose(); 
+          setMenuOpen(false);
+        }}
+        title="Закрыть"
+      > 
+        <FaLock />
+      </button>
+
+      <button
+        className={styles.refreshBtn}
+        title="Синхронизировать"
+        onClick={(e) => { 
+          e.stopPropagation(); 
+          
+        }}
+      >
+  <FaSyncAlt />
+</button></>)}
+
         </div>
       </div>
 
@@ -110,61 +146,26 @@ export default function Card({
             className={styles.deposit}
             onClick={(e) => { e.stopPropagation(); onIncome(); }}
           >
+            <FaPlus />
             Пополнить
           </button>
           <button
             className={styles.withdraw}
             onClick={(e) => { e.stopPropagation(); onExpense(); }}
           >
+            <FaMinus />
             Снять
           </button>
 
-{/* Меню троеточия */}
-<div className={styles.menuWrapper} ref={menuRef}>
-  <button
-    className={`${styles.menuBtn} ${menuOpen ? styles.active : ""}`}
-    onClick={(e) => { 
-      e.stopPropagation(); // <-- останавливаем всплытие
-      setMenuOpen((prev) => !prev); 
-    }}
-  >
-    <FaEllipsisV />
-  </button>
-  {menuOpen && (
-    <div className={styles.menu}>
       <button
-        onClick={(e) => { 
-          e.stopPropagation(); // <-- останавливаем переход
-          onClose(); 
-          setMenuOpen(false);
-        }}
-        title="Закрыть"
-      >
-        <FaLock />
-      </button>
-      <button
-        onClick={(e) => { 
-          e.stopPropagation(); 
-          // здесь будет твой edit action
-          setMenuOpen(false);
-        }}
-        title="Редактировать"
-      >
-        <FaEdit />
-      </button>
-      <button
-        onClick={(e) => { 
-          e.stopPropagation(); 
-          // здесь будет твой transfer action
-          setMenuOpen(false);
-        }}
+        className={styles.transferBtn}
+        onClick={(e) => { e.stopPropagation(); onTransfer(); }}
         title="Перевод"
       >
         <FaExchangeAlt />
+        Перевод
       </button>
-    </div>
-  )}
-</div>
+
 
         </div>
       )}

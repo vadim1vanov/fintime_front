@@ -23,6 +23,7 @@ import { CSS } from "@dnd-kit/utilities";
 import Card from "../Card/Card";
 import ConfirmModal from "../Modal/ConfirmModal";
 import TransactionModal from "../Modal/TransactionModal";
+import TransferModal from "../Modal/TransferModal";
 import {
   getAccounts,
   deleteAccount,
@@ -30,7 +31,8 @@ import {
   restoreAccount,
   income,
   expense,
-  reorderAccounts
+  reorderAccounts,
+  transfer
 } from "../../api/api";
 
 import styles from "./Accounts.module.css";
@@ -50,6 +52,7 @@ function SortableCard({
   onRestore,
   onIncome,
   onExpense,
+  onTransfer,
   navigateToAccount
 }) {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
@@ -67,7 +70,7 @@ function SortableCard({
     visibility: isDragging ? "hidden" : "visible",
     zIndex: isDragging ? 1000 : 1,
     boxShadow: isDragging ? "0 20px 40px rgba(0,0,0,0.25)" : "none",
-    borderRadius: "13px",
+    borderRadius: "22px",
     height: "auto",
     width: "100%",
     pointerEvents: isDragging ? "none" : "auto",
@@ -95,6 +98,7 @@ function SortableCard({
         onRestore={onRestore}
         onIncome={onIncome}
         onExpense={onExpense}
+        onTransfer={onTransfer}
       />
     </div>
   );
@@ -110,8 +114,7 @@ function DraggableOverlay({ account }) {
         height: "230px",
         pointerEvents: "none",
         opacity: 1,
-        boxShadow: "0 25px 50px rgba(0,0,0,0.3)",
-        borderRadius: "13px",
+        borderRadius: "22px",
         background: "#ffffff",
       }}
     >
@@ -187,7 +190,8 @@ export default function Accounts() {
                 onRestore={() => setModal({ type: "restore", acc })}
                 onIncome={() => setModal({ type: "income", acc })}
                 onExpense={() => setModal({ type: "expense", acc })}
-                navigateToAccount={() => navigate(`/account/${acc.id}`)}
+                onTransfer={() => setModal({ type: "transfer", acc })}
+                navigateToAccount={() => navigate(`${acc.id}`)}
               />
             ))}
           </div>
@@ -252,6 +256,24 @@ export default function Accounts() {
           }}
         />
       )}
+      {modal?.type === "transfer" && (
+        <TransferModal
+          title="Перевод на счёт"
+          fromAccount={modal.acc}
+          accounts={accounts.filter(a => a.id !== modal.acc.id)}
+          onCancel={() => setModal(null)}
+          onSubmit={(data) => {
+            transfer(
+              modal.acc.id,        // from
+              data.toAccountId,    // to
+              { amount: data.amount }
+            ).then(loadAccounts);
+
+            setModal(null);
+          }}
+        />
+      )}
+
     </div>
   );
 }

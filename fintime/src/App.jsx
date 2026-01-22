@@ -22,7 +22,7 @@ export default function App() {
         }
       >
         <Route path="/accounts" element={<Accounts />} />
-        <Route path="/account/:id" element={<AccountView />} />
+        <Route path="/accounts/:id" element={<AccountView />} />
       </Route>
 
       {/* Редирект по умолчанию */}

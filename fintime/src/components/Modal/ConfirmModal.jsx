@@ -1,12 +1,12 @@
 import styles from "./Modal.module.css";
 import { FaTimes } from "react-icons/fa";
-
+import { HiX } from "react-icons/hi";
 export default function ConfirmModal({ title, text, onConfirm, onCancel }) {
   return (
     <div className={styles.overlay} onClick={onCancel}>
       <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
         <button className={styles.closeBtn} onClick={onCancel}>
-          <FaTimes size={18} />
+          <HiX fontSize={18}/>
         </button>
 
         <div className={styles.modalBody}>

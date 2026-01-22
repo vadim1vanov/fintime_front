@@ -17,5 +17,5 @@
   flex: 1;                 /* занимает всё пространство под Header */
   padding: 0px;
   overflow: auto;
-  background-color: #ffffff;
+  background: transparent;
 }

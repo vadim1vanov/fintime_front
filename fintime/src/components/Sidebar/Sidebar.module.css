@@ -3,9 +3,10 @@
   
   position: sticky;
   top: 20px;
-  margin-right: 10px;
+ 
   background: #ffffff;
-  border-radius: 22px;
+  border-top-right-radius: 22px;
+  border-bottom-right-radius: 22px;
   padding: 24px 18px;
   font-family: "Inter", "Roboto", "Segoe UI", sans-serif;
   border: 1px solid rgba(0,0,0,0.06);
@@ -76,26 +77,26 @@
 /* HOVER */
 
 .item:hover {
-  background: #ecfdf5;
-  color: #047857;
+  background: linear-gradient(135deg, #edebff, #e3eeff);
+  color: #00439b;
 }
 
 .item:hover svg {
-  color: #10b981;
+  color: #00439b;
 }
 
 /* ACTIVE */
 
 .active {
-  background: linear-gradient(135deg, #d1fae5, #ecfdf5);
-  color: #022c22;
+ background: linear-gradient(135deg, #edebff, #e3eeff);
+  color: #00439b;
   font-weight: 600;
-
-  box-shadow: inset 0 0 0 1px rgba(16, 185, 129, 0.25);
+  
+  
 }
 
 .active svg {
-  color: #10b981;
+  color: #00439b;
 }
 
 /* SCROLL */

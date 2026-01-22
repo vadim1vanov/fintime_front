@@ -2,25 +2,26 @@
 .overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.45);
+  background: rgba(0, 0, 0, 0.35);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 1000;
-  backdrop-filter: blur(4px);
+  backdrop-filter: blur(5px);
 }
 
 /* Модалка */
 .modal {
   position: relative;
-  width: 500px; /* больше модалки */
-  max-width: 90%;
+  width: 700px; 
+  max-width: 100%;
   padding: 36px 32px;
   background: #ffffff;
-  border-radius: 24px;
-  box-shadow: 0 25px 50px rgba(16, 185, 129, 0.15);
+  border-radius: 30px;
+  /* box-shadow: 0 25px 50px rgba(16, 1, 83, 0.15); */
   animation: fadeIn 0.25s ease;
   display: flex;
+  top: -5vh;
   flex-direction: column;
   align-items: center;
   font-family: "Inter", "Roboto", "Segoe UI", sans-serif;
@@ -41,7 +42,7 @@
   height: 36px;
   border-radius: 50%;
   border: none;
-  background: #f1f5f9;
+  background: transparent;
   color: #64748b;
   display: flex;
   align-items: center;
@@ -62,20 +63,20 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 28px;
+  
   text-align: center;
 }
 
 .modalTitle {
   font-size: 1.6rem;
   font-weight: 700;
-  color: #065f46;
+  color: #1c1e22;
   margin-bottom: 14px;
 }
 
 .modalText {
   font-size: 1rem;
-  color: #064e3b;
+  color: #26272b;
   line-height: 1.6;
 }
 
@@ -91,29 +92,32 @@
 .label {
   width: 100%;
   text-align: left;
+  margin-left: 15%;
+  margin-top: 15px;
   font-weight: 600;
   font-size: 1rem;
-  color: #065f46;
+  color: #21252c;
 }
 
 .input {
-  width: 90%;
+  margin-bottom: 35px;
+  width: 85%;
   padding: 14px 16px;
-  border-radius: 16px;
-  border: 1px solid #d1fae5;
+  border-radius: 30px;
+  border: 1px solid #c2c8ff;
   font-size: 1.2rem;
   font-weight: 700;
   font-family: "Inter", "Roboto", "Segoe UI", sans-serif; /* современный жирный шрифт */
   letter-spacing: 0.5px; /* чуть увеличиваем читаемость */
   outline: none;
   transition: all 0.25s ease;
-  background: #f0fdf4;
-  color: #065f46;
+  background: linear-gradient(135deg, #fcfcff, #f9fcff);
+  color: #181818;
 }
 
 .input:focus {
-  border-color: #10b981;
-  box-shadow: 0 0 10px rgba(16, 185, 129, 0.3);
+  border-color: #00439b;
+  box-shadow: 0 0 10px rgba(16, 61, 185, 0.3);
   background: #ffffff;
 }
 
@@ -129,33 +133,170 @@
 
 .btn {
   flex: 1;
-  padding: 14px 0;
-  border-radius: 40px;
-  font-size: 1rem;
+  padding: 10px 10px;
+  font-size: 0.9rem;
   font-weight: 500;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.1s ease;
   border: none;
+  border-radius: 22px;
+  
   
   font-family: "Inter", "Roboto", "Segoe UI", sans-serif;
 }
 
 .btnCancel {
   background: #ffffff;
-  border: 1px solid #d1fae5;
-  color: #047857;
+  border: 1px solid #d2d1fa;
+  color: #1c1d22;
+  max-width: 90px;
 }
 
 .btnCancel:hover {
-  background: #ecfdf5;
-  border-color: #6ee7b7;
+  background: linear-gradient(135deg, #fdecec, #ffcccc);
+  /* background: #fdecec; */
+  border-color: #e76e6e;
 }
 
 .btnPrimary {
-  background: linear-gradient(135deg, #10b981, #34d399);
+  
+  border: none;
   color: #ffffff;
+  padding: 12px 12px;
+  max-width: 125px;
+  display: flex;
+  justify-content: center;
+  font-size: 0.9rem;
+  font-weight: 500;
+  font-family: "Inter", "Roboto", "Segoe UI", sans-serif;
+  cursor: pointer;
+  
+  
+
+  background-color: #2d5dfd;
+  
 }
 
-.btnPrimary:hover {
-  background: linear-gradient(135deg, #059669, #10b981);
+.btnPrimary::before {
+  content: "";
+  
+  
+  /* background: linear-gradient(135deg, #3b79d6, #3700ff); */
+  background-color: #004fb6;
+  
+  
+  
+  
+}
+
+
+
+
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+/* .inputSelectSmall{
+    margin-bottom: 35px;
+  width: 85%;
+  padding: 14px 16px;
+  border-radius: 30px;
+  border: 1px solid #c2c8ff;
+  font-size: 0.9rem;
+  font-weight: 700;
+  font-family: "Inter", "Roboto", "Segoe UI", sans-serif; 
+  letter-spacing: 0.5px; 
+  outline: none;
+  transition: all 0.25s ease;
+  background: linear-gradient(135deg, #fcfcff, #f9fcff);
+  color: #181818;
+  -moz-appearance: textfield;
+    -webkit-appearance: none;
+  margin: 0;
+  
+  max-height: 100px;
+}
+.inputSelectSmall:focus{
+  border-color: #00439b;
+  box-shadow: 0 0 10px rgba(16, 61, 185, 0.3);
+  background: #ffffff;
+} */
+
+/* Обертка кастомного select */
+.dropdownWrapper {
+  width: 85%;
+  position: relative;
+  border-radius: 30px;
+  padding: 6px 16px;
+  border: 1px solid #c2c8ff;
+  background: linear-gradient(135deg, #fcfcff, #f9fcff);
+  backdrop-filter: blur(6px);
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+/*   margin-bottom: 35px;
+  width: 85%;
+  padding: 14px 16px;
+  border-radius: 30px;
+  border: 1px solid #c2c8ff;
+  font-size: 1.2rem;
+  font-weight: 700;
+  font-family: "Inter", "Roboto", "Segoe UI", sans-serif; 
+  letter-spacing: 0.5px; 
+  outline: none;
+  transition: all 0.25s ease;
+  background: linear-gradient(135deg, #fcfcff, #f9fcff);
+  color: #181818; */
+
+/* Выбранный элемент */
+.dropdownSelected {
+  display: flex;
+  padding: 10px 14px;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #181818;
+  user-select: none;
+  justify-content: start;
+}
+
+/* Список опций */
+.dropdownList {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  max-height: 250px; /* 7 элементов */
+  overflow-y: auto;
+  margin-top: 4px;
+  padding: 0;
+  list-style: none;
+  border-radius: 20px;
+  background: rgba(255,255,255);
+  backdrop-filter: blur(6px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  z-index: 10;
+  justify-content: start;
+}
+
+/* Элемент списка */
+.dropdownItem {
+  padding: 10px 14px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.2s;
+
+}
+.dropdownItem span{
+  color: #00439b;
+
+}
+
+.dropdownItem:hover {
+  background: rgba(0,67,155,0.08);
 }

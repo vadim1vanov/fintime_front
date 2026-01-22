@@ -19,7 +19,7 @@ export default function Header() {
       <nav className={styles.nav}>
         {isAuth ? (
           <button className={styles.logoutBtn} onClick={logout}>
-            <FaSignOutAlt />
+            <FaSignOutAlt style={{with:"auto"}}/>
             Выйти
           </button>
         ) : (

@@ -14,8 +14,8 @@
   position: sticky;
   top: 0;
   z-index: 100;
-  margin-right: 10px;
-  border: 1px solid rgba(0,0,0,0.06);
+  margin: 0 10px;
+  border: 1px solid rgba(0,0,0,0.09);
   border-radius: 13px;
 }
 
@@ -32,8 +32,8 @@
   font-size: 1.6rem;
   font-weight: 800;
   letter-spacing: 0.04em;
-
-  background: linear-gradient(135deg, #10b981, #34d399);
+color: #3700ff;
+  background: linear-gradient(135deg, #3700ff, #0099ff);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 
@@ -71,7 +71,7 @@
   font-size: 0.9rem;
   font-weight: 500;
 font-family: "Inter", "Roboto", "Segoe UI", sans-serif;
-  color: #047857;
+  color: #2c0596;
   background: #ecfdf5;
   border: 1px solid #d1fae5;
 
@@ -115,21 +115,26 @@ font-family: "Inter", "Roboto", "Segoe UI", sans-serif;
   align-items: center;
   gap: 8px;
   font-family: "Inter", "Roboto", "Segoe UI", sans-serif;
-  padding: 10px 18px;
+  padding: 8px 10px;
   border-radius: 40px;
 
-  border: 1px solid #fee2e2;
+  border: 1px solid #7e7e7e;
   background: #fff;
-  color: #dc2626;
+  color: #1a1a1a;
 
   font-size: 0.9rem;
   font-weight: 500;
   cursor: pointer;
 
   transition: 0.25s;
+
+   display: inline-flex;        /* включаем флекс для иконки и текста */
+  align-items: center;         /* вертикальное выравнивание */
+  gap: 4px;                    /* расстояние между иконкой и текстом (0 если впритык) */
 }
 
 .logoutBtn:hover {
-  background: #fee2e2;
-  border-color: #fecaca;
+  background: #ffffff;
+  border-color: #0a0a0a;
+  color: #0a0a0a;
 }
