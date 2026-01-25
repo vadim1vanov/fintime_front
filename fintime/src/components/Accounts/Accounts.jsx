@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams} from "react-router-dom";
 import { useEffect, useState, useCallback } from "react";
 import {
   DndContext,
@@ -19,7 +19,7 @@ import {
   defaultAnimateLayoutChanges,
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-
+import { NavLink } from "react-router-dom";
 import Card from "../Card/Card";
 import ConfirmModal from "../Modal/ConfirmModal";
 import TransactionModal from "../Modal/TransactionModal";
@@ -35,6 +35,9 @@ import {
   transfer
 } from "../../api/api";
 
+import {
+  FaArrowLeft
+} from "react-icons/fa"
 import styles from "./Accounts.module.css";
 
 function customAnimateLayoutChanges(args) {
@@ -62,13 +65,13 @@ function SortableCard({
 
   // флаг для отличия клика от drag
   const [dragging, setDragging] = useState(false);
-
+const [hovered, setHovered] = useState(false);
   const style = {
     transform: CSS.Transform.toString(transform),
     transition: transition || "transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)",
     opacity: isDragging ? 0 : 1,
     visibility: isDragging ? "hidden" : "visible",
-    zIndex: isDragging ? 1000 : 1,
+    zIndex: isDragging ? 1000 : hovered ? 50 : 1,
     boxShadow: isDragging ? "0 20px 40px rgba(0,0,0,0.25)" : "none",
     borderRadius: "22px",
     height: "auto",
@@ -80,17 +83,19 @@ function SortableCard({
   };
 
   return (
-    <div
-      ref={setNodeRef}
-      style={style}
-      {...attributes}
-      {...listeners}
-      onMouseDown={() => setDragging(false)}
-      onDragStart={() => setDragging(true)}
-      onClick={() => {
-        if (!dragging) navigateToAccount();
-      }}
-    >
+      <div
+        ref={setNodeRef}
+        style={style}
+        {...attributes}
+        {...listeners}
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
+        onMouseDown={() => setDragging(false)}
+        onDragStart={() => setDragging(true)}
+        onClick={() => {
+          if (!dragging) navigateToAccount();
+        }}
+      >
       <Card
         account={account}
         onDelete={onDelete}
@@ -128,7 +133,8 @@ export default function Accounts() {
   const [modal, setModal] = useState(null);
   const [activeId, setActiveId] = useState(null);
   const navigate = useNavigate();
-
+  
+const [activeTab, setActiveTab] = useState("Все счета");
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 5 } }),
     useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates })
@@ -171,6 +177,8 @@ export default function Accounts() {
 
   return (
     <div className={styles.container}>
+              <div className={styles.header}>
+    </div>
       <DndContext
         sensors={sensors}
         collisionDetection={closestCenter}

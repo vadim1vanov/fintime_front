@@ -1,0 +1,33 @@
+<svg width="7410" height="3900.0000000000005" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+
+ <g>
+  <title>background</title>
+  <rect fill="none" id="canvas_background" height="602" width="802" y="-1" x="-1"/>
+ </g>
+ <g>
+  <title>Layer 1</title>
+  <path id="svg_1" d="m0,0l6235.00034,0l0,3900l-6235.00034,0" fill="#b31942"/>
+  <path id="svg_2" d="m0,450l6240.00052,0m0,600l-6240.00052,0m0,600l6240.00052,0m0,600l-6240.00052,0m0,600l6240.00052,0m0,600l-6240.00052,0" stroke-width="300" stroke="#FFF"/>
+  <path id="svg_3" d="m0,0l2964,0l0,2100l-2964,0" fill="#0a3161"/>
+  <g id="svg_4" fill="#FFF">
+   <g id="d">
+    <g id="c">
+     <g id="e">
+      <g id="b">
+       <path d="m247,90l70.534,217.082l-184.66,-134.164l228.253,0l-184.661,134.164l70.534,-217.082z" id="a"/>
+       <use id="svg_5" y="420" xlink:href="#a"/>
+       <use id="svg_6" y="840" xlink:href="#a"/>
+       <use id="svg_7" y="1260" xlink:href="#a"/>
+      </g>
+      <use id="svg_8" y="1680" xlink:href="#a"/>
+     </g>
+     <use id="svg_9" y="210" x="247" xlink:href="#b"/>
+    </g>
+    <use id="svg_10" x="494" xlink:href="#c"/>
+   </g>
+   <use id="svg_11" x="988" xlink:href="#d"/>
+   <use id="svg_12" x="1976" xlink:href="#c"/>
+   <use id="svg_13" x="2470" xlink:href="#e"/>
+  </g>
+ </g>
+<script xmlns=""/></svg>

@@ -1,0 +1,44 @@
+.navHeaderWrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.navHeader {
+  background-color: #e5e8ec;
+  border-radius: 13px;
+  display: flex;
+  align-items: center;
+  padding: 2px;
+  justify-content: space-between;
+  width: 1760px;
+  margin-top: 20px;
+}
+
+.rightNavItems {
+  display: flex;
+}
+
+.navBtn {
+  border: none;
+  background: transparent;
+  color: #384353;
+  padding: 12px 25px;
+  border-radius: 13px;
+  cursor: pointer;
+  font-weight: 500;
+  font-family: "Inter", "Roboto", "Segoe UI", sans-serif;
+  text-decoration: none;
+}
+
+.navBtn:hover {
+  background-color: #fcfcfc;
+}
+
+.navBtn:active {
+  background-color: #ffffff;
+}
+
+.activeTab {
+  background-color: #ffffff;
+  color: #004db1;
+}

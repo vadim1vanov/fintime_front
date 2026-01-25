@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { 
-  FaTimes, 
+  FaTrashAlt, 
   FaLock, 
   FaEllipsisV, 
   FaSyncAlt,
@@ -9,6 +9,9 @@ import {
   FaExchangeAlt,
   FaMinus
 } from "react-icons/fa";
+import Tooltip from "../Tooltip/Tooltip";
+import { FiTrash2 } from "react-icons/fi";
+import { FiCheck } from "react-icons/fi";
 import { HiX } from "react-icons/hi";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -48,12 +51,12 @@ export default function Card({
 
   const getCurrencyFlag = (currency) => {
     switch (currency) {
-      case "RUB": return "🇷🇺";
-      case "USD": return "🇺🇸";
-      case "EUR": return "🇪🇺";
-      case "JPY": return "🇯🇵";
-      case "CNY": return "🇨🇳";
-      case "GBP": return "🇬🇧";
+      case "RUB": return "/flags/ru.svg";
+      case "USD": return "/flags/us.svg";
+      case "EUR": return "/flags/eu.svg";
+      case "JPY": return "/flags/jp.svg";
+      case "CNY": return "/flags/cn.svg";
+      case "GBP": return "/flags/gb.svg";
       default: return "💰";
     }
   };
@@ -74,7 +77,11 @@ export default function Card({
       <div className={styles.header}>
         <div className={styles.headerLeft}>
           <div className={styles.icon}>
-            <span className={styles.flag}>{getCurrencyFlag(account.currency)}</span>
+            <img
+  src={getCurrencyFlag(account.currency)}
+  alt={account.currency}
+  className={`${!(account.currency === "USD") ? styles.flag :  styles.flagUs}`}
+/>
           </div>
           <div>
             <h3 className={styles.title}>
@@ -83,21 +90,20 @@ export default function Card({
             <span className={styles.currency}>{account.currency}</span>
           </div>
         </div>
+        <div className={styles.headerRight}>
+          <div className={`${styles.statusAccount} ${isClosed ? styles.closedStatus : styles.activeStatus}`}>
+             {isClosed ? "Закрыт" : "Активен"} 
+            
+          </div>
+        </div>
 
-        <button
-          className={styles.deleteBtn}
-          onClick={(e) => { e.stopPropagation(); onDelete(); }}
-          title="Удалить"
-        >
-          <HiX />
-        </button>
       </div>
 
       {/* BALANCE */}
       <div className={styles.balanceBlock}>
         <div className={styles.balanceLabel}>Баланс</div>
         <div className={styles.balance}>
-          {Number(account.balance) < 0 && <span className={styles.minus}>-</span>}
+          {Number(account.balance) < 0 && <span >-</span>}
           <span className={styles.currencyIcon}>
             <FontAwesomeIcon
               icon={getCurrencyIcon(account.currency)}
@@ -113,28 +119,40 @@ export default function Card({
           </span>
     { !isClosed && (
       <>
-      <button
-            className={styles.lockBtn}
-        onClick={(e) => { 
-          e.stopPropagation(); // <-- останавливаем переход
-          onClose(); 
-          setMenuOpen(false);
-        }}
-        title="Закрыть"
-      > 
-        <FaLock />
-      </button>
 
+  <button
+    className={styles.lockBtn}
+    onClick={(e) => {
+      e.stopPropagation();
+      onClose();
+      setMenuOpen(false);
+    }}
+  ><Tooltip text="Закрыть">
+    <FaLock /></Tooltip>
+  </button>
+
+      
       <button
         className={styles.refreshBtn}
-        title="Синхронизировать"
+        
         onClick={(e) => { 
           e.stopPropagation(); 
           
         }}
       >
+<Tooltip text="Синхронизировать">
   <FaSyncAlt />
+  </Tooltip>
 </button></>)}
+<button
+  className={styles.deleteBtn}
+  onClick={(e) => { e.stopPropagation(); onDelete(); }}
+  
+>
+  <Tooltip text="Удалить">
+    <FaTrashAlt />
+  </Tooltip>
+</button>
 
         </div>
       </div>

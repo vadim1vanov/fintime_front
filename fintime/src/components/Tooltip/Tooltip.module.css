@@ -1,0 +1,43 @@
+/* Tooltip.module.css */
+.wrapper {
+  display: inline-flex; /* чтобы children оставались inline */
+  position: relative; /* обязательно для привязки к элементу */
+}
+
+/* общий стиль tooltip */
+.tooltip {
+  background: #1f2d3d;
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  white-space: nowrap;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(5px);
+  animation: fadeIn 0.2s ease forwards;
+  font-family: "Inter", "Roboto", "Segoe UI", sans-serif;
+  font-weight: 600;
+}
+
+/* Анимация появления */
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Стили для позиций, хотя координаты задаются инлайн через JS */
+.top {
+  /* координаты override через inline style */
+}
+
+.left {
+  
+}
+
+.right {
+  /* координаты override через inline style */
+}

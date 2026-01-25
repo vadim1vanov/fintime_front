@@ -43,3 +43,92 @@
     gap: 20px;
   }
 }
+
+.cardBalanceButtons{
+  display: flex;
+  justify-content: start;
+  gap: 10px;
+  margin-top: 30px;
+  
+  justify-content: center;
+}
+
+.navHeader button{
+  border: none;
+  background: transparent;
+  color: #384353;
+  padding: 12px 25px;
+  border-radius: 13px;
+  cursor: pointer;
+  font-weight: 500;
+  font-family: "Inter", "Roboto", "Segoe UI", sans-serif;
+}
+
+.navHeader button:hover{
+  background-color: #fcfcfc;
+  
+}
+
+.navHeader button:active{
+  background-color: #ffffff;
+}
+
+
+.navHeader button.activeTab {
+  background-color: #ffffff; /* активная кнопка белая */
+  color: #004db1;
+  
+}
+
+.navHeader{
+  background-color: #e5e8ec;
+  border-radius: 13px;
+  display: flex;
+  align-items: center;
+  padding: 2px 2px;
+  justify-content: space-between;
+  width: 1760px;
+  margin-top: 20px;
+}
+
+.navHeaderWrapper{
+  display: flex;
+  justify-content: center;
+}
+
+.headerLeft{
+    display: flex;
+  
+  align-items: start;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.navBtn {
+  border: none;
+  background: transparent;
+  color: #384353;
+  padding: 12px 25px;
+  border-radius: 13px;
+  cursor: pointer;
+  font-weight: 400;
+  font-size: 14px;
+  font-family: "Inter", "Roboto", "Segoe UI", sans-serif;
+
+  /* важно для <a> */
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.navBtn:hover {
+  background-color: #fcfcfc;
+}
+
+.navBtn:active {
+  background-color: #ffffff;
+}
+.activeTab {
+  background-color: #ffffff;
+  color: #004db1;
+}
