@@ -47,6 +47,7 @@ font-family: "Inter", "Roboto", "Segoe UI", sans-serif;
   align-items: center;
   justify-content: center;
   overflow: hidden; /* чтобы флаг не вылезал */
+  box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.15 );
 }
 
 .flag {
@@ -382,11 +383,12 @@ justify-content: center;
 {
   position: absolute;
 font-family: "Inter", "Roboto", "Segoe UI", sans-serif;
-
+  width: 25px;
+  height: 25px;
   border-radius: 50%;
   border: none;
-     /* background: linear-gradient(135deg, #f9fcff, #f7f7f7);  */
-   background: transparent;
+ 
+  
   transition: box-shadow 0.3s ease;
  color: #466388;
   cursor: pointer;
@@ -401,8 +403,8 @@ right: 10px;
 .refreshBtn svg,
 .lockBtn svg,
 .deleteBtn svg{
-  width: 14px;
-  height: 15px;
+  width: 12px;
+  height: 12px;
 }
 /* DELETE
 .deleteBtn {
@@ -429,16 +431,17 @@ font-size: 1em;
 }
 
 .deleteBtn:hover {
- 
-  color: #fd8282;
+ background-color: #ffe2e2;
+  color: #ff5d80;
 }
 .refreshBtn:hover,
 
 .lockBtn:hover{
-  color: #ffc400;
+  color: #d49d03;
+  background-color: #f8e9c1;
 }
 .refreshBtn:hover {
-  
+  background-color: #d7f3ff;
   color: #50cdff;
 }
 

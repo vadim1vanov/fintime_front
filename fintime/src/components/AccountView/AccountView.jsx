@@ -9,6 +9,7 @@
     restoreAccount
   } from "../../api/api";
 import { NavLink } from "react-router-dom";
+import { LuArrowUpFromLine } from "react-icons/lu";
   import {
     FaArrowLeft,
     FaPlus,
@@ -16,7 +17,11 @@ import { NavLink } from "react-router-dom";
     FaLock,
     FaUndo
   } from "react-icons/fa";
-
+import { LiaExchangeAltSolid } from "react-icons/lia";
+import { LuArrowRightLeft } from "react-icons/lu";
+import { LiaLockSolid } from "react-icons/lia";
+import { LuWallet } from "react-icons/lu";
+import { LiaUploadSolid } from "react-icons/lia";
   import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
   import {
     faDollarSign,
@@ -25,7 +30,8 @@ import { NavLink } from "react-router-dom";
     faYenSign,
     faPoundSign
   } from "@fortawesome/free-solid-svg-icons";
-
+import { LiaWalletSolid } from "react-icons/lia";
+import { LuLock } from "react-icons/lu";
   import ConfirmModal from "../Modal/ConfirmModal";
   import TransactionModal from "../Modal/TransactionModal";
   import styles from "./AccountView.module.css";
@@ -96,7 +102,7 @@ import { NavLink } from "react-router-dom";
 
 <div className={styles.rightNavItems}>
   <NavLink
-    to="/accounts"
+    to="/account"
     className={({ isActive }) =>
       `${styles.navBtn} ${isActive ? styles.activeTab : ""}`
     }
@@ -107,6 +113,14 @@ import { NavLink } from "react-router-dom";
   {id && (
     <>
 
+      <NavLink
+        to={`/accounts/${id}`}
+        className={({ isActive }) =>
+          `${styles.navBtn} ${isActive ? styles.activeTab : ""}`
+        }
+      >
+        Данные счёта
+      </NavLink>
 
       <NavLink
         to={`/accounts/${id}/transactions`}
@@ -178,16 +192,21 @@ import { NavLink } from "react-router-dom";
       {!isClosed && (
         <>
           <button onClick={() => setModal({ type: "income" })} className={styles.deposit}>
-            <FaPlus /> Пополнить
+            <LuWallet  />
           </button>
   <div className={styles.actions}>
 
           <button onClick={() => setModal({ type: "expense" })} className={styles.withdraw}>
-            <FaMinus /> Снять
+            <LuArrowUpFromLine  />
           </button>
-          <button onClick={() => setModal({ type: "close" })} className={styles.transferBtn}>
-            <FaLock /> Закрыть
-          </button></div>
+                              <button onClick={() => setModal({ type: "transfer" })} className={styles.transferBtn}>
+            <LuArrowRightLeft />
+          </button>
+          <button onClick={() => setModal({ type: "close" })} className={styles.closeBtn}>
+            <LuLock/>
+          </button>
+
+          </div>
         </>
       )}
       {isClosed && (
@@ -282,6 +301,8 @@ import { NavLink } from "react-router-dom";
             }}
           />
         )}
+        
+        
       </div>
     );
   }

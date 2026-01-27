@@ -132,3 +132,44 @@
   background-color: #ffffff;
   color: #004db1;
 }
+
+.addCard {
+  width: 410px;
+  height: 255px;
+
+  border-radius: 30px;
+  border: 2px dashed #c7d2fe;
+  background: #fafbff;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.addCard:hover {
+  border-color: #ecae04;
+  background: #ffffff;
+}
+
+.addInner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  color: #242d44;
+}
+
+
+.plus {
+  font-size: 48px;
+  font-weight: 300;
+  line-height: 1;
+}
+
+.addText {
+  font-size: 0.95rem;
+  font-weight: 500;
+}

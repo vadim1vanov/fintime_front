@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { createPortal } from "react-dom";
 import styles from "./Tooltip.module.css";
 
-export default function Tooltip({ text, children }) {
+export default function Tooltip({ text, children, disabled }) {
   const [visible, setVisible] = useState(false);
   const [coords, setCoords] = useState({ top: 0, left: 0 });
   const wrapperRef = useRef(null);
@@ -19,27 +19,32 @@ export default function Tooltip({ text, children }) {
     const tooltipWidth = tooltipRect.width;
     const tooltipHeight = tooltipRect.height;
 
-    let left = rect.right + 8; // стандартно справа с отступом
-    let top = rect.top + rect.height / 2 - tooltipHeight / 2;
+    let left = rect.right + 16; // стандартно справа с отступом
+    let top = rect.top + rect.height / 2 - tooltipHeight / 2 - 5;
 
     // проверяем, не выходит ли tooltip за правую границу
     if (left + tooltipWidth > viewportWidth) {
-      left = viewportWidth - tooltipWidth - 80; // сдвигаем к границе
+      left = viewportWidth - tooltipWidth - 8; // сдвигаем к границе
     }
 
     // проверяем верхнюю и нижнюю границы экрана
     if (top < 8) top = 8; // не выходим за верх
-    if (top + tooltipHeight > viewportHeight - 8) top = viewportHeight - tooltipHeight - 8; // не выходим за низ
+    if (top + tooltipHeight > viewportHeight - 8)
+      top = viewportHeight - tooltipHeight - 8; // не выходим за низ
 
     setCoords({ top, left });
   };
 
   useEffect(() => {
+    if (disabled) return; // если disabled, не делаем эффекты
     if (visible) updatePosition();
     const handleResize = () => visible && updatePosition();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  }, [visible]);
+  }, [visible, disabled]);
+
+  // если disabled, не рендерим tooltip, только children
+  if (disabled) return children;
 
   return (
     <>
@@ -55,7 +60,7 @@ export default function Tooltip({ text, children }) {
         createPortal(
           <div
             ref={tooltipRef}
-            className={`${styles.tooltip} ${styles.right}`} // всегда справа
+            className={`${styles.tooltip} ${styles.right}`}
             style={{
               position: "fixed",
               top: coords.top,

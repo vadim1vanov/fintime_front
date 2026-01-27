@@ -1,21 +1,15 @@
 .layout {
-  display: flex;       /* горизонтально: sidebar + правая колонка */
-  height: 100vh;       /* sidebar на всю высоту */
-  width: 100%;
-}
-
-/* Правая колонка с Header и контентом */
-.rightSide {
   display: flex;
-  flex-direction: column;  /* Header сверху, контент ниже */
-  flex: 1;                  /* занимает всё оставшееся место справа */
+  flex-direction: column; /* Header сверху, контент под ним */
+  height: 100vh;
+  width: 100%;
   overflow: hidden;
 }
 
 /* Контент под Header */
 .content {
   flex: 1;                 /* занимает всё пространство под Header */
-  padding: 0px;
-  overflow: auto;
-  background: transparent;
+  overflow: auto;           /* скролл, если контент больше экрана */
+  padding: 20px;            /* отступы для контента */
+       /* светлый фон для основной области */
 }

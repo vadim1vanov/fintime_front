@@ -21,14 +21,14 @@
 .balanceCard {
   margin-top: 20px;
   padding: 24px;
-  border-radius: 22px;
+  border-radius: 5px;
   background: #f9fafb;
   box-shadow: 0 5px 30px rgba(0,0,0,0.05);
 }
 
 .accountCard{
   background-color: #fff;
-  border-radius: 22px;
+  border-radius: 5px;
   padding: 14px 14px;
   box-shadow: 0 2px 10px rgba(0,0,0,0.05);
   width: 430px;
@@ -50,23 +50,10 @@
   display: flex;
   gap: 10px;
 }
-.actions button {
-  border-radius: 13px;
-  padding: 10px 18px;
-  border: none;
-  cursor: pointer;
-  background: #e2ecfd;
-  color: #00439b;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 14px;
-  font-weight: 500;
-  font-family: "Inter", "Roboto", "Segoe UI", sans-serif;
-}
+
 
 .allTransactionsBtn{
-    border-radius: 8px;
+    border-radius: 5px;
   padding: 8px 10px;
   border: none;
   cursor: pointer;
@@ -91,7 +78,7 @@
 .txCard {
   width: 450px;
   background: #f9fafb;
-  border-radius: 18px;
+  border-radius: 5px;
   padding: 16px;
   box-shadow: 0 4px 20px rgba(0,0,0,0.05);
 }
@@ -124,7 +111,7 @@
   display: flex;
   justify-content: space-between;
   background: #ffffff;
-  border-radius: 12px;
+  border-radius: 5px;
   padding: 12px 16px;
   box-shadow: 0 2px 10px rgba(0,0,0,0.04);
   transition: transform 0.1s ease;
@@ -151,7 +138,8 @@
   color: #6b7280;
 }
 .txAmount {
-  font-weight: 600;
+  font-family: "Inter", "Roboto", "Segoe UI", sans-serif;
+  font-weight: 500;
   font-size: 1rem;
 }
 .plus {
@@ -197,6 +185,7 @@
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.15 );
 }
 
 .flag {
@@ -237,10 +226,10 @@
 
 .navHeader{
   background-color: #e5e8ec;
-  border-radius: 13px;
+  border-radius: 3px;
   display: flex;
   align-items: center;
-  padding: 2px 2px;
+  
   justify-content: space-between;
 }
 
@@ -248,15 +237,15 @@
   border: none;
   background: transparent;
   color: #384353;
-  padding: 12px 25px;
-  border-radius: 13px;
+  padding: 8px 20px;
+
   cursor: pointer;
   font-weight: 500;
   font-family: "Inter", "Roboto", "Segoe UI", sans-serif;
 }
 
 .navHeader button:hover{
-  background-color: #fcfcfc;
+  background-color: #e4e3e3;
   
 }
 
@@ -270,19 +259,34 @@
   color: #004db1;
   
 }
-
-.deposit{
-border-radius: 13px;
-  padding: 10px 18px;
-  border: none;
+.actions button {
+border-radius: 8px;
+  padding: 5px 5px;
+  border: 1px solid rgb(0, 0, 0, 0.2);
+  
   cursor: pointer;
-  background: #e2ecfd;
-  color: #00439b;
+  background: transparent;
+  color: #030303;
   display: flex;
   align-items: center;
   gap: 6px;
-  font-size: 14px;
-  font-weight: 500;
+  font-size: 1.3em;
+  font-weight: 800;
+  font-family: "Inter", "Roboto", "Segoe UI", sans-serif;
+}
+.deposit{
+border-radius: 8px;
+  padding: 5px 6px;
+  border: 1px solid rgb(0, 0, 0, 0.2);
+  
+  cursor: pointer;
+  background: transparent;
+  color: #030303;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 1.3em;
+  font-weight: 800;
   font-family: "Inter", "Roboto", "Segoe UI", sans-serif;
 }
 
@@ -343,7 +347,7 @@ border-radius: 13px;
   background: transparent;
   color: #384353;
   padding: 12px 25px;
-  border-radius: 13px;
+  border-radius: 5px;
   cursor: pointer;
   font-weight: 500;
   font-family: "Inter", "Roboto", "Segoe UI", sans-serif;
@@ -355,7 +359,7 @@ border-radius: 13px;
 }
 
 .tabButton:hover {
-  background-color: #fcfcfc;
+  background-color: #e5e8ec;
 }
 
 .tabButton:active {
@@ -367,11 +371,11 @@ border-radius: 13px;
   border: none;
   background: transparent;
   color: #384353;
-  padding: 12px 25px;
-  border-radius: 13px;
+  padding: 10px 20px;
+  border-radius: 3px;
   cursor: pointer;
-  font-weight: 400;
-  font-size: 14px;
+  font-weight: 300;
+  font-size: 0.8em;
   font-family: "Inter", "Roboto", "Segoe UI", sans-serif;
 
   /* важно для <a> */
@@ -381,13 +385,21 @@ border-radius: 13px;
   justify-content: center;
 }
 .navBtn:hover {
-  background-color: #fcfcfc;
+  background-color: #f1f3f5;
+  border-bottom: 3px solid #f1f3f5;
 }
 
 .navBtn:active {
   background-color: #ffffff;
+  
 }
 .activeTab {
   background-color: #ffffff;
-  color: #2600b1;
+  color: #000000;
+  font-weight: 600;
+  border-bottom: 3px solid #ce9f05;
+}
+
+.activeTab::before{
+  
 }

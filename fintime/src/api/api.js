@@ -61,3 +61,22 @@ export const reorderAccounts = (accounts) =>
   });
 export const getAccountById = (id) =>
 fetch(`${API}/api/accounts/${id}`, { credentials: "include" }).then(r => r.json());
+
+
+export const createAccount = async (data) => {
+  const res = await fetch(`${API}/api/accounts`, {
+    method: "POST",
+    credentials: "include", 
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(data)
+  });
+
+
+  if (!res.ok) {
+    throw new Error("Ошибка создания счёта");
+  }
+
+  return res.json();
+};

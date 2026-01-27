@@ -2,6 +2,12 @@
 .wrapper {
   display: inline-flex; /* чтобы children оставались inline */
   position: relative; /* обязательно для привязки к элементу */
+    width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 30px;
 }
 
 /* общий стиль tooltip */
@@ -11,12 +17,13 @@
   padding: 6px 10px;
   border-radius: 6px;
   font-size: 12px;
+
   white-space: nowrap;
   box-shadow: 0 4px 10px rgba(0,0,0,0.2);
   pointer-events: none;
   opacity: 0;
   transform: translateY(5px);
-  animation: fadeIn 0.2s ease forwards;
+  animation: fadeIn 0s ease forwards;
   font-family: "Inter", "Roboto", "Segoe UI", sans-serif;
   font-weight: 600;
 }

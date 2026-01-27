@@ -34,6 +34,8 @@ import {
   reorderAccounts,
   transfer
 } from "../../api/api";
+import CreateAccountModal from "../Modal/CreateAccountModal";
+import { createAccount } from "../../api/api";
 
 import {
   FaArrowLeft
@@ -66,6 +68,8 @@ function SortableCard({
   // флаг для отличия клика от drag
   const [dragging, setDragging] = useState(false);
 const [hovered, setHovered] = useState(false);
+
+
   const style = {
     transform: CSS.Transform.toString(transform),
     transition: transition || "transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)",
@@ -88,8 +92,8 @@ const [hovered, setHovered] = useState(false);
         style={style}
         {...attributes}
         {...listeners}
-        onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}
+        onMouseEnter={() => !isDragging && setHovered(true)}
+        onMouseLeave={() => !isDragging && setHovered(false)}
         onMouseDown={() => setDragging(false)}
         onDragStart={() => setDragging(true)}
         onClick={() => {
@@ -104,6 +108,7 @@ const [hovered, setHovered] = useState(false);
         onIncome={onIncome}
         onExpense={onExpense}
         onTransfer={onTransfer}
+        isDragging={isDragging} // <-- вот здесь
       />
     </div>
   );
@@ -133,24 +138,32 @@ export default function Accounts() {
   const [modal, setModal] = useState(null);
   const [activeId, setActiveId] = useState(null);
   const navigate = useNavigate();
-  
+  const [loading, setLoading] = useState(true);
+const handleCreateAccount = () => {
+  setModal({ type: "create" });
+};
+
+
 const [activeTab, setActiveTab] = useState("Все счета");
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 5 } }),
     useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates })
   );
 
-  const loadAccounts = useCallback(async () => {
-    try {
-      const data = await getAccounts();
-      const sorted = [...data].sort(
-        (a, b) => (a.account_position ?? 0) - (b.account_position ?? 0)
-      );
-      setAccounts(sorted);
-    } catch (err) {
-      console.error("Ошибка загрузки:", err);
-    }
-  }, []);
+const loadAccounts = useCallback(async () => {
+  try {
+    const data = await getAccounts();
+    const sorted = [...data].sort(
+      (a, b) => (a.account_position ?? 0) - (b.account_position ?? 0)
+    );
+    setAccounts(sorted);
+  } catch (err) {
+    console.error("Ошибка загрузки:", err);
+  } finally {
+    setLoading(false);
+  }
+}, []);
+
 
   useEffect(() => {
     loadAccounts();
@@ -189,19 +202,31 @@ const [activeTab, setActiveTab] = useState("Все счета");
         <SortableContext items={accounts.map((acc) => acc.id)} strategy={rectSortingStrategy}>
           <div className={styles.grid}>
             {accounts.map((acc) => (
-              <SortableCard
-                key={acc.id}
-                id={acc.id}
-                account={acc}
-                onDelete={() => setModal({ type: "delete", acc })}
-                onClose={() => setModal({ type: "close", acc })}
-                onRestore={() => setModal({ type: "restore", acc })}
-                onIncome={() => setModal({ type: "income", acc })}
-                onExpense={() => setModal({ type: "expense", acc })}
-                onTransfer={() => setModal({ type: "transfer", acc })}
-                navigateToAccount={() => navigate(`${acc.id}`)}
-              />
-            ))}
+  <SortableCard
+    key={acc.id}
+    id={acc.id}
+    account={acc}
+    onDelete={() => setModal({ type: "delete", acc })}
+    onClose={() => setModal({ type: "close", acc })}
+    onRestore={() => setModal({ type: "restore", acc })}
+    onIncome={() => setModal({ type: "income", acc })}
+    onExpense={() => setModal({ type: "expense", acc })}
+    onTransfer={() => setModal({ type: "transfer", acc })}
+    navigateToAccount={() => navigate(`${acc.id}`)}
+  />
+))}
+
+{!loading && (
+  <div
+    className={styles.addCard}
+    onClick={handleCreateAccount}
+  >
+  <div className={styles.addInner}>
+    <div className={styles.plus}>+</div>
+    <div className={styles.addText}>Создать счёт</div>
+  </div>
+</div>)}
+
           </div>
         </SortableContext>
 
@@ -281,6 +306,16 @@ const [activeTab, setActiveTab] = useState("Все счета");
           }}
         />
       )}
+      {modal?.type === "create" && (
+  <CreateAccountModal
+    onCancel={() => setModal(null)}
+    onSubmit={(data) => {
+      createAccount(data).then(loadAccounts);
+      setModal(null);
+    }}
+  />
+)}
+
 
     </div>
   );

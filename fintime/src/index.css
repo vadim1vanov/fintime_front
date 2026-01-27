@@ -43,7 +43,7 @@ html, body, #root {
   height: 100%;
   width: 100%;
   font-family: "Inter", "Roboto", "Segoe UI", sans-serif;
-  background-color: #f0f2f5; /* светлый фон, как у приложения */
+  background-color: #f6f7fa; /* светлый фон, как у приложения */
 }
 
 
