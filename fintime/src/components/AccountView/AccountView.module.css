@@ -229,7 +229,7 @@
   border-radius: 3px;
   display: flex;
   align-items: center;
-  
+  font-family: "Inter", "Roboto", "Segoe UI", sans-serif;
   justify-content: space-between;
 }
 
@@ -248,6 +248,7 @@
   background-color: #e4e3e3;
   
 }
+
 
 .navHeader button:active{
   background-color: #ffffff;
@@ -389,8 +390,12 @@ border-radius: 8px;
   border-bottom: 3px solid #f1f3f5;
 }
 
+.navBtn::after{
+  background:transparent;
+}
+
 .navBtn:active {
-  background-color: #ffffff;
+  
   
 }
 .activeTab {

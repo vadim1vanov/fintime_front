@@ -153,7 +153,7 @@ import { LuLock } from "react-icons/lu";
 </div>
           
           </div>
-  {/* BALANCE CARD с названием и флагом */}
+
   <div className={styles.balanceCard}>
     <div className={styles.accountCard}>
     <div className={styles.accountTitle}>

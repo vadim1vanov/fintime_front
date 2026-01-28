@@ -1,6 +1,6 @@
 .header {
   height: 48px;
-  background: #1b1c24;
+  background: rgb(19, 22, 41);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -124,7 +124,7 @@
   top: 48px;
   right: 0;
   /* Полупрозрачный фон вместо сплошного */
-  background: rgba(38, 40, 49, 0.9); /* #262831 с прозрачностью */
+  background: rgb(19, 22, 41, 0.9); /* #262831 с прозрачностью */
   backdrop-filter: blur(10px);       /* сильнее размытие фона */
   border: 1px solid rgba(255, 255, 255, 0.1); /* тонкая граница */
   border-radius: 5px;
