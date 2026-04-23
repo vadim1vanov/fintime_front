@@ -80,3 +80,9 @@ export const createAccount = async (data) => {
 
   return res.json();
 };
+
+
+export const getIncomeCategories = () =>
+  fetch(`${API}/api/transationcategory/income`, {
+    credentials: "include"
+  }).then(r => r.json());

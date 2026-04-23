@@ -144,14 +144,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-
+  user-select: none;
   cursor: pointer;
   transition: 0.25s ease;
 }
 
 .addCard:hover {
-  border-color: #ecae04;
-  background: #ffffff;
+  border-color: #049fec;
+  background: #f6faff;
 }
 
 .addInner {

@@ -273,6 +273,7 @@ const loadAccounts = useCallback(async () => {
         <TransactionModal
           title="Пополнение счёта"
           onCancel={() => setModal(null)}
+          currency={modal.acc.currency}
           onSubmit={(data) => {
             income(modal.acc.id, data).then(loadAccounts);
             setModal(null);
@@ -282,6 +283,7 @@ const loadAccounts = useCallback(async () => {
       {modal?.type === "expense" && (
         <TransactionModal
           title="Снятие со счёта"
+          currency={modal.acc.currency}
           onCancel={() => setModal(null)}
           onSubmit={(data) => {
             expense(modal.acc.id, data).then(loadAccounts);
@@ -293,6 +295,7 @@ const loadAccounts = useCallback(async () => {
         <TransferModal
           title="Перевод на счёт"
           fromAccount={modal.acc}
+          currency={modal.acc.currency}
           accounts={accounts.filter(a => a.id !== modal.acc.id)}
           onCancel={() => setModal(null)}
           onSubmit={(data) => {

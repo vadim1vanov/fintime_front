@@ -1,16 +1,143 @@
 .header {
-  height: 48px;
-  background: rgb(19, 22, 41);
+  height: 54px;
+  background: #ffffff;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
+
   padding: 0 28px;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.04);
+
+  /* border-bottom: 1px solid rgba(0,0,0,0.06);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.04); */
+
   position: sticky;
   top: 0;
   z-index: 100;
+  
+  /* border: 1px solid rgba(0,0,0,0.09); */
+  /* border-radius: 13px; */
 }
 
+/* LOGO */
+
+.logoBlock {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+
+.logo {
+  font-family: "Onest", sans-serif;
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+color: #3700ff;
+  background: linear-gradient(135deg, #3700ff, #0099ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  line-height: 1;
+}
+
+.subtitle {
+  font-family: "Inter", sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #64748b;
+  margin-top: 2px;
+}
+
+/* NAV */
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+/* LINKS */
+
+.link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 10px 18px;
+  border-radius: 40px;
+
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+font-family: "Inter", "Roboto", "Segoe UI", sans-serif;
+  color: #2c0596;
+  background: #ecfdf5;
+  border: 1px solid #d1fae5;
+
+  transition: 0.25s;
+}
+
+.link:hover {
+  background: #d1fae5;
+  border-color: #6ee7b7;
+}
+
+/* PRIMARY */
+
+.primaryLink {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 10px 20px;
+  border-radius: 40px;
+
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+
+  color: #ffffff;
+  background: linear-gradient(135deg, #10b981, #34d399);
+
+  box-shadow: 0 6px 18px rgba(16, 185, 129, 0.35);
+  transition: 0.25s;
+}
+
+.primaryLink:hover {
+  box-shadow: 0 10px 28px rgba(16, 185, 129, 0.45);
+}
+
+/* LOGOUT */
+
+.logoutBtn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: "Inter", "Roboto", "Segoe UI", sans-serif;
+  padding: 8px 10px;
+  border-radius: 40px;
+
+  border: 1px solid #7e7e7e;
+  background: #fff;
+  color: #1a1a1a;
+
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+
+  transition: 0.25s;
+
+   display: inline-flex;        /* включаем флекс для иконки и текста */
+  align-items: center;         /* вертикальное выравнивание */
+  gap: 4px;                    /* расстояние между иконкой и текстом (0 если впритык) */
+}
+
+.logoutBtn:hover {
+  background: #ffffff;
+  border-color: #0a0a0a;
+  color: #0a0a0a;
+}
 .leftBlock {
   display: flex;
   align-items: stretch;
@@ -18,29 +145,9 @@
   height: 100%;
 }
 
-.logoBlock {
-  color: linear-gradient(135deg, #fd9308, #fdc408);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-.logoBottom{
-  color: #ffffff;
-  text-transform: uppercase;
-  font-size: 0.7em;
-  font-family: "Inter", sans-serif;
-  
-}
 
-.logo {
-  font-weight: 700;
-  font-size: 1.2rem;
-  color: #fdc408;
 
-  background: linear-gradient(135deg,  #fcb900, #fdd808);
-    -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
+
 
 .nav {
   display: flex;
@@ -121,14 +228,14 @@
 
 .dropdown {
   position: absolute;
-  top: 48px;
+  top: 52px;
   right: 0;
   /* Полупрозрачный фон вместо сплошного */
-  background: rgb(19, 22, 41, 0.9); /* #262831 с прозрачностью */
-  backdrop-filter: blur(10px);       /* сильнее размытие фона */
-  border: 1px solid rgba(255, 255, 255, 0.1); /* тонкая граница */
-  border-radius: 5px;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  background: rgba(255, 255, 255, 1); /* #262831 с прозрачностью */
+        /* сильнее размытие фона */
+  border: 1px solid rgba(255, 255, 255, 0); /* тонкая граница */
+  border-radius: 20px;
+  box-shadow: 0 0px 2px rgba(0,0,0,0.4);
   /* Убери opacity! Он размывает текст внутри */
   /* opacity: 0.5; ← удалить эту строку */
   display: flex;
@@ -136,32 +243,52 @@
   min-width: 320px;
   z-index: 1000; /* выше header */
 }
+.dropdown {
+  opacity: 0;
+  transform: translateY(-60px);
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.dropdown.open {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
 
 
 .dropdownItem {
-  font-family: "Inter", "Roboto", "Segoe UI", sans-serif;
+  font-family: "Onest", sans-serif;
   display: flex;
   align-items: center;
   gap: 6px;
   padding: 14px 18px;
-  font-size: 0.9rem;
-  color: #ffffff;
+  margin: 2px 10px;
+
+  font-size: 1rem;
+  color: #000000;
   text-decoration: none;
   cursor: pointer;
   transition: background 0.2s;
   background: none;
   border: none;
-  border-radius: 5px;
-  font-weight: 400;
+  border-radius: 13px;
+  font-weight: 500;
+  transform:translateY(10);
+  
 }
 .dropdownItem svg{
   margin-right: 8px;
   font-size: 1.2em;
 }
+.dropdownItem:last-child{
+  margin-bottom: 10px;
+}
 
 .dropdownItem:hover {
-  background-color: #333444;
-  color: #fdc408;
+  background: linear-gradient(135deg, #f6f0ff,#ebf2ff );
+  color: #000000;
+  
 }
 /* стрелка справа у пункта меню */
 .arrow {
@@ -174,7 +301,7 @@
 /* вращение при наведении */
 .navItem:hover .arrow {
   transform: rotate(180deg);
-  color: #fdc408;
+   color: #000000;
 }
 
 
@@ -185,6 +312,10 @@
   align-items: center;
   gap: 20px;
   padding: 14px 18px;
+  margin: 10px;
+  border-radius: 13px;
+
+  background: linear-gradient(135deg, #ebf2ff, #f6f0ff);
 }
 
 .userAvatarLarge {
@@ -195,7 +326,7 @@
   color: #1b1c24;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: center;  
   font-weight: 700;
   font-size: 1.1rem;
 }
@@ -204,21 +335,21 @@
   display: flex;
   flex-direction: column;
 }
-
-.userName {
+ 
+.userName {  
   font-size: 1.2rem;
-  font-weight: 600;
-  color: #ffffff;
+  font-weight: 800; 
+  color: #000000;
 }
 
 .userEmail {
   font-size: 0.9rem;
-  color: #a1a1aa;
+  color: #313131;
 }
 
 /* линия-разделитель */
 .dropdownDivider {
   height: 1px;
-  background: rgba(255,255,255,0.2);
-  margin: 4px 0;
+  background: rgba(0, 0, 0, 0.1);
+   margin: 6px 0; 
 }

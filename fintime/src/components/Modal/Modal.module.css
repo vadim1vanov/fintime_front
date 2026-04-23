@@ -11,12 +11,12 @@
 /* Модалка */
 .modal {
   position: relative;
-  width: 700px; 
+  width: 1000px; 
   max-width: 100%;
   padding: 36px 32px;
   background: rgba(255, 255, 255);
   background: blur(10px);
-  border-radius: 30px;
+  border-radius: 5px;
   box-shadow: 0 5px 25px rgba(0, 0, 0, 0.15); 
   animation: fadeIn 0.25s ease;
   display: flex;
@@ -99,10 +99,10 @@
 }
 
 .input {
-  margin-bottom: 35px;
+ 
   width: 85%;
   padding: 14px 16px;
-  border-radius: 30px;
+  border-radius: 14px;
   border: 1px solid #c2c8ff;
   font-size: 1.2rem;
   font-weight: 700;
@@ -125,8 +125,8 @@
 .modalFooter {
   display: flex;
   justify-content: center;
-  gap: 16px;
-  margin-top: 16px;
+  gap: 30px;
+  margin-top: 35px;
   width: 100%;
 }
 
@@ -138,7 +138,7 @@
   cursor: pointer;
   transition: all 0.1s ease;
   border: none;
-  border-radius: 22px;
+  border-radius: 7px;
   
   
   font-family: "Inter", "Roboto", "Segoe UI", sans-serif;
@@ -149,6 +149,11 @@
   border: 1px solid #d2d1fa;
   color: #1c1d22;
   max-width: 90px;
+  padding: 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: "Inter", "Roboto", "Segoe UI", sans-serif;
+  font-weight: 500;
 }
 
 .btnCancel:hover {
@@ -160,22 +165,28 @@
 .btnPrimary {
   
   border: none;
-  color: #ffffff;
+  color: #3e3e3e;
   padding: 12px 12px;
-  max-width: 125px;
+  width: 175px;
   display: flex;
   justify-content: center;
-  font-size: 0.9rem;
-  font-weight: 500;
-  font-family: "Inter", "Roboto", "Segoe UI", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: "Onest", sans-serif;
   cursor: pointer;
-  
-  
-
-  background-color: #2d5dfd;
-  
+  border-radius: 15px;
+  /* border: 1px solid #c1c3c6; */
+border: 1px solid #ffe684;
+  /* background-color: #ffffff; */
+  background: linear-gradient(135deg, #fde249, #ffcc34);
 }
 
+.btnPrimary:hover{
+  background-color: #ffe684;
+   background: linear-gradient(135deg, #ffee8e, #ffcf41);
+  transition: 0.2s ease-in;
+  
+}
 .btnPrimary::before {
   content: "";
   
@@ -296,6 +307,386 @@ input[type=number] {
 
 }
 
-.dropdownItem:hover {
-  background: rgba(0,67,155,0.08);
+.categoryGrid {
+  width: 85%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(90px, 2fr));
+  gap: 15px;
+  margin-bottom: 0px;
+}
+
+.categoryCard {
+  display: flex;
+  height: 110px;
+  width: 110px;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  transition: 0.2s;
+  padding: 6px;
+  border-radius: 12px;
+}
+
+
+.categoryCard:hover:not(.active) {
+  transform: translateY(-2px);
+  background: rgba(0,0,0,0.03);
+}
+
+.active {
+  background: rgba(154, 173, 235, 0.12);
+  
+}
+
+
+.categoryIcon {
+  width: 60px;
+  height: 60px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 22px;
+}
+
+.categoryName {
+  margin-top: 6px;
+  font-size: 0.75rem;
+  text-align: center;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+
+
+
+
+
+
+
+/* затемнение */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* основная модалка */
+.modal {
+  position: relative;
+  width: 650px;
+  height: 720px;
+  padding: 36px;
+  background: white;
+  border-radius: 24px;
+  z-index: 2;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+}
+
+/* ВТОРАЯ МОДАЛКА-ВИДЖЕТ */
+.categoryWidget {
+  position: absolute;
+  left: calc(50% + 330px); /* "вылетает" из модалки */
+  top: calc(50% - 5%) ;
+  transform: translateY(-50%) translateX(-30px) scale(0.95);
+  width: 520px;
+  height: 720px;
+  padding: 0 10px;
+      background: rgb(243 247 255 / 87%);
+  border-radius: 24px;
+     border-top: 1px solid #ffffff;
+    border-bottom: 1px solid #ffffff;
+  opacity: 0;
+  pointer-events: none;
+    backdrop-filter: blur(5px);
+  transition: 0.25s ease;
+  z-index: 3;
+  overflow: hidden;
+}
+
+/* открытие */
+.openWidget {
+  opacity: 1;
+  transform: translateY(-50%) translateX(0) scale(1);
+  pointer-events: all;
+}
+
+/* header */
+.widgetHeader {
+  display: flex;
+  justify-content: space-between;
+  padding: 16px;
+  font-weight: 700;
+}
+.categoryGrid {
+  width: 100%;
+  display: grid;
+
+  grid-template-columns: repeat(4, 1fr); /* фиксируем ровную сетку */
+  justify-items: center; /* центр карточек */
+  align-items: center;
+
+  gap: 18px;
+  padding: 20px;
+}
+
+/* карточка */
+.categoryCard {
+  width: 100%;
+  max-width: 110px;
+  height: 120px;
+  background-color: rgb(255, 255, 255, 0.77);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 14px;
+  transition: 0.2s;
+  user-select: none;
+}
+
+.categoryCard:hover {
+  transform: translateY(-2px);
+}
+
+.active {
+  background: rgba(122, 140, 179, 0.15);
+ 
+}
+
+/* иконка */
+.categoryIcon {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 20px;
+}
+
+/* текст */
+.category_name {
+  margin-top: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-align: center;
+}
+.categoryGrid {
+  grid-auto-rows: 130px;
+}
+
+
+
+
+
+
+
+
+.categorySelectRow {
+  width: 85%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  user-select: none;
+  padding: 10px 12px;
+  border-radius: 14px;
+
+  border: 1px solid #c2c8ff;
+  background: linear-gradient(135deg, #fcfcff, #f9fcff);
+
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.categorySelectRow:hover {
+  border-color: #2d5dfd;
+  box-shadow: 0 0 10px rgba(45, 93, 253, 0.15);
+}
+
+/* левая кнопка */
+.categorySelectBtn {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: #1c1e22;
+
+  padding: 6px 12px;
+  border-radius: 14px;
+
+  background: #eef2ff;
+}
+
+/* правая часть (выбранная категория) */
+.categorySelectedPreview {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* иконка */
+.previewIcon {
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: white;
+  font-size: 14px;
+}
+
+/* текст */
+.previewText {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+/* если не выбрано */
+.placeholder {
+  font-size: 0.85rem;
+  color: #94a3b8;
+}
+
+/* обертка input */
+.amountWrapper {
+  position: relative;
+  width: 85%;
+}
+
+/* крестик */
+.clearBtn {
+  position: absolute;
+  right: 10px;
+  top: calc(50% - 5%) ;
+  transform: translateY(-50%);
+
+  width: 24px;
+  height: 24px;
+
+  border: none;
+  border-radius: 50%;
+
+  background: #eef2ff;
+  color: #64748b;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.clearBtn:hover {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+/* подсказки */
+.amountHints {
+  width: 85%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: -20px;
+  margin-bottom: 10px;
+}
+
+/* кнопка суммы */
+.hint {
+  padding: 6px 12px;
+  border-radius: 10px;
+
+  background: #f1f5ff;
+  color: #5c6776;
+
+  font-size: 0.9rem;
+  font-weight: 700 !important;
+
+  cursor: pointer;
+  transition: 0.2s;
+}
+.hint span {
+  font-weight: 700;
+}
+
+.hint:hover:not(.active){
+  background: #e0e7ff;
+}
+
+/* активная */
+
+
+.inputWrapper {
+  position: relative;
+  width: 85%; /* как был input */
+}
+
+/* сам input */
+.inputWrapper .input {
+  width: 100%;
+  padding-right: 40px; /* место под крестик */
+}
+
+.clearBtn {
+  position: absolute;
+  right: 12px;
+  top: calc(50%) ;
+  transform: translateY(-50%);
+
+  border: none;
+  background: transparent;
+
+  cursor: pointer;
+  color: #94a3b8;
+  background-color: #e7ebef;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+
+  transition: 0.2s;
+}
+
+.clearBtn:hover {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.amountHints {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+
+
+.hint:hover {
+  background: #f0f0f0;
+  border-color: #ccc;
+}
+
+
+.hintAmount {
+  font-weight: 500;
+}
+
+.hintCurrency {
+  font-weight: 600;
+  color: #555;
+  margin-left: 2px;
 }

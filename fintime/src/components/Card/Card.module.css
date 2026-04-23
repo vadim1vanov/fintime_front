@@ -6,17 +6,14 @@
   background: #ffffff;
 position: relative;
   /* border: 1px solid rgba(0, 0, 0, 0.1); */
-  box-shadow:
-    0 5px 30px rgba(0, 0, 0, 0.08),
-    inset 0 1px 0 rgba(255,255,255,0.8);
 
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-font-family: "Inter", "Roboto", "Segoe UI", sans-serif;
+font-family: "Onest", sans-serif;
   transition: box-shadow 0.3s ease, border 0.3s ease;
   z-index: 1;
-
+  user-select: none;
 }
 
 .card:hover{
@@ -95,7 +92,7 @@ font-family: "Inter", "Roboto", "Segoe UI", sans-serif;
   font-size: 1.9rem;
   font-weight: 700;
   color: #111111;
-  font-family: "Inter", "Roboto", "Segoe UI", sans-serif;
+  font-family: "Onest", sans-serif;
 }
 
 .minus {
@@ -105,7 +102,8 @@ font-family: "Inter", "Roboto", "Segoe UI", sans-serif;
 .currencyIcon {
   font-size: 1.2rem;
   color: #4310b9;
-  margin-right: 0; /* прилипает к числу */
+  margin-left: 5px; /* прилипает к числу */
+  
 }
 
 .amount {
@@ -145,7 +143,7 @@ font-family: "Inter", "Roboto", "Segoe UI", sans-serif;
   font-weight: 300;
   cursor: pointer;
   transition: 0.25s;
-  font-family: "Inter", "Roboto", "Segoe UI", sans-serif;
+  font-family: "Onest", sans-serif;
 }
 
 .deposit {
@@ -164,7 +162,8 @@ text-align: center;
 display: flex;
 justify-content: center;
   /* background-color:  #2d5dfd;  */
-  background-color: #fccf08;
+  /* background-color: #fccf08; */
+  background-color: #ffda33;
   color: #000;
   max-width: 130px;
   gap: 6px;
@@ -182,7 +181,7 @@ justify-content: center;
   inset: 0;
   /* background: linear-gradient(135deg, #3b79d6, #3700ff); */
 
-  background-color: #fcdd53;
+  background-color: #ffe684;
   opacity: 0;
   transition: opacity 0.15s ease-in;
 
@@ -203,7 +202,7 @@ justify-content: center;
   display: flex;
   position: relative;
   border: none;
-  color: #00439b;
+  color: #2f75c0;
   padding: 12px 20px;
 
   font-size: 0.9rem;
@@ -213,7 +212,7 @@ justify-content: center;
   overflow: hidden;
   z-index: 1;
   max-width: 95px;
-  background-color:  #e2ecfd;
+  background-color:  #e7f2ff;
   transition: box-shadow 0.3s ease;
   gap: 6px;
   align-items: center;
@@ -242,16 +241,17 @@ justify-content: center;
   display: flex;
 
   border: none;
-  color: #00439b;
+  
   padding: 12px 20px;
  
   font-size: 0.9rem;
   font-weight: 500;
-  font-family: "Inter", "Roboto", "Segoe UI", sans-serif;
+  font-family: "Onest", sans-serif;
   cursor: pointer;
 
   max-width: 120px;
-  background-color:  #e2ecfd;
+  color: #2f75c0;
+background-color:  #e7f2ff;
   transition: 0.3s ease-in-out;
   gap: 6px;
   align-items: center;
@@ -322,7 +322,7 @@ justify-content: center;
   height: 36px;
   border-radius: 50%;
   border: none;
-  background: #f8fafc;
+  background: #ffffff;
   color: #334155;
   cursor: pointer;
   transition: 0.25s;
@@ -335,7 +335,7 @@ justify-content: center;
 }
 
 .menu button:hover {
-   background: #edecfd;
+   background: #ffffff;
   color: #2c0596;
 }
 
@@ -346,9 +346,9 @@ justify-content: center;
   font-weight: 500;
   width: 100%;
   padding: 12px;
-  border-radius: 40px;
-  border: 1px solid #d1fae5;
-  background: #ffffff;
+  border-radius: 13px;
+  border: 1px solid transparent;
+  background: transparent;
   color: #044e78;
   cursor: pointer;
   transition: 0.25s;
@@ -383,14 +383,14 @@ justify-content: center;
 {
   position: absolute;
 font-family: "Inter", "Roboto", "Segoe UI", sans-serif;
-  width: 25px;
-  height: 25px;
-  border-radius: 50%;
+  width: 26px;
+  height: 26px;
+  border-radius: 7px;
   border: none;
  
-  
+  background-color: transparent;
   transition: box-shadow 0.3s ease;
- color: #466388;
+ color: #3c7cc0;
   cursor: pointer;
   transition: 0.25s;
 right: 10px;
@@ -399,12 +399,13 @@ right: 10px;
   justify-content: center;
   text-align: center;
   font-weight: 600;
+  background-color: aliceblue;
 }
 .refreshBtn svg,
 .lockBtn svg,
 .deleteBtn svg{
-  width: 12px;
-  height: 12px;
+  width: 19px;
+  height: 19px;
 }
 /* DELETE
 .deleteBtn {
@@ -452,6 +453,7 @@ font-size: 1em;
 
 .lockBtn{
   top: 105px;
+  
 }
 
 .headerRight{
@@ -460,25 +462,28 @@ font-size: 1em;
 }
 
 .statusAccount{
-  font-size: 0.75em;
-  font-family: "Inter", "Roboto", "Segoe UI", sans-serif;
+  font-size: 13px;
+  font-family: "Onest", sans-serif;
   border-radius: 30px;
   background-color: #64748b;
   padding: 4px 8px;
-  font-weight: 500;
+  font-weight: 600;
 
 }
 
 
 
 .activeStatus{
-  background-color: #00ffaa;
-  color: #004b2c;
+  background-color: #effff6;
+  color: #65e304;
+  font-family: "Onest", sans-serif;
+  
 }
 
 .closedStatus{
-    background-color: #fc8d8d;
-  color: #9b0000;
+  background-color: #ffe7e7;
+  color: #ff0000;
+  font-family: "Onest", sans-serif;
 }
 
 .flag {
@@ -495,6 +500,14 @@ font-size: 1em;
   
    position: relative;
   left: 10px;
+}
+.flagChina{
+    height: 72px;
+  
+  
+   position: relative;
+  left: 26px;
+  top: 13px;
 }
 
 .card:hover,

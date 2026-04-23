@@ -1,8 +1,9 @@
 .container {
   max-width: 1800px;
+  width: 100%;
   margin: 0 auto;
-  padding: 20px;
-  font-family: Inter, Roboto, sans-serif;
+  font-family: "Onest", sans-serif;
+ 
 }
 
 /* HEADER */
@@ -19,31 +20,39 @@
 
 /* BALANCE */
 .balanceCard {
-  margin-top: 20px;
-  padding: 24px;
-  border-radius: 5px;
+ 
+ 
+  border-radius: 20px;
   background: #f9fafb;
-  box-shadow: 0 5px 30px rgba(0,0,0,0.05);
+  
+  justify-content: start;
+  
 }
 
 .accountCard{
   background-color: #fff;
-  border-radius: 5px;
-  padding: 14px 14px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-  width: 430px;
+  border-radius: 20px;
+  padding: 16px 20px;
+  
+
+  width: 100%;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr; /* 3 равные зоны */
+  align-items: center;
 }
 .balanceLabel {
   font-size: 0.75rem;
   color: #64748b;
   text-transform: uppercase;
+   cursor: default;
 }
 .balanceValue {
-  font-size: 2.2rem;
+  font-size: 1.5rem;
   font-weight: 700;
-  margin: 0px 0 20px;
+  
   display: flex;
-  gap: 6px;
+  gap: 3px;
   align-items: center;
 }
 .actions {
@@ -53,34 +62,42 @@
 
 
 .allTransactionsBtn{
-    border-radius: 5px;
+    border-radius: 10px;
   padding: 8px 10px;
   border: none;
   cursor: pointer;
-  background: #e6efff;
-  color: #00439b;
+  background: transparent;
+  color: #080808;
   display: flex;
   align-items: center;
 
   font-size: 13px;
-  font-weight: 500;
-  font-family: "Inter", "Roboto", "Segoe UI", sans-serif;
+  font-weight: 600;
+  font-family: "Onest", sans-serif;
+  transition: 0.15s ease-in;
+}
+.allTransactionsBtn:hover{
+  background: #dfeafc;
+  color: #148affc4;
+  transition: 0.15s ease-in;
 }
 /* CONTENT */
 .content {
   display: flex;
-  gap: 15px;
-  margin-top: 15px;
+  gap: 20px;
+  margin-top: 20px;
   align-items: flex-start;
+  
 }
 
 /* TRANSACTIONS CARD */
 .txCard {
   width: 450px;
-  background: #f9fafb;
-  border-radius: 5px;
+  background-color: rgb(255, 255, 255, 0.75);
+  border-radius: 20px;
   padding: 16px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+  font-family: "Onest", sans-serif;
+ 
 }
 .cardHeader{
   display: flex;
@@ -92,7 +109,7 @@
   
 }
 .txTitle {
-  
+ 
   font-size: 18px;
   font-weight: 600;
 }
@@ -111,13 +128,14 @@
   display: flex;
   justify-content: space-between;
   background: #ffffff;
-  border-radius: 5px;
+  border-radius: 10px;
   padding: 12px 16px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+ box-shadow: 0 2px 10px rgba(0,0,0, 0.1);
   transition: transform 0.1s ease;
   align-items: center;
     transition: filter 0.2s ease;
   filter: brightness(1);
+  
 }
 .txItem:hover {
   filter: brightness(0.97); 
@@ -126,27 +144,28 @@
 
 .txLeft {
   display: flex;
-  flex-direction: column;
-  gap: 4px;
+  gap: 15px;
+  
 }
 .txType {
   font-weight: 600;
   font-size: 1rem;
+  color: #000;
 }
 .txDate {
   font-size: 0.75rem;
   color: #6b7280;
 }
 .txAmount {
-  font-family: "Inter", "Roboto", "Segoe UI", sans-serif;
-  font-weight: 500;
+  font-family: "Onest", sans-serif;
+  font-weight: 400;
   font-size: 1rem;
 }
 .plus {
-  color: #0fb400;
+  color: #03b851;
 }
 .minus {
-  color: #960020;
+  color: #a6004d;
 }
 
 /* EMPTY */
@@ -198,15 +217,17 @@
   font-size: 1.05rem;
   font-weight: 600;
   color: #0f172a;
+   cursor: default;
 }
 
 .currency {
   font-size: 0.75rem;
   color: #64748b;
+  
 }
 
 .currencyIcon {
-  font-size: 1.6rem;
+  font-size: 1.2rem;
   color: #111111;
   font-weight: 700;
     display: inline-block;   /* обязательно */
@@ -218,50 +239,55 @@
 
 .amount {
   display: inline;
-}
+   cursor: default;
+} 
 
 .minus {
   margin-right: 0;
 }
 
 .navHeader{
-  background-color: #e5e8ec;
-  border-radius: 3px;
+  background-color: transparent;
+  width: 100%;
   display: flex;
   align-items: center;
-  font-family: "Inter", "Roboto", "Segoe UI", sans-serif;
-  justify-content: space-between;
+  font-family: "Onest", sans-serif;
+    border-radius: 13px;
+    padding: 4px;
+  background: transparent;
+  justify-content: start;
+  font-weight: 500;
+  margin-bottom: 16px;
+  gap: 10px;
+  margin-top: 16px;
+ 
 }
 
 .navHeader button{
   border: none;
   background: transparent;
-  color: #384353;
-  padding: 8px 20px;
-
+  color: #000000;
+  padding: 12px 20px;
+  border-radius: 30px;
   cursor: pointer;
-  font-weight: 500;
-  font-family: "Inter", "Roboto", "Segoe UI", sans-serif;
+  font-weight: 600;
+  font-family: "Onest", monospace !important;
 }
 
 .navHeader button:hover{
-  background-color: #e4e3e3;
+  background-color: #000000;
   
 }
 
 
 .navHeader button:active{
-  background-color: #ffffff;
+  background-color: #f2f2f2;
 }
 
 
-.navHeader button.activeTab {
-  background-color: #ffffff; /* активная кнопка белая */
-  color: #004db1;
-  
-}
+
 .actions button {
-border-radius: 8px;
+border-radius: 30px;
   padding: 5px 5px;
   border: 1px solid rgb(0, 0, 0, 0.2);
   
@@ -307,22 +333,33 @@ border-radius: 8px;
   justify-content: center;
 }
 .statusAccount{
-  font-size: 0.7em;
-  font-family: "Inter", "Roboto", "Segoe UI", sans-serif;
-  border-radius: 30px;
+  font-size: 13px;
+  font-family: "Onest", sans-serif;
+  border-radius: 8px;
   background-color: #64748b;
-  padding: 4px 8px;
-  font-weight: 600;
+  padding: 9px 20px;
+  font-weight: 800;
+   cursor: default;
 }
 
 .activeStatus{
-  background-color: #9bffd0;
-  color: #017a42;
+  background-color: #06bd62;
+  background: linear-gradient(135deg, #85fff7, #03b50c);
+  color: #ffffff;
+  border: none;
+  
+  
+  text-transform: uppercase;
+  
 }
 
 .closedStatus{
-    background-color: #fc8d8d;
-  color: #360000;
+  background: linear-gradient(135deg, #ad048e, #9a0a0a);
+  color: #ffffff;
+  border: none;
+  font-size: 0.8em;
+  font-weight: bold;
+  text-transform: uppercase;
 }
 
 .flag {
@@ -350,7 +387,7 @@ border-radius: 8px;
   padding: 12px 25px;
   border-radius: 5px;
   cursor: pointer;
-  font-weight: 500;
+  font-weight: 600;
   font-family: "Inter", "Roboto", "Segoe UI", sans-serif;
   text-decoration: none;
   display: inline-flex;
@@ -360,7 +397,7 @@ border-radius: 8px;
 }
 
 .tabButton:hover {
-  background-color: #e5e8ec;
+  background-color: #000000;
 }
 
 .tabButton:active {
@@ -370,26 +407,27 @@ border-radius: 8px;
 
 .navBtn {
   border: none;
-  background: transparent;
-  color: #384353;
-  padding: 10px 20px;
-  border-radius: 3px;
+  background: #fff;
+  color: #040404;
+  padding: 9px 15px;
+  border-radius: 10px;
   cursor: pointer;
-  font-weight: 300;
-  font-size: 0.8em;
-  font-family: "Inter", "Roboto", "Segoe UI", sans-serif;
-
+  font-weight: 500;
+  font-size: 15px;
+  font-family: "Onest", monospace !important;
+gap: 6px;
   /* важно для <a> */
   text-decoration: none;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-}
-.navBtn:hover {
-  background-color: #f1f3f5;
-  border-bottom: 3px solid #f1f3f5;
+
 }
 
+
+.navBtn svg{
+  font-size: 1.2em;
+}
 .navBtn::after{
   background:transparent;
 }
@@ -399,12 +437,1192 @@ border-radius: 8px;
   
 }
 .activeTab {
-  background-color: #ffffff;
+ 
   color: #000000;
-  font-weight: 600;
-  border-bottom: 3px solid #ce9f05;
+  
+ 
 }
 
 .activeTab::before{
   
+}
+
+.balanceBlock{
+  display:flex;
+  flex-direction:column;
+}
+
+.accountTitle{
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.balanceBlock{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cardBalanceButtons{
+  display: flex;
+  gap: 10px;
+}
+
+.accountCard{
+  background-color: #fff;
+  border-radius: 20px;
+  padding: 10px 25px;
+
+
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+
+.accountInfo{
+  display:flex;
+  align-items:center;
+  gap: 30px;
+  width: 400px;
+  justify-content: start;
+}
+.accountCenter{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:6px;
+  width: 60%;
+  justify-content: space-between;
+}
+
+.balanceBlock{
+  display:flex;
+  flex-direction:column;
+  justify-content: start;
+}
+.accountActions{
+  display:flex;
+  gap:10px;
+  width: 90%;
+  justify-content: space-between;
+}
+.actionBtn{
+  display:flex;
+  align-items:center;
+  gap:6px;
+
+  border-radius:12px;
+  border:1px solid #d0d5dd;
+
+  padding:8px 12px;
+
+  font-size:13px;
+  font-weight:500 !important;
+
+  cursor:pointer;
+
+  background:#ffffff;
+
+  transition:all 0.15s ease;
+}
+.actionBtn:hover{
+  background:#f3f4f6;
+}
+.deposit{
+  color: #06ff2b;
+}
+.withdraw{
+  color:#ff0101;
+}
+.transferBtn{
+        color: #000000;
+    background-color: #f7f7f7 !important;
+}
+.transferBtn svg{
+  color: #357cff;
+}
+.closeBtn svg{
+  color:#a85e00;
+}
+.restore{
+  color:#16a34a;
+}
+.accountStatusBlock{
+  display: flex;
+  justify-content: center;
+  
+}
+
+.statusAccount{
+  
+  justify-content: center;
+  display: flex;
+}
+
+.accountNameBlock{
+  display:flex;
+  flex-direction:column;
+}
+
+.balanceBlock{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+
+
+.btnsAccount{
+  display: flex;
+  width: 700px;
+  justify-content: end;
+  gap: 20px;
+}
+
+/* ACCOUNT ACTION BUTTONS MODERN STYLE */
+.accountActions {
+  display: flex;
+  gap: 0px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.actionBtn {
+   display: flex;
+
+  border: none;
+  color: #000000;
+  padding: 12px 20px;
+ 
+  font-size: 0.9rem;
+  font-weight: 400;
+  font-family: "Inter", "Roboto", "Segoe UI", sans-serif;
+  cursor: pointer;
+
+  max-width: 140px;
+  background-color:  #ffffff;
+  transition: 0.1s ease-in;
+  gap: 6px;
+  align-items: center;
+
+}
+
+.actionBtn:hover{
+    background-color:  #d2e0f8; /* немного светлее для hover */
+  
+  transition: opacity 0.3s ease-in-out;
+}
+
+.deposit{
+       color: #000000;
+    background-color: #f7f7f7;
+
+}
+.deposit svg{
+  color: #43bd45;
+}
+
+.deposit:hover{
+  background-color:  #d2f8eb;
+   color:  #059d56;
+}
+
+.withdraw{
+      color: #000000;
+    background-color: #f7f7f7;
+}
+.withdraw svg{
+  color: #ff2c2c;
+}
+.withdraw:hover{
+ 
+  background-color:  #f8d2d2;
+}
+.closeBtn{
+        color: #000000;
+   background-color: #f7f7f7;
+    
+
+}
+.closeBtn:hover{
+  color: #a84d02;
+  background-color:  #f3e29c;
+}
+/* Icons inside buttons */
+.actionBtn svg {
+  font-size: 1.1em;
+}
+
+.deleteBtn{
+      color: #000000;
+    background-color: #f7f7f7;
+   
+
+}
+.deleteBtn svg{
+  color: #c80186;
+}
+.deleteBtn:hover{
+  color: #900662;
+  background-color: #f7f7f7;
+}
+.restore{
+
+  max-width: 200px;
+   color: #007d73;
+  background-color:  #e2fcfd;
+}
+
+.restore:hover{
+  background-color:  #d2f8f1;
+}
+
+/* Optional: subtle shadow on hover for all buttons */
+.txHeaderCard {
+  background-color: #f1f5f9;
+  border-top-left-radius: 13px;
+border-top-right-radius: 13px;
+  padding: 25px 20px;
+ 
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 25px;
+  
+
+}
+
+.txHeaderButtons {
+  display: flex;
+  gap: 10px;
+}
+
+.transactionsBlock{
+  background-color:#ffffff;
+  border-radius: 20px;
+    
+  padding-bottom: 10px;
+ 
+}
+.txItemTransaction {
+  display: flex;
+  justify-content: space-between;
+  background: #ffffff;
+  
+  padding: 12px 16px;
+
+  margin: 0 75px;
+  transition: transform 0.1s ease;
+  align-items: center;
+    transition: filter 0.2s ease;
+  filter: brightness(1);
+ 
+  
+}
+
+
+.saveBtn{
+  /* background-color: #fad400; */
+  background-color: #ffda33;
+  color: #000000;
+  font-weight: 700;
+  max-width: 175px;
+}
+
+.saveBtn svg{
+  font-size: 1.5em;
+}
+.saveBtn:hover{
+     background-color: #ecc92b;
+  
+  transition: 0.1s ease-in;
+}
+
+/* Новые классы для AllTransactions таблицы */
+.txHeader {
+  background-color: #f1f5f9;
+  font-weight: 500;
+  padding-bottom: 8px;
+  padding-top: 6px;
+  border: none;
+  border-top-left-radius: 10px !important;
+  border-top-right-radius: 10px !important;
+  color: #636262;
+  user-select: none
+}
+
+
+
+.txItemTransaction {
+  display: flex;
+  justify-content: space-between;
+  gap: 5px; /* немного места между колонками */
+}
+
+.txAmount {
+  flex: 1;
+  text-align: right;
+}
+/* Колонки таблицы AllTransactions */
+.txCell {
+  flex: 1; /* адаптивные колонки */
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding:  0;
+  font-weight: 500;
+}
+
+/* Фиксированная ширина для ID и Account ID */
+.txCell.id,
+.txCell.accountId {
+  flex: 0 0 100px; /* не растёт, не сжимается, ширина 100px */
+  max-width: 100px;
+  min-width: 100px;
+}
+.incomeText {
+    /* color: #000000;
+    font-weight: 500;
+    background-color: hsl(157.15deg 78.66% 91.06%);
+    width: 115px;
+    font-size: 15px;
+    padding: 6px 0;
+    border-radius: 5px;
+   */
+      color: #000000;
+    font-weight: 500;
+    background-color: transparent;
+    width: 125px;
+    font-size: 15px;
+    padding: 6px 5px;
+    border-radius: 10px;
+    border: 1px solid #c8c8c8;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    justify-content: center;
+}
+
+.expenseText {
+ /* color: #000000;
+    font-weight: 500;
+    font-size: 15px;
+    padding: 6px 0;
+    width: 115px;
+    border-radius: 5px;
+    background-color: hsl(344deg 100% 93.48%); */
+
+      color: #000000;
+    font-weight: 500;
+    background-color: transparent;
+    width: 110px;
+    font-size: 15px;
+    padding: 6px 5px;
+    border-radius: 10px;
+    border: 1px solid #c8c8c8;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    justify-content: center;
+}
+
+
+
+.txCell svg{
+  margin-left: 5px;
+}
+
+.transferText {
+    /* color: #000000;
+    font-weight: 500;
+    font-size: 15px;
+    padding: 6px 0;
+    width: 115px;
+    border-radius: 5px;
+    background-color: hsl(200, 100%, 92%); */
+
+      color: #000000;
+    font-weight: 500;
+    background-color: transparent;
+    width: 105px;
+    font-size: 15px;
+    padding: 6px 5px;
+    border-radius: 10px;
+    border: 1px solid #c8c8c8;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    justify-content: center;
+}
+.incomeFlag{
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #00ff73;
+  
+}
+.expenseFlag{
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #ff0066;
+  
+}
+.transferFlag{
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #00bbff;
+  
+}
+
+.transfer{
+  color: #004d96;
+}
+.txCell.actionsCell {
+  flex: 0 0 40px;      /* фиксированная ширина 40px */
+  max-width: 110px;
+  min-width: 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;          /* убираем лишний padding */
+}
+.transactionActions {
+  background: transparent; /* прозрачный фон */
+  border: none;            /* без границы */
+              /* удобная площадь клика */
+  cursor: pointer;
+  display: flex;    /* чтобы иконка центрировалась */
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+     /* размер иконки */
+  color: #222222;
+  padding: 6px;       /* цвет иконки */
+    text-align: center;
+  align-items: center;
+  justify-content: center;
+  
+}
+.transactionActions svg {
+  width: 20px;   /* ширина иконки */
+  height: 20px;  /* высота иконки */
+  display: flex; /* чтобы padding не сжимал */
+  margin-left: 0;
+
+}
+
+.transactionActions:hover {
+  background-color: rgba(119, 178, 255, 0.1); /* лёгкий hover */
+  border-radius: 7px;
+
+}
+.scoreTransaction{
+ 
+  font-family: "Onest", sans-serif;
+  color: #5b5b5b;
+  margin-bottom: 15px;
+  margin-left: 75px;
+}
+
+.txHeaderCard h2{
+  margin-left: 15px;
+}
+
+
+.currPage{
+  font-family: "Onest", sans-serif;
+  background-color: #f3f7ff;
+  font-size: 16px;
+  border: none;
+   width: 40px;
+  height: 40px;
+  text-align: center;
+  align-items: center;
+  border-radius: 50%;
+  cursor: pointer;
+  font-weight: 500;
+transition: 0.05s ease;
+}
+
+.otherPages{
+  color: #303030;
+    text-align: center;
+  align-items: center;
+  cursor: pointer;
+  font-weight: 500;
+  width: 40px;
+  height: 40px;
+  font-size: 16px;
+  border-radius: 50%;
+  border: none;
+  font-family: "Onest", sans-serif;
+  background-color: #fff;
+  transition: 0.05s ease;
+}
+
+.otherPages:hover{
+  background-color: #f7f7f7;
+}
+
+
+
+
+
+
+/* ✅ ПАГИНАЦИЯ - ФИНАЛЬНЫЕ СТИЛИ (замени ВСЕ старые) */
+.paginationContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin:40px 0 20px 0;
+  gap: 12px;
+  padding: 10px 0;
+}
+
+.pagesList {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  /* 🔧 ФИКС layout shift */
+  min-width: 240px;  /* 4 кнопки + троеточия + зазоры */
+  justify-content: center;
+}
+
+.navPage {
+  font-family: "Onest", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 8px 16px;
+  border: 1px solid #d1d5db;
+  background: #fff;
+  border-radius: 8px;
+  cursor: pointer;
+  color: #374151;
+  min-width: 80px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  user-select: none;
+}
+
+.navPage:hover:not(.disabled) {
+  background: #f3f4f6;
+  border-color: #9ca3af;
+  transform: translateY(-1px);
+}
+
+.navPage.disabled,
+.navPage:disabled {
+  opacity: 0.5;
+  cursor: auto;
+  user-select: none;
+  background: #f9fafb;
+  color: #9ca3af;
+}
+
+.ellipsis {
+  font-family: "Onest", sans-serif;
+  font-size: 16px;
+  color: #9ca3af;
+  font-weight: 500;
+  padding: 0 12px;
+  user-select: none;
+  min-width: 24px;  /* 🔧 фиксированная ширина */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ✅ КНОПКИ СТРАНИЦ - ЕДИНЫЕ СТИЛИ */
+.currPage,
+.otherPages {
+  width: 40px !important;
+  height: 40px !important;
+  border-radius: 10px !important;
+ 
+  font-size: 16px !important;
+  font-weight: 500 !important;
+  cursor: pointer !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-family: "Onest", sans-serif !important;
+  transition: cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.currPage {
+  background-color: #fff0a3 !important;
+  color: #000 !important;
+  user-select: none;
+}
+
+
+
+.otherPages {
+  background-color: #fff !important;
+  color: #303030 !important;
+  user-select: none;
+  
+}
+
+.otherPages:hover {
+  background-color: #f3f4f6 !important;
+  
+  
+}
+
+.navPage svg {
+  margin-left: 3px;
+}
+
+.plus{
+  color: #00ff80;
+}
+
+
+
+
+
+/* 🆕 СОВРЕМЕННАЯ ТАБЛИЦА - заменить ВСЕ старые стили */
+.transactionsBlock {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 0;
+  overflow: hidden; /* скругленные углы */
+  
+}
+
+.txHeaderCard {
+  
+  background-color: #fff;
+  padding: 24px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0;
+}
+
+.txHeader {
+  background-color: #e4eaf0 !important;
+  color: rgb(0, 0, 0) !important;
+  font-weight: 600;
+  padding: 20px 32px;
+  border: none;
+  
+  
+  user-select: none;
+  
+}
+
+.txCell {
+  
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.txContainer {
+  /* ничего не меняем - содержимое остается */
+}
+
+/* 🆕 НОВЫЕ СТРОКИ - чередование + hover */
+.txItemTransaction {
+  display: flex;
+  align-items: center;
+  padding: 13px 32px;
+ 
+  border-bottom: 1px solid #ededed !important;
+  /* border-right: 1px solid #e6e6e6 !important;
+  border-left: 1px solid #e6e6e6 !important; */
+  
+  background: #ffffff;
+  /* transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); */
+  position: relative;
+  overflow: hidden;
+   margin: 0 0px;
+   border-radius: 0px;
+}
+
+/* Четные строки */
+.txItemTransaction:nth-child(even) {
+  background-color:  #ffffff;
+}
+
+
+
+/* Последняя строка без нижней границы */
+.txItemTransaction:last-child {
+  
+}
+
+
+
+.txItemTransaction:not(:hover) .txCell:nth-child(4)::before {
+  left: 240px;
+}
+
+.txItemTransaction:not(:hover) .txCell:nth-child(5)::before {
+  left: 360px;
+}
+
+.txItemTransaction:not(:hover) .txCell:nth-child(6)::before {
+  left: 480px;
+}
+
+/* Улучшенные ячейки */
+.txCell {
+  flex: 1;
+  padding: 0 8px;
+  font-weight: 500;
+  font-size: 15px;
+  
+  position: relative;
+ 
+}
+
+.txCell.id,
+.txCell.accountId {
+  flex: 0 0 100px;
+  font-family: "Onest", monospace;
+  font-weight: 700;
+  color: #475569;
+  font-size: 15px;
+}
+
+
+.txCell.actionsCell {
+  flex: 0 0 60px;
+  justify-content: center;
+}
+
+/* Анимация для текста */
+.txCell span {
+  transition: all 0.2s ease;
+}
+
+
+/* Счетчик транзакций */
+.scoreTransaction {
+  font-family: "Onest", sans-serif;
+  color: #64748b;
+  font-size: 15px;
+  font-weight: 500;
+  
+  margin: 15px 32px;
+  
+  
+  border-radius: 12px;
+  
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .txHeaderCard,
+  .txHeader,
+  .txItemTransaction,
+  .scoreTransaction {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  
+  .txItemTransaction {
+    flex-direction: column;
+    gap: 12px;
+    padding: 24px 20px;
+  }
+  
+  .txCell {
+    flex: none;
+    text-align: left;
+    justify-content: flex-start;
+  }
+}
+
+
+
+
+
+
+
+
+
+/* Активная вкладка с градиентом */
+.navBtn.activeTab {
+  
+  color: #000000 !important;
+  background-color:  #ffffff;
+  box-shadow: 0 0px 3px #ffcb00;
+  position: relative;
+  z-index: 10;
+  
+  
+}
+
+.navBtn.activeTab svg{
+  transition: 0.25s ease-in;
+  transform: scale(1.07);
+  
+}
+/* Легкий glow эффект */
+.navBtn.activeTab:hover {
+
+  background-color: #ffffff;
+
+}
+
+.navBtn.activeTab:hover::before {
+  opacity: 1;
+}
+
+/* Hover для активной вкладки */
+.navBtn.activeTab:hover {
+  user-select: none;
+  
+
+}
+
+/* Улучшенный hover для неактивных */
+.navBtn:hover:not(.activeTab) {
+  background-color: #f5f6f6 !important;
+  color: #000000;
+}
+
+.thCell{  font-family: "Onest", monospace !important;
+  font-weight: 700 !important;
+  color: #475569 !important;
+  font-size: 15px !important; }
+
+
+
+
+.txCell input[type="checkbox"] {
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  border: 2px solid #d1d5db;
+  border-radius: 5px;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.15s ease;
+  background: #fff;
+}
+
+/* hover */
+.txCell input[type="checkbox"]:hover {
+  border-color: #ffda20;
+}
+
+/* checked */
+.txCell input[type="checkbox"]:checked {
+  background-color: #ffda20;
+  border-color: #ffda20;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+
+
+
+
+/* 🟡 Hover строки */
+.txItemTransaction:hover {
+  background-color: #fbfdff !important;
+
+  cursor: pointer;
+}
+
+/* 🟡 Выбранная строка */
+.selectedRow {
+  background-color: #f6faff !important;
+ border-radius: 13px;
+ border-bottom: 1px solid #000;
+}
+
+/* 🟡 Hover для выбранной (чтобы не дергалось) */
+.selectedRow:hover {
+  background-color: #f6faff !important;
+}
+
+.rowSelected {
+  
+  background: #e4eeff !important;
+}
+
+.txItemTransaction:hover {
+  background: #f3f6ff;
+  transition: 0.15s ease;
+}
+
+.txItemTransaction input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+
+.txCell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.txCell input[type="checkbox"] {
+  margin: 0;
+}
+.txItemTransaction {
+  display: grid;
+  grid-template-columns: 40px 2fr 2fr 2fr 2fr 60px;
+  align-items: center;
+  padding: 10px 32px;
+  margin: 0 20px;
+  border-radius: 0px;
+  border-bottom: 1px solid transparent;
+}
+
+.txHeader {
+  display: grid;
+  grid-template-columns: 40px 2fr 2fr 2fr 2fr 60px;
+  align-items: center;
+      padding: 10px 32px;
+      margin: 0 20px;
+}
+
+.thCell {
+  justify-content: center;
+  text-align: center;
+}
+
+.txCell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+  font-size: 15px;
+  user-select: none;
+  border-bottom: 1px solid transparent;
+}
+
+.txHeader .txCell {
+  font-weight: 700;
+  color: #475569;
+}
+
+.txCell input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+
+  border: 2px solid #cbd5e1;
+  border-radius: 4px; /* квадрат, но мягкий */
+  background: #fff;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+/* hover */
+.txCell input[type="checkbox"]:hover {
+  border-color: #ffda20;
+}
+
+/* checked */
+.txCell input[type="checkbox"]:checked {
+  background-color: #ffda20;
+  border-color: #ffda20;
+}
+
+
+
+.txCell input[type="checkbox"] {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border: 2px solid #d1d5db;
+  border-radius: 6px; /* закругление */
+  background: #fff;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* hover */
+.txCell input[type="checkbox"]:hover {
+  border-color: #ffda20;
+}
+
+/* checked — просто заливка, БЕЗ галочки */
+.txCell input[type="checkbox"]:checked {
+  background-color: #ffda20;
+  border-color: #ffda20;
+}
+
+.txCell input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+
+  width: 16px;
+  height: 16px;
+
+  border:2px solid #d3dbe6;
+  border-radius: 5px;
+
+  background: #fff;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  position: relative;
+}
+
+/* hover */
+.txCell input[type="checkbox"]:hover {
+  border-color: #ffda20;
+}
+
+/* checked
+.txCell input[type="checkbox"]:checked {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border-color: #3894f7;
+  background: #fff; /* фон НЕ заливаем */
+
+
+/* 🔥 ВНУТРЕННИЙ КВАДРАТ */
+/* .txCell input[type="checkbox"]:checked::after {
+  content: "";
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+  width: 8px;
+  height: 8px;
+
+  background: #3894f7;
+  border-radius: 2px; /* можно 0 если хочешь строго квадрат */
+
+  /* position: absolute; */
+
+
+/* checked */
+.txCell input[type="checkbox"]:checked {
+  background-color: #3f82ff; /* синий фон */
+  border-color: #3f82ff;
+}
+
+/* ГАЛОЧКА */
+.txCell input[type="checkbox"]:checked::after {
+  content: "";
+  position: absolute;
+
+  width: 3px;
+  height: 8px;
+
+  border: solid white;
+  border-width: 0 2px 2px 0;
+
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -60%) rotate(45deg);
+}
+
+.categoryRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: flex-start; /* важно */
+}
+
+.categoryIconSmall {
+  width: 40px;
+  height: 40px;
+  min-width: 28px;
+
+  border-radius: 13px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #ffffff; /* 🔥 ВОТ ЭТО ДЕЛАЕТ ИКОНКУ БЕЛОЙ */
+
+  font-size: 14px;
+}
+.categoryIconSmall svg{
+  margin: 0;
+  font-size: 18px;
+}
+
+.txItemTransaction .txCell:nth-child(2),
+.txHeader .txCell:nth-child(2) {
+  justify-content: flex-start;
+  text-align: left;
+  padding-left: 35%;
+}
+
+
+.txLayout{
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.amount {
+  margin-right: 2px;
+}
+.currencyIcn{
+  font-weight: 400;
+  font-size: 15px;
+}
+
+.currencyIconView{
+  margin-left: 3px;
+}
+
+.incomeTotalInfo{
+  width: 655px;
+  height: 420px;
+  background-color: #fff;
+  border-radius: 20px;
+}
+
+.expenseTotalInfo{
+  width: 655px;
+  height: 420px;
+  background-color: #fff;
+  border-radius: 20px;
+}
+.rightTopPlaceholder{
+  display: flex;
+  gap: 20px;
+}
+
+.rightPlaceholder{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.rightBottomPlaceholder{
+   width: 100%;
+  height: 565px;
+  background-color: #fff;
+  border-radius: 20px;
 }

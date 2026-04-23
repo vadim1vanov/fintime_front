@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=VKSans+Display:wght@400;500;700&display=swap');
 body {
   margin: 0;
   font-family: Arial, sans-serif;
@@ -43,7 +44,7 @@ html, body, #root {
   height: 100%;
   width: 100%;
   font-family: "Inter", "Roboto", "Segoe UI", sans-serif;
-  background-color: #f6f7fa; /* светлый фон, как у приложения */
+  background-color: rgb(239, 240, 244); /* светлый фон, как у приложения */
 }
 
 

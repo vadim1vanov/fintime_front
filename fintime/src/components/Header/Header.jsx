@@ -1,8 +1,10 @@
-import { useContext, useState, useEffect, useRef } from "react";
-import { NavLink } from "react-router-dom";
+import { useContext } from "react";
+import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import styles from "./Header.module.css";
-
+import {   FaUserPlus } from "react-icons/fa";
+import {  useState, useEffect, useRef } from "react";
+import { NavLink } from "react-router-dom";
 import {
   FaWallet,
   FaChartLine,
@@ -23,7 +25,7 @@ import { LuLogOut } from "react-icons/lu";
 import { FiSettings } from "react-icons/fi";
 export default function Header() {
   const { isAuth, logout } = useContext(AuthContext);
-  const [menuOpen, setMenuOpen] = useState(false);
+const [menuOpen, setMenuOpen] = useState(false);
   const userRef = useRef(null);
 
   // временные данные пользователя (потом заменишь из бэка)
@@ -45,65 +47,15 @@ export default function Header() {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
-
   return (
     <header className={styles.header}>
-
-      {/* ЛЕВЫЙ БЛОК */}
-      <div className={styles.leftBlock}>
-        <div className={styles.logoBlock}>
-          <div className={styles.logo}>FinTime</div>
-          <span className={styles.logoBottom}>Finance accounting</span>
-        </div>
-
-        {isAuth && (
-          <nav className={styles.nav}>
-
-            <NavLink to="/accounts" className={({ isActive }) =>
-              `${styles.navItem} ${isActive ? styles.active : ""}`
-            }>
-              <FaWallet />
-              <span>Счета</span>
-              <FaAngleDown className={styles.arrow} />
-            </NavLink>
-
-            <NavLink to="/reports" className={({ isActive }) =>
-              `${styles.navItem} ${isActive ? styles.active : ""}`
-            }>
-              <FaThList />
-              <span>Отчёты</span>
-              <FaAngleDown className={styles.arrow} />
-            </NavLink>
-
-            <NavLink to="/analytics" className={({ isActive }) =>
-              `${styles.navItem} ${isActive ? styles.active : ""}`
-            }>
-              <FaChartLine />
-              <span>Аналитика</span>
-              <FaAngleDown className={styles.arrow} />
-            </NavLink>
-
-            <NavLink to="/transactions" className={({ isActive }) =>
-              `${styles.navItem} ${isActive ? styles.active : ""}`
-            }>
-              <FaExchangeAlt />
-              <span>Транзакции</span>
-              <FaAngleDown className={styles.arrow} />
-            </NavLink>
-
-            <NavLink to="/credits" className={({ isActive }) =>
-              `${styles.navItem} ${isActive ? styles.active : ""}`
-            }>
-              <FaPercent />
-              <span>Кредиты</span>
-              <FaAngleDown className={styles.arrow} />
-            </NavLink>
-
-          </nav>
-        )}
+      {/* LOGO */}
+      <div className={styles.logoBlock}>
+        <div className={styles.logo}>FinTime</div>
+        <span className={styles.subtitle}>Finance Accounting</span>
       </div>
 
-      {/* ПРАВЫЙ БЛОК */}
+ {/* ПРАВЫЙ БЛОК */}
       <div className={styles.userBlock} ref={userRef}>
         {isAuth ? (
           <div
@@ -119,8 +71,8 @@ export default function Header() {
           </NavLink>
         )}
 
-        {isAuth && menuOpen && (
-          <div className={styles.dropdown}>
+        {isAuth && (
+            <div className={`${styles.dropdown} ${menuOpen ? styles.open : ""}`}>
 
             {/* USER INFO */}
             <div className={styles.userInfo}>
@@ -180,7 +132,6 @@ export default function Header() {
           </div>
         )}
       </div>
-
     </header>
   );
 }

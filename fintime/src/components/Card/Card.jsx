@@ -14,6 +14,7 @@ import { FiTrash2 } from "react-icons/fi";
 import { FiCheck } from "react-icons/fi";
 import { HiX } from "react-icons/hi";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { PiLockKeyBold , PiArrowsClockwiseBold, PiTrashBold, PiCurrencyDollarSimpleBold } from "react-icons/pi";
 import {
   faDollarSign,
   faRubleSign,
@@ -37,15 +38,15 @@ export default function Card({
 
   const isClosed = account.status !== "active";
 
-  const getCurrencyIcon = (currency) => {
+  const getCurrencySymbol = (currency) => {
     switch (currency) {
-      case "RUB": return faRubleSign;
-      case "USD": return faDollarSign;
-      case "EUR": return faEuroSign;
-      case "JPY": return faYenSign;
-      case "CNY": return faYenSign;
-      case "GBP": return faPoundSign;
-      default: return faDollarSign;
+      case "RUB": return "₽";
+      case "USD": return "$";
+      case "EUR": return "€";
+      case "JPY": return "¥";
+      case "CNY": return "¥";
+      case "GBP": return "£";
+      default: return "$";
     }
   };
 
@@ -80,7 +81,7 @@ export default function Card({
             <img
   src={getCurrencyFlag(account.currency)}
   alt={account.currency}
-  className={`${!(account.currency === "USD") ? styles.flag :  styles.flagUs}`}
+  className={`${account.currency === "USD" ? styles.flagUs : account.currency=== "CNY" ?  styles.flagChina : styles.flag }`}
 />
           </div>
           <div>
@@ -99,61 +100,59 @@ export default function Card({
 
       </div>
 
-      {/* BALANCE */}
-      <div className={styles.balanceBlock}>
+<div className={styles.balanceBlock}>
         <div className={styles.balanceLabel}>Баланс</div>
         <div className={styles.balance}>
-          {Number(account.balance) < 0 && <span >-</span>}
-          <span className={styles.currencyIcon}>
-            <FontAwesomeIcon
-              icon={getCurrencyIcon(account.currency)}
-              style={{ width: "auto" }} // <-- локально убираем фиксированную ширину
-            />
-          </span>
+          {Number(account.balance) < 0 && <span>-</span>}
 
           <span className={styles.amount}>
-            {Math.abs(Number(account.balance)).toLocaleString("en-US", {
+            {Math.abs(Number(account.balance)).toLocaleString("ru-RU", {
               minimumFractionDigits: 2,
               maximumFractionDigits: 2
             })}
           </span>
-    { !isClosed && (
-      <>
-
-  <button
-    className={styles.lockBtn}
-    onClick={(e) => {
-      e.stopPropagation();
-      onClose();
-      setMenuOpen(false);
-    }}
-  ><Tooltip text="Закрыть">
-    <FaLock /></Tooltip>
-  </button>
-
-      
-      <button
-        className={styles.refreshBtn}
-        
-        onClick={(e) => { 
-          e.stopPropagation(); 
           
-        }}
-      >
-<Tooltip text="Синхронизировать">
-  <FaSyncAlt />
-  </Tooltip>
-</button></>)}
-<button
-  className={styles.deleteBtn}
-  onClick={(e) => { e.stopPropagation(); onDelete(); }}
-  
->
-  <Tooltip text="Удалить">
-    <FaTrashAlt />
-  </Tooltip>
-</button>
+          {/* Текстовый символ валюты */}
+          <span className={styles.currencyIcon}>
+            {getCurrencySymbol(account.currency)}
+          </span>
 
+          {!isClosed && (
+            <>
+              <button
+                className={styles.lockBtn}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onClose();
+                  setMenuOpen(false);
+                }}
+              >
+                <Tooltip text="Закрыть">
+                  <PiLockKeyBold />
+                </Tooltip>
+              </button>
+
+              <button
+                className={styles.refreshBtn}
+                onClick={(e) => { 
+                  e.stopPropagation(); 
+                }}
+              >
+                <Tooltip text="Баланс в другой валюте">
+                  <PiCurrencyDollarSimpleBold />
+                </Tooltip>
+              </button>
+            </>
+          )}
+
+          <button
+            className={styles.deleteBtn}
+            onClick={(e) => { e.stopPropagation(); onDelete(); }}
+          >
+            <Tooltip text="Удалить">
+              <PiTrashBold />
+            </Tooltip>
+          </button>
         </div>
       </div>
 
