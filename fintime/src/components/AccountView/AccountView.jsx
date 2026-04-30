@@ -246,19 +246,51 @@ const getCurrencySymbol = (currency) => {
 
 <div
   className={`${styles.txAmount} ${
-    tx.transaction_type === "INCOME" ? styles.plus : styles.minus
+    tx.transaction_type === "INCOME"
+      ? styles.plus
+      : tx.transaction_type === "EXPENSE"
+        ? styles.minus
+        : ""
   }`}
 >
-  {tx.transaction_type === "INCOME" ? "+" : "-"}
+  {tx.transaction_type === "INCOME" && (
+    <span className={styles.plus}>+</span>
+  )}
+  {tx.transaction_type === "EXPENSE" && (
+    <span className={styles.minus}>-</span>
+  )}
 
   <span className={styles.amount}>
-    {Number(tx.amount).toLocaleString("ru-RU", {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2
-    })}
-    <span className={styles.currencyIconView}>
-      {getCurrencySymbol(account.currency)}
-    </span>
+    {(() => {
+      const amountStr = Number(tx.amount).toLocaleString("ru-RU", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      });
+      const parts = amountStr.split(",");
+
+      const getSmallFracClass = () => {
+        if (tx.transaction_type === "INCOME") return styles.smallFracIncome;
+        if (tx.transaction_type === "EXPENSE") return styles.smallFracExpense;
+        if (tx.transaction_type === "TRANSFER") return styles.smallFracTransfer;
+        return styles.smallFrac;
+      };
+
+      return (
+        <>
+          {parts[0]}
+          {parts[1] && (
+            <span className={getSmallFracClass()}>
+              ,{parts[1]} {getCurrencySymbol(account.currency)}
+            </span>
+          )}
+          {!parts[1] && (
+            <span className={getSmallFracClass()}>
+              {getCurrencySymbol(account.currency)}
+            </span>
+          )}
+        </>
+      );
+    })()}
   </span>
 </div>
                   </div>

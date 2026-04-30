@@ -326,24 +326,24 @@ const toggleAll = () => {
                   </div>
                 </div>
 
-<div
-  className={`${styles.txCell} ${
-    tx.transaction_type === "INCOME" ? styles.plus : styles.minus
-  }`}
->
-  {tx.transaction_type === "INCOME" ? "+" : "-"}
+            <div
+              className={`${styles.txCell} ${
+                tx.transaction_type === "INCOME" ? styles.plus : styles.minus
+              }`}
+            >
+              {tx.transaction_type === "INCOME" ? "+" : "-"}
 
-  <span className={styles.amount}>
-    {Number(tx.amount).toLocaleString("ru-RU", {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    })} <span className={styles.currencyIcn}>
-    {getCurrencySymbol(account.currency)}
- </span>
-  </span>
+              <span className={styles.amountTransactions}>
+                {Number(tx.amount).toLocaleString("ru-RU", {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                })} <span className={styles.currencyIcn}>
+                {getCurrencySymbol(account.currency)}
+            </span>
+              </span>
 
 
-</div>
+                </div>
                 <div className={styles.txCell}>
                   <button
                     className={styles.transactionActions}

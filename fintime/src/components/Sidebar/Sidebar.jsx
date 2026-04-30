@@ -38,7 +38,10 @@ export default function Sidebar() {
   <span className={styles.badge}>3</span>
 </NavLink>
 
-
+                <NavLink to="/payments" className={({ isActive }) => `${styles.item} ${isActive ? styles.active : ""}`}>
+          <TbBuildingBank />
+          <span>Кредиты</span>
+        </NavLink>
         <NavLink to="/reports" className={({ isActive }) => `${styles.item} ${isActive ? styles.active : ""}`}>
           <PiChartDonutDuotone />
           <span>Отчёты</span>
@@ -52,10 +55,7 @@ export default function Sidebar() {
           <PiCalendar />
           <span>Календарь</span>
         </NavLink>
-                <NavLink to="/payments" className={({ isActive }) => `${styles.item} ${isActive ? styles.active : ""}`}>
-          <TbBuildingBank />
-          <span>Кредиты</span>
-        </NavLink>
+
         <NavLink to="/history" className={({ isActive }) => `${styles.item} ${isActive ? styles.active : ""}`}>
           <LuHistory />
           <span>История операций</span>
@@ -65,21 +65,21 @@ export default function Sidebar() {
 
 
 
-
+{/* 
         <NavLink to="/notifications" className={({ isActive }) => `${styles.item} ${isActive ? styles.active : ""}`}>
           <PiBellRingingBold />
           <span>Уведомления</span>
-        </NavLink>
+        </NavLink> */}
 
-        <NavLink to="/settings" className={({ isActive }) => `${styles.item} ${isActive ? styles.active : ""}`}>
+        {/* <NavLink to="/settings" className={({ isActive }) => `${styles.item} ${isActive ? styles.active : ""}`}>
           <PiGearSixBold />
           <span>Настройки</span>
-        </NavLink>
+        </NavLink> */}
 
-        <NavLink to="/help" className={({ isActive }) => `${styles.item} ${isActive ? styles.active : ""}`}>
+        {/* <NavLink to="/help" className={({ isActive }) => `${styles.item} ${isActive ? styles.active : ""}`}>
           <PiQuestionBold />
           <span>Помощь</span>
-        </NavLink>
+        </NavLink> */}
       </nav>
     </aside>
   );
