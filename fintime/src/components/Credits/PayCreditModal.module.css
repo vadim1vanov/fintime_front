@@ -1,0 +1,173 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3000;
+}
+
+.modal {
+  width: 470px;
+  max-width: 95vw;
+  background: white;
+  border-radius: 24px;
+  padding: 34px;
+  position: relative;
+  font-family: "Onest", sans-serif;
+}
+
+.closeBtn {
+  position: absolute;
+  right: 16px;
+  top: 16px;
+
+  width: 36px;
+  height: 36px;
+
+  border: none;
+  border-radius: 50%;
+
+  background: transparent;
+
+  cursor: pointer;
+
+  font-size: 20px;
+
+  transition: 0.2s;
+}
+
+.closeBtn:hover {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.title {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 24px;
+  color: #111827;
+}
+
+.infoCard,
+.card {
+  background: #f2f4f5;
+  border-radius: 18px;
+  padding: 20px;
+  margin-bottom: 24px;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  font-size: 15px;
+}
+
+.row:last-child {
+  margin-bottom: 0;
+}
+
+.amount {
+  font-size: 34px;
+  font-weight: 800;
+  text-align: center;
+  color: #111827;
+}
+
+.sub {
+  text-align: center;
+  margin-top: 8px;
+  color: #6b7280;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.label {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.input {
+  width: 100%;
+  border: none;
+  border-radius: 14px;
+  background: #f2f4f5;
+
+  padding: 16px 18px;
+
+  font-size: 18px;
+  font-weight: 700;
+
+  font-family: "Onest", sans-serif;
+}
+
+.input:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 67, 155, 0.15);
+}
+
+.warning {
+  background: #fff8db;
+  border-radius: 14px;
+  padding: 14px 16px;
+  font-size: 14px;
+  line-height: 1.45;
+  color: #8a6b00;
+  margin-bottom: 24px;
+}
+
+.footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 30px;
+}
+
+.cancelBtn {
+  border: none;
+  background: #f3f4f6;
+
+  padding: 12px 18px;
+
+  border-radius: 12px;
+
+  cursor: pointer;
+
+  font-family: "Onest", sans-serif;
+  font-weight: 600;
+}
+
+.cancelBtn:hover {
+  background: #e5e7eb;
+}
+
+.submitBtn,
+.payBtn {
+  border: none;
+
+  background: #0077ff;
+  color: white;
+
+  padding: 12px 20px;
+
+  border-radius: 12px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+
+  font-family: "Onest", sans-serif;
+}
+
+.submitBtn:hover,
+.payBtn:hover {
+  background: #0062d1;
+}

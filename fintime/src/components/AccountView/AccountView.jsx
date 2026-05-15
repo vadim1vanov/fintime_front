@@ -6,14 +6,17 @@ import {
   income,
   expense,
   closeAccount,
-  restoreAccount
+  restoreAccount,
+  getAccountInfo
 } from "../../api/api";
 import AccountNav from "./AccountNav";
 import React from "react";
 import {
   LuArrowUpFromLine,
   LuArrowRightLeft,
-  LuLock
+  LuLock,
+  LuTrendingUp,
+  LuTrendingDown
 } from "react-icons/lu";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { RxReset } from "react-icons/rx";
@@ -22,7 +25,9 @@ import {
   PiArrowUpRightBold,
   PiArrowDownRightBold,
   PiArrowsLeftRightBold,
-  PiPlusBold
+  PiPlusBold,
+  PiChartLineUpBold,
+  PiChartLineDownBold
 } from "react-icons/pi";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -70,15 +75,22 @@ const getCurrencySymbol = (currency) => {
   const [transactions, setTransactions] = useState([]);
   const [modal, setModal] = useState(null);
   const [loading, setLoading] = useState(true);
+const [accountInfo, setAccountInfo] = useState(null);
+const loadData = async () => {
+  setLoading(true);
 
-  const loadData = async () => {
-    setLoading(true);
-    const acc = await getAccountById(id);
-    const txs = await getTransactions(id);
-    setAccount(acc);
-    setTransactions(Array.isArray(txs) ? txs : []);
-    setLoading(false);
-  };
+  const [acc, txs, info] = await Promise.all([
+    getAccountById(id),
+    getTransactions(id),
+    getAccountInfo(id)
+  ]);
+
+  setAccount(acc);
+  setTransactions(Array.isArray(txs) ? txs : []);
+  setAccountInfo(info);
+
+  setLoading(false);
+};
 
   useEffect(() => {
     loadData();
@@ -301,18 +313,120 @@ const getCurrencySymbol = (currency) => {
 
         <div className={styles.rightPlaceholder}>
           <div className={styles.rightTopPlaceholder}>
-          <div className={styles.incomeTotalInfo}>
+<div className={styles.analyticsSection}>
 
-          </div>
-          <div className={styles.expenseTotalInfo}>
+  {/* INCOME */}
+  <div className={`${styles.analyticsModernCard} ${styles.incomeCard}`}>
+    
+   
 
-          </div>
-          </div>
-          <div className={styles.rightBottomPlaceholder}>
+    <div className={styles.analyticsTop}>
+      <div className={styles.analyticsIconIncome}>
+        < LuTrendingUp/>
+      </div>
 
-          </div>
+      <div>
+        <div className={styles.analyticsMiniLabel}>
+          Общие доходы
+        </div>
+
+        <div className={styles.analyticsMainAmount}>
+          {Number(accountInfo?.total_income || 0).toLocaleString("ru-RU", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+          })}
+          <span>{getCurrencySymbol(account.currency)}</span>
         </div>
       </div>
+    </div>
+
+    <div className={styles.analyticsStats}>
+      <div className={styles.analyticsStatCard}>
+        <span>Доходы за месяц</span>
+
+        <strong>
+          {Number(accountInfo?.top_up_last_month || 0).toLocaleString("ru-RU", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+          })}
+          <small>{getCurrencySymbol(account.currency)}</small>
+        </strong>
+      </div>
+
+      <div className={styles.analyticsStatCard}>
+        <span>Макс. пополнение</span>
+<div className={styles.maxIncomeTransaction}>
+        <strong>
+          {Number(accountInfo?.largest_income || 0).toLocaleString("ru-RU", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+          })}
+          <small>{getCurrencySymbol(account.currency)}</small>
+        </strong></div>
+      </div>
+    </div>
+  </div>
+
+  {/* EXPENSE */}
+  <div className={`${styles.analyticsModernCard} ${styles.expenseCard}`}>
+    
+   
+
+    <div className={styles.analyticsTop}>
+      <div className={styles.analyticsIconExpense}>
+          < LuTrendingDown/>       
+      </div>
+
+      <div>
+        <div className={styles.analyticsMiniLabel}>
+          Общие расходы
+        </div>
+
+        <div className={styles.analyticsMainAmount}>
+          {Number(accountInfo?.total_expense || 0).toLocaleString("ru-RU", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+          })}
+          <span>{getCurrencySymbol(account.currency)}</span>
+        </div>
+      </div>
+    </div>
+
+    <div className={styles.analyticsStats}>
+      <div className={styles.analyticsStatCard}>
+        <span>Расходы за месяц</span>
+
+        <strong>
+          {Number(accountInfo?.expense_last_month || 0).toLocaleString("ru-RU", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+          })}
+          <small>{getCurrencySymbol(account.currency)}</small>
+        </strong>
+      </div>
+
+      <div className={styles.analyticsStatCard}>
+        
+        <span>Макс. списание</span>
+<div className={styles.maxExpenseTransaction}>
+        <strong>
+          {Number(accountInfo?.largest_expense || 0).toLocaleString("ru-RU", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+          })}
+          <small>{getCurrencySymbol(account.currency)}</small>
+        </strong></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+          </div>
+          </div>
+        
+        </div>
+      
 
       {/* MODALS */}
       {modal?.type==="close" && (

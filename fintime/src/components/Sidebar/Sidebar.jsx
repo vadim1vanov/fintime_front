@@ -9,14 +9,17 @@ import {
   FaHistory,
   FaCreditCard,
   FaExchangeAlt,
-  FaBell
+  FaBell,
+  
 } from "react-icons/fa";
+import { FaMoneyBillTrendUp } from "react-icons/fa6";
 import { TbBuildingBank } from "react-icons/tb";
 
 import { LuHistory } from "react-icons/lu";
 import styles from "./Sidebar.module.css";
 import { PiWalletBold, PiUserBold, PiChartDonutDuotone, PiChartBarDuotone,PiMoneyDuotone, PiBellRingingBold, PiArrowsDownUpFill,
-  PiGearSixBold, PiQuestionBold, PiArrowsLeftRightBold, PiCalendar
+  PiGearSixBold, PiQuestionBold, PiArrowsLeftRightBold, PiCalendarCheckDuotone, PiChartLineUp,
+  PiCirclesThreePlus
  } from "react-icons/pi";
 export default function Sidebar() {
   return (
@@ -33,14 +36,25 @@ export default function Sidebar() {
   to="/accounts"
   className={({ isActive }) => `${styles.item} ${isActive ? styles.active : ""}`}
 >
-  <PiWalletBold />
+  <PiCirclesThreePlus />
   <span>Управление счетами</span>
-  <span className={styles.badge}>3</span>
+
 </NavLink>
 
-                <NavLink to="/payments" className={({ isActive }) => `${styles.item} ${isActive ? styles.active : ""}`}>
-          <TbBuildingBank />
-          <span>Кредиты</span>
+<NavLink
+  to="/credits"
+  className={({ isActive }) => `${styles.item} ${isActive ? styles.active : ""}`}
+>
+  <TbBuildingBank />
+  <span>Кредиты</span>
+</NavLink>
+ <NavLink to="/deposits" className={({ isActive }) => `${styles.item} ${isActive ? styles.active : ""}`}>
+          <PiChartLineUp />
+          <span>Вклады</span>
+        </NavLink>
+                        <NavLink to="/calendar" className={({ isActive }) => `${styles.item} ${isActive ? styles.active : ""}`}>
+          <PiCalendarCheckDuotone />
+          <span>Планирование</span>
         </NavLink>
         <NavLink to="/reports" className={({ isActive }) => `${styles.item} ${isActive ? styles.active : ""}`}>
           <PiChartDonutDuotone />
@@ -51,10 +65,7 @@ export default function Sidebar() {
           <PiChartBarDuotone />
           <span>Аналитика</span>
         </NavLink>
-                <NavLink to="/calendar" className={({ isActive }) => `${styles.item} ${isActive ? styles.active : ""}`}>
-          <PiCalendar />
-          <span>Календарь</span>
-        </NavLink>
+
 
         <NavLink to="/history" className={({ isActive }) => `${styles.item} ${isActive ? styles.active : ""}`}>
           <LuHistory />
@@ -66,10 +77,7 @@ export default function Sidebar() {
 
 
 {/* 
-        <NavLink to="/notifications" className={({ isActive }) => `${styles.item} ${isActive ? styles.active : ""}`}>
-          <PiBellRingingBold />
-          <span>Уведомления</span>
-        </NavLink> */}
+       
 
         {/* <NavLink to="/settings" className={({ isActive }) => `${styles.item} ${isActive ? styles.active : ""}`}>
           <PiGearSixBold />

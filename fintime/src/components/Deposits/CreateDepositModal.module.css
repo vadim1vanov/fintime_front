@@ -1,0 +1,229 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.55);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 2000;
+}
+
+.modal {
+  position: relative;
+
+  width: 1150px;
+  max-width: 95vw;
+
+  background: white;
+
+  border-radius: 28px;
+
+  padding: 42px 56px;
+
+  font-family: "Onest", sans-serif;
+}
+
+.closeBtn {
+  position: absolute;
+
+  top: 18px;
+  right: 18px;
+
+  width: 38px;
+  height: 38px;
+
+  border: none;
+  border-radius: 50%;
+
+  background: transparent;
+
+  cursor: pointer;
+
+  font-size: 1.2rem;
+
+  transition: .2s;
+}
+
+.closeBtn:hover {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.modalTitle {
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 34px;
+}
+
+.content {
+  display: flex;
+  gap: 36px;
+}
+
+.left,
+.right {
+  flex: 1;
+}
+
+.left {
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  margin-top: 22px;
+  margin-bottom: 8px;
+
+  font-weight: 600;
+  color: #111827;
+}
+
+.label:first-child {
+  margin-top: 0;
+}
+
+.input {
+  height: 54px;
+
+  border: none;
+  border-radius: 16px;
+
+  padding: 0 18px;
+
+  background: #f3f4f6;
+
+  font-size: 16px;
+  font-weight: 600;
+
+  font-family: "Onest", sans-serif;
+}
+
+.input:focus {
+  outline: none;
+  box-shadow:
+    0 0 0 3px rgba(59,130,246,.15);
+}
+
+.selectWrapper {
+  position: relative;
+}
+
+.select {
+  width: 100%;
+  height: 54px;
+
+  border: none;
+  border-radius: 16px;
+
+  background: #f3f4f6;
+
+  padding: 0 44px 0 18px;
+
+  appearance: none;
+
+  font-size: 15px;
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+.selectArrow {
+  position: absolute;
+
+  right: 16px;
+  top: 50%;
+
+  transform: translateY(-50%);
+
+  color: #64748b;
+
+  pointer-events: none;
+}
+
+.calcCard {
+  background: #f8fafc;
+
+  border-radius: 28px;
+
+  padding: 34px;
+
+  height: 100%;
+}
+
+.calcTitle {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.mainProfit {
+  margin-top: 32px;
+
+  font-size: 54px;
+  font-weight: 800;
+
+  color: #16a34a;
+}
+
+.subText {
+  margin-top: 8px;
+
+  color: #6b7280;
+}
+
+.calcRows {
+  margin-top: 36px;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 18px;
+}
+
+.calcRow {
+  display: flex;
+  justify-content: space-between;
+}
+
+.calcRow span {
+  color: #6b7280;
+}
+
+.calcRow b {
+  color: #111827;
+}
+
+.modalFooter {
+  margin-top: 42px;
+
+  display: flex;
+  justify-content: flex-end;
+
+  gap: 14px;
+}
+
+.btnCancel,
+.btnPrimary {
+  height: 52px;
+
+  padding: 0 24px;
+
+  border: none;
+  border-radius: 16px;
+
+  font-family: "Onest", sans-serif;
+
+  font-size: 15px;
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+.btnCancel {
+  background: #f3f4f6;
+}
+
+.btnPrimary {
+  background: #ffd42a;
+}

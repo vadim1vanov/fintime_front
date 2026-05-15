@@ -124,7 +124,7 @@ function DraggableOverlay({ account }) {
         height: "230px",
         pointerEvents: "none",
         opacity: 1,
-        borderRadius: "22px",
+        borderRadius: "30px",
         background: "#ffffff",
       }}
     >
@@ -155,7 +155,7 @@ const loadAccounts = useCallback(async () => {
     const data = await getAccounts();
     const sorted = [...data].sort(
       (a, b) => (a.account_position ?? 0) - (b.account_position ?? 0)
-    );
+    ); 
     setAccounts(sorted);
   } catch (err) {
     console.error("Ошибка загрузки:", err);

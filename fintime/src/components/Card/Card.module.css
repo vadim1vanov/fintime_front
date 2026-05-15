@@ -137,7 +137,7 @@ font-family: "Onest", sans-serif;
 .withdraw,
 .transferBtn {
   flex: 1;
-  padding: 12px;
+ 
   border-radius: 13px;
   font-size: 0.9rem;
   font-weight: 300;
@@ -152,9 +152,9 @@ font-family: "Onest", sans-serif;
   color: #fff;
   padding: 12px 10px;
  
-  font-size: 0.9rem;
+  font-size: 15px;
   font-weight: 500;
-  font-family: "Inter", "Roboto", "Segoe UI", sans-serif;
+  
   cursor: pointer;
   overflow: hidden;
   z-index: 1;
@@ -205,9 +205,9 @@ justify-content: center;
   color: #2f75c0;
   padding: 12px 20px;
 
-  font-size: 0.9rem;
+  font-size: 15px;
   font-weight: 500;
-  font-family: "Inter", "Roboto", "Segoe UI", sans-serif;
+ 
   cursor: pointer;
   overflow: hidden;
   z-index: 1;
@@ -246,7 +246,7 @@ justify-content: center;
  
   font-size: 0.9rem;
   font-weight: 500;
-  font-family: "Onest", sans-serif;
+
   cursor: pointer;
 
   max-width: 120px;
@@ -341,7 +341,7 @@ background-color:  #e7f2ff;
 
 /* RESTORE */
 .restore {
-  font-family: "Inter", "Roboto", "Segoe UI", sans-serif;
+  font-family: "Onest", sans-serif;
   font-size: 0.9rem;
   font-weight: 500;
   width: 100%;
@@ -349,14 +349,14 @@ background-color:  #e7f2ff;
   border-radius: 13px;
   border: 1px solid transparent;
   background: transparent;
-  color: #044e78;
+  color: #020500;
   cursor: pointer;
   transition: 0.25s;
 }
 
 .restore:hover {
-  background: #ecfdf5;
-  border-color: #6eade7;
+  background: #ffffff;
+  border-color: #000000;
 }
 
 /* CLOSED */
@@ -464,25 +464,29 @@ font-size: 1em;
 .statusAccount{
   font-size: 13px;
   font-family: "Onest", sans-serif;
-  border-radius: 30px;
+  border-radius: 5px;
   background-color: #64748b;
-  padding: 4px 8px;
-  font-weight: 600;
+  padding: 3px 8px;
+  font-weight: 500;
 
 }
 
 
 
 .activeStatus{
-  background-color: #effff6;
-  color: #65e304;
+  /* background-color: #effff6;
+  color: #65e304; */
+  background-color: #d3ff65;
+  color: #000;
   font-family: "Onest", sans-serif;
   
 }
 
 .closedStatus{
-  background-color: #ffe7e7;
-  color: #ff0000;
+  /* background-color: #ffe7e7;
+  color: #ff0000; */
+    background-color: #000000;
+  color: #ffffff;
   font-family: "Onest", sans-serif;
 }
 

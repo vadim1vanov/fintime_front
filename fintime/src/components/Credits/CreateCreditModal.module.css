@@ -1,0 +1,373 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+.modal {
+  position: relative;
+  width: 1100px;
+  max-width: 95vw;
+  top: -3%;
+  background: white;
+  border-radius: 24px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+  padding: 40px 66px 30px;
+  font-family: "Onest", sans-serif !important;
+}
+
+.closeBtn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  cursor: pointer;
+  transition: 0.25s;
+  z-index: 10;
+}
+
+.closeBtn:hover {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.modalTitle {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #1c1e22;
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.content {
+  display: flex;
+  gap: 40px;
+}
+
+.left {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+}
+
+.right {
+  flex: 1;
+  display: flex;
+  align-items: flex-start;
+}
+
+.label {
+  font-weight: 600;
+  font-size: 1.02rem;
+  color: #21252c;
+  margin-bottom: 6px;
+  margin-top: 30px;
+}
+
+.input {
+  width: 100%;
+  padding: 14px 18px;
+  border-radius: 14px;
+  border: none;
+  font-size: 1.15rem;
+  font-weight: 700;
+  background-color: #f2f4f5;
+  color: #181818;
+  transition: all 0.25s ease;
+  font-family: "Onest", sans-serif;
+}
+
+.input:focus {
+  border-color: #00439b;
+  outline: none;
+  box-shadow: 0 0 3px rgb(72, 81, 250)
+  
+}
+
+.slider {
+  margin-top: 8px;
+  accent-color: #00439b;
+}
+
+/* ==================== КАРТОЧКА РАСЧЁТА ==================== */
+.calcCard {
+  background: #f2f4f5;
+  border: none;
+  border-radius: 20px;
+  padding: 24px;
+ 
+  width: 100%;
+      height: 360px;
+    margin-top: 27px;
+}
+
+.calcTitle {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #000000;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.mainPayment {
+  font-size: 2.4rem;
+  font-weight: 800;
+  color: #00ae12;
+  text-align: center;
+  
+}
+
+.subText {
+  text-align: center;
+  color: #000000;
+  font-size: 0.95rem;
+  margin-bottom: 24px;
+}
+
+.calcRows {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.calcRow {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.02rem;
+}
+
+.calcRow span {
+  color: #000000;
+}
+
+.calcRow b {
+  font-weight: 700;
+  color: #000000;
+}
+
+/* ==================== ФУТЕР ==================== */
+.modalFooter {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-top: 40px;
+}
+
+.btnCancel {
+  background: #ffffff;
+  border: 1px solid #ffffff;
+  color: #1c1d22;
+  padding: 14px 32px;
+  border-radius: 12px;
+  font-weight: 500;
+  font-size: 15px;
+  cursor: pointer;
+  transition: 0.2s;
+  font-family: "Onest", sans-serif;
+}
+
+.btnCancel:hover {
+  background: #f9f8f8;
+  border-color: #f8b4b4;
+  border: 1px solid #d2d1fa;
+}
+
+.btnPrimary {
+  background-color: #f7d829;
+  border: none;
+  color: #000000;
+  padding: 14px 42px;
+  border-radius: 14px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.2s;
+  font-family:  "Onest", sans-serif;
+}
+
+.btnPrimary:hover {
+  background-color: #ffe65b;
+  
+}
+
+.sliderMarks {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 6px;
+}
+
+.mark {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 0.7rem;
+  color: #64748b;
+}
+
+.tick {
+  width: 2px;
+  height: 6px;
+  background: #94a3b8;
+  margin-bottom: 2px;
+}
+
+/* ВИЗУАЛЬНАЯ ШКАЛА */
+.visualBarContainer {
+  margin: 24px 0;
+}
+
+.visualBar {
+  height: 14px;
+  background: #e2e8f0;
+  border-radius: 9999px;
+  overflow: hidden;
+  display: flex;
+  margin-bottom: 6px;
+}
+
+.principalBar {
+  background: #6596ff;
+  height: 100%;
+  transition: width 0.3s ease;
+}
+
+.overpaymentBar {
+  background: #c1004b;
+  height: 100%;
+  transition: width 0.3s ease;
+}
+
+.visualLabels {
+  display: flex !important;
+  justify-content: space-between !important;
+  font-size: 0.9rem;
+  color: #000000;
+}
+
+.stepBtn {
+  width: 55px;
+  height: 44px;
+  border-radius: 12px;
+  border: none;
+  background: #f4f6f8;
+  font-size: 20px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.stepBtn:hover {
+  background: #e9eef5;
+}
+.label:first-child{
+  margin-top: 0px;
+}
+
+.principalFlag{
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background-color: #6596ff;
+  
+}
+.overpaymentFlag{
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background-color: #c1004b;
+  
+}
+.calcLeftRow{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  
+}
+
+
+
+.selectWrapper {
+  position: relative;
+  min-width: 150px;
+}
+
+.select {
+  width: 100%;
+  padding: 14px 45px 14px 18px;     /* увеличил место справа */
+  border-radius: 14px;
+  border: none;
+  background: #f2f4f5;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: #1e2937;
+
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.select:focus {
+  box-shadow: 0 0 0 3px rgba(0, 67, 155, 0.15);
+  outline: none;
+}
+
+
+.selectWrapper {
+  position: relative;
+  width: 140px;
+}
+
+.select {
+  width: 100%;
+  padding: 14px 44px 14px 18px;
+  border-radius: 14px;
+  border: none;
+  background: #f2f4f5;
+  font-weight: 700;
+  font-size: 1.1rem;
+  appearance: none;
+  cursor: pointer;
+}
+
+.selectArrow {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #64748b;
+  pointer-events: none;
+}
+
+.selectAccount{
+  min-width: 295% !important;
+  padding: 14px 45px 14px 18px;     /* увеличил место справа */
+  border-radius: 14px;
+  border: none;
+  background: #f2f4f5;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: #1e2937;
+
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}

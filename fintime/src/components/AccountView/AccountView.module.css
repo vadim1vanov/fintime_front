@@ -160,15 +160,15 @@
   color: #6b7280;
 }
 .txAmount {
-   font-family:"Inter", "Roboto", "Segoe UI", sans-serif;
-  font-weight: 500;
+   font-family:"Onest", sans-serif;
+  font-weight: 600;
   font-size:17px;
 }
 .plus {
-  color: #00ff5a !important;
+  color: #3fc725 !important;
 }
 .minus {
-  color: #000000;
+  color: #a50034;
 }
 
 /* EMPTY */
@@ -255,7 +255,7 @@
   display: flex;
   align-items: center;
   font-family: "Onest", sans-serif;
-    border-radius: 30px;
+    border-radius: 10px;
     padding: 5px;
   background: #fff;
   justify-content: start;
@@ -410,16 +410,16 @@ border-radius: 8px;
 
 .navBtn {
   border: none;
-  background-color: #f3f2f2;
+  background-color: #ffffff;
   color: #040404;
   padding: 9px 15px;
-  border-radius: 30px;
+  border-radius: 10px;
   cursor: pointer;
-  font-weight: 600;
+  font-weight: 500;
   font-size: 14px;
   font-family: "Onest", monospace !important;
 gap: 6px;
-  /* важно для <a> */
+  
   text-decoration: none;
   display: inline-flex;
   align-items: center;
@@ -1263,9 +1263,14 @@ transition: 0.05s ease;
 /* Активная вкладка с градиентом */
 .navBtn.activeTab {
   
-  color: #000000  !important;
-  background: linear-gradient(135deg, #feec6e, #ffd100);
-
+  /* color: #000000  !important;
+  background: linear-gradient(135deg, #feec6e, #ffd100); */
+    /* color: #005fd8 !important;
+ 
+    background-color: #ecf5ff; */
+    /* background-color: #f0f1f3; */
+    background: linear-gradient(135deg, #edebff, #edf4ff);
+    color: #00439b;
   position: relative;
   z-index: 10;
   
@@ -1280,7 +1285,7 @@ transition: 0.05s ease;
 /* Легкий glow эффект */
 .navBtn.activeTab:hover {
 
-  background-color: #ffffff;
+  /* background-color: #ffffff; */
 
 }
 
@@ -1297,7 +1302,7 @@ transition: 0.05s ease;
 
 /* Улучшенный hover для неактивных */
 .navBtn:hover:not(.activeTab) {
-  background-color: #f5f6f6 !important;
+  background-color: #f4f4f6 !important;
   color: #000000;
 }
 
@@ -1637,5 +1642,188 @@ transform: translate(-50%, -50%);
 
 }
 .smallFracExpense{
-  color: #c2c2c2;
+  color: #d89aac;
+}
+
+
+.analyticsSection{
+  display: flex;
+  
+  gap: 18px;
+  width: 100%;
+}
+
+.analyticsModernCard{
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  background: #ffffff;
+
+  border-radius: 30px;
+
+  padding: 24px;
+
+  border: 1px solid rgba(15, 23, 42, 0.06);
+
+ 
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.analyticsModernCard:hover{
+
+}
+
+.analyticsGlow{
+  position: absolute;
+
+  width: 220px;
+  height: 220px;
+
+  border-radius: 50%;
+
+  top: -120px;
+  right: -70px;
+
+  opacity: 0.55;
+
+  filter: blur(20px);
+}
+
+.incomeCard .analyticsGlow{
+  background: #b8ffd7;
+}
+
+.expenseCard .analyticsGlow{
+  background: #ffdbec;
+}
+
+.analyticsTop{
+  position: relative;
+  z-index: 2;
+
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.analyticsIconIncome,
+.analyticsIconExpense{
+  width: 58px;
+  height: 58px;
+
+  border-radius: 18px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 24px;
+
+  flex-shrink: 0;
+}
+
+.analyticsIconIncome{
+  background: #e9fff2;
+  color: #16b364;
+}
+
+.analyticsIconExpense{
+  background: #ffedf8;
+  color: #ff2974;
+}
+
+.analyticsMiniLabel{
+  font-size: 13px;
+  font-weight: 500;
+
+  color: #64748b;
+
+  margin-bottom: 6px;
+
+  font-family: "Onest", sans-serif;
+}
+
+.analyticsMainAmount{
+  font-size: 2rem;
+  line-height: 1;
+
+  font-weight: 700;
+
+  color: #0f172a;
+
+  font-family: "Onest", sans-serif;
+
+  letter-spacing: -0.04em;
+}
+
+.analyticsMainAmount span{
+  font-size: 1.7rem;
+
+  margin-left: 5px;
+
+  color: #475569;
+}
+
+.analyticsStats{
+  position: relative;
+  z-index: 2;
+
+  margin-top: 24px;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  gap: 14px;
+}
+
+.analyticsStatCard{
+  background: #f8fafc;
+
+  
+
+  border-radius: 15px;
+
+  padding: 16px;
+}
+
+.analyticsStatCard span{
+  display: block;
+
+  font-size: 13px;
+
+  color: #64748b;
+
+  margin-bottom: 10px;
+
+  font-weight: 500;
+
+  font-family: "Onest", sans-serif;
+}
+
+.analyticsStatCard strong{
+  font-size: 1.05rem;
+
+  color: #0f172a;
+
+  font-weight: 700;
+
+  font-family: "Onest", sans-serif;
+}
+
+.analyticsStatCard small{
+  margin-left: 4px;
+
+  font-size: 0.8rem;
+
+  color: #64748b;
+}
+
+.maxExpenseTransaction strong, .maxExpenseTransaction small{
+  color: #ab1141 !important;
+}
+.maxIncomeTransaction strong, .maxIncomeTransaction small{
+  color: #6bd457 !important;
 }

@@ -19,7 +19,7 @@ export default function Tooltip({ text, children, disabled }) {
     const tooltipWidth = tooltipRect.width;
     const tooltipHeight = tooltipRect.height;
 
-    let left = rect.right + 16; // стандартно справа с отступом
+    let left = rect.right + 14; // стандартно справа с отступом
     let top = rect.top + rect.height / 2 - tooltipHeight / 2 - 5;
 
     // проверяем, не выходит ли tooltip за правую границу

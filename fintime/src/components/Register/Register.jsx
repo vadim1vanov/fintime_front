@@ -25,7 +25,7 @@ export default function Register() {
       formData.append("username", username);
       formData.append("password", password);
 
-      const response = await fetch("http://localhost:8080/create/user", {
+      const response = await fetch("http://localhost:8080/user", {
         method: "POST",
         body: formData,
         credentials: "include"

@@ -86,3 +86,91 @@ export const getIncomeCategories = () =>
   fetch(`${API}/api/transationcategory/income`, {
     credentials: "include"
   }).then(r => r.json());
+
+
+  export const getCredits = () =>
+  fetch(`${API}/api/credit`, { credentials: "include" })
+    .then(r => r.json());
+
+export const createCredit = (accountId, data) =>
+  fetch(`${API}/api/credit/${accountId}`, {
+    method: "POST",
+    credentials: "include",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data)
+  }).then(r => r.json());
+
+export const getCreditById = (id) =>
+  fetch(`${API}/api/credit/${id}`, { credentials: "include" })
+    .then(r => r.json());
+
+export const getCurrentUser = () =>
+  fetch(`${API}/user`, {
+    credentials: "include"
+  }).then(r => r.json());
+
+export const updateUser = (id, data) =>
+  fetch(`${API}/user/${id}`, {
+    method: "PATCH",
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(data)
+  });
+
+export const payCreditDebt = (creditId, body) =>
+  fetch(`${API}/api/credit/${creditId}/pay`, {
+    method: "PATCH",
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(body)
+  });
+
+export async function payOffCredit(creditId, transactionDto) {
+  const API = "http://localhost:8080";
+  return fetch(`${API}/api/credit/${creditId}/payoff`, {
+    method: "PATCH", 
+    credentials: "include",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(transactionDto),
+  });
+}
+
+export const deleteCredit = (creditId) =>
+  fetch(`${API}/api/credit/${creditId}`, {
+    method: "DELETE",
+    credentials: "include"
+  });
+
+
+
+
+
+  export const getDeposits = () =>
+  fetch(`${API}/api/deposit`, {
+    credentials: "include"
+  }).then(r => r.json());
+
+export const createDeposit = (data) =>
+  fetch(`${API}/api/deposit`, {
+    method: "POST",
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(data)
+  }).then(r => r.json());
+
+export const deleteDeposit = (depositId) =>
+  fetch(`${API}/api/deposit/${depositId}`, {
+    method: "DELETE",
+    credentials: "include"
+  });
+
+  export const getAccountInfo = (id) =>
+  fetch(`${API}/api/accounts/${id}/info`, {
+    credentials: "include"
+  }).then(r => r.json());

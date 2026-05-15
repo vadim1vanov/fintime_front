@@ -80,7 +80,7 @@
   width: 4px;
   height: 50%;             /* длина линии */
   background-color: #0051ff;
-  border-radius: 2px;
+  border-radius: 3px;
 }
 .item svg {
   font-size: 1.4rem;
@@ -103,7 +103,7 @@
 .active {
  background: linear-gradient(135deg, #edebff, #e3eeff);
   color: #00439b;
-  font-weight: 600;
+  
   
   
 }

@@ -1,11 +1,12 @@
 import { NavLink } from "react-router-dom";
-import { Link } from "react-router-dom"; // ✅ Добавь Link
+import { Link } from "react-router-dom"; 
 
 import {
   PiWalletBold,
   PiArrowUpRightBold,
   PiArrowDownRightBold,
-  PiArrowsLeftRightBold
+  PiArrowsLeftRightBold,
+  PiCirclesThreePlus
 } from "react-icons/pi";
 import { MdOutlineDashboardCustomize } from "react-icons/md";
 import { LuArrowUpRight,  LuArrowDownRight, LuGrid2X2Plus,LuWalletMinimal, LuArrowRightLeft, LuHistory } from "react-icons/lu";
